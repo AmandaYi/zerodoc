@@ -20,10 +20,22 @@ const sidebars = {
   JS: [
     {
       type: 'category',
-      label: 'JavaScript',
-      items: ['js/vue/index','js/webpack/index'],
+      label: 'VUE',
+      items: ['js/vue/index'],
+    },
+    {
+      type: 'category',
+      label: 'WebPack',
+      items: ['js/webpack/index']
+    },
+    {
+      type: "category",
+      label: "TypeScript",
+      items: ['js/typescript/base','js/typescript/object']
     }
   ],
+
+
   Java: [
     {
       type: 'category',

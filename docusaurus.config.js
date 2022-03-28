@@ -70,6 +70,11 @@ const config = {
 								label: 'webpack',
 								docId: 'js/webpack/index',
 							},
+							{
+								type: 'doc',
+								label: 'TypeScript',
+								docId: 'js/typescript/base',
+							}
 						]
 					},
 					{

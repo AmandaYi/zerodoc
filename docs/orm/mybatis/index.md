@@ -1574,18 +1574,18 @@ public void testPageHelper() throws IOException {
 
 ![](/images/mybatis/分页测试结果.png)
 ### > 分页相关数据
-### >> 方法一：直接输出
+### >> 方法一：
+
 * limit index,pageSize
 * index:当前页的起始索引
 * pageSize：每页显示的条数
 * pageNum：当前页的页码
-* index=(pageNum-1)*pageSize
-*
+* `index=(pageNum-1)*pageSize`
 * 使用MyBatis的分页插件实现分页功能：
 * 1、需要在查询功能之前开启分页
-* PageHelper.startPage(int pageNum, int pageSize);
+* `PageHelper.startPage(int pageNum, int pageSize);`
 * 2、在查询功能之后获取分页相关信息
-* PageInfo<Emp> page = new PageInfo<>(list, 5);
+* `PageInfo<Emp> page = new PageInfo<>(list, 5);`
 * list表示分页数据
 * 5表示当前导航分页的数量
 ```java
