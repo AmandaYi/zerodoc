@@ -63,7 +63,7 @@ const config = {
 							{
 								type: 'doc',
 								label: 'vue',
-								docId: 'js/vue/index',
+								docId: 'js/vue/vue2',
 							},
 							{
 								type: 'doc',

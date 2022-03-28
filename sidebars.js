@@ -21,7 +21,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'VUE',
-      items: ['js/vue/index'],
+      items: ['js/vue/vue2','js/vue/vue3'],
     },
     {
       type: 'category',
@@ -32,7 +32,12 @@ const sidebars = {
       type: "category",
       label: "TypeScript",
       items: ['js/typescript/base','js/typescript/object']
-    }
+    },
+    {
+      type: 'category',
+      label: '源码笔记',
+      items: ['js/webpack/index']
+    },
   ],
 
 
