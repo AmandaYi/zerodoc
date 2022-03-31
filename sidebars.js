@@ -37,7 +37,7 @@ const sidebars = {
       type: 'category',
       label: '源码笔记',
       items: ['js/webpack/index']
-    },
+    }
   ],
 
 

@@ -93,6 +93,18 @@ const config = {
 							},
 						]
 					},
+					{
+						type: "dropdown",
+						position: "left",
+						label: "Java",
+						items: [
+							{
+								type: 'doc',
+								label: 'mybatis笔记',
+								docId: 'orm/mybatis/index',
+							}
+						]
+					}
 					// {
 					// 	type: 'doc',
 					// 	docId: 'js/js',
