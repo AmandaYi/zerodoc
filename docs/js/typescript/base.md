@@ -439,7 +439,7 @@ tsconfig.json是ts编译器的配置文件，ts编译器可以根据它的信息
 
       - 可选值：
 
-        - ES3（默认）、ES5、ES6/ES2015、ES7/ES2016、ES2017、ES2018、ES2019、ES2020、ESNext
+        - ES3（默认）、ES5、ES6/ES2015、ES7/ES2016、ES2017、ES2018、ES2019、ES2020、ES2021、ES2022、ESNext
 
       - 示例：
 
@@ -453,8 +453,10 @@ tsconfig.json是ts编译器的配置文件，ts编译器可以根据它的信息
 
     #### lib
 
-      - 指定代码运行时所包含的库（宿主环境）
+      - 指定代码运行时所包含的库（宿主环境）, 比如智能提示或者在Nodejs里面开发Dom。一般不需要改。
 
+      - 默认值 DOM,ES6等等一般是浏览器宿主
+      
       - 可选值：
 
         - ES5、ES6/ES2015、ES7/ES2016、ES2017、ES2018、ES2019、ES2020、ESNext、DOM、WebWorker、ScriptHost ......
@@ -476,7 +478,7 @@ tsconfig.json是ts编译器的配置文件，ts编译器可以根据它的信息
 
       - 可选值：
 
-        - CommonJS、UMD、AMD、System、ES2020、ESNext、None
+        - CommonJS、UMD、AMD、System、ES2020、es2022、ESNext、None、node12、nodenext
 
       - 示例：
 
@@ -555,30 +557,35 @@ tsconfig.json是ts编译器的配置文件，ts编译器可以根据它的信息
       - 不对代码进行编译
       - 默认值：false
 
+    #### noEmitOnError
+    
+      - 当有错误时不生成编译后的文件
+      - 默认值：false
+      
     #### sourceMap
 
       - 是否生成sourceMap
       - 默认值：false
 
-      
 
-  - 严格检查
 
-    - strict
+### 严格检查
+
+   #### strict
       - 启用所有的严格检查，默认值为true，设置后相当于开启了所有的严格检查
-    - alwaysStrict
+   #### alwaysStrict
       - 总是以严格模式对代码进行编译
-    - noImplicitAny
+   #### noImplicitAny
       - 禁止隐式的any类型
-    - noImplicitThis
+   #### noImplicitThis
       - 禁止类型不明确的this
-    - strictBindCallApply
+   #### strictBindCallApply
       - 严格检查bind、call和apply的参数列表
-    - strictFunctionTypes
+   #### strictFunctionTypes
       - 严格检查函数的类型
-    - strictNullChecks
+   #### strictNullChecks
       - 严格的空值检查
-    - strictPropertyInitialization
+   #### strictPropertyInitialization
       - 严格检查属性是否初始化
       
 ### compilerOptions比较完整的配置
@@ -586,12 +593,12 @@ tsconfig.json是ts编译器的配置文件，ts编译器可以根据它的信息
 - 一份比较完整的配置
 
 ```javascript
-  const compilerOptions = {
+const compilerOptions = {
     // target 用来指定ts被编译为的ES的版本
-    // 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'
+// 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'es2021', 'es2022', 'esnext'.
     "target": "es2015",
     // module 指定要使用的模块化的规范
-    // 'none', 'commonjs', 'amd', 'system', 'umd', 'es6', 'es2015', 'es2020', 'esnext'
+    // 'none', 'commonjs', 'amd', 'system', 'umd', 'es6', 'es2015', 'es2020', 'es2022', 'esnext', 'node12', 'nodenext'.
     "module": "es2015",
     // lib用来指定项目中要使用的库
     //'es5', 'es6', 'es2015', 'es7', 'es2016', 'es2017', 'es
@@ -628,7 +635,7 @@ tsconfig.json是ts编译器的配置文件，ts编译器可以根据它的信息
     "noImplicitThis": true,
     // 严格的检查空值
     "strictNullChecks": true
-  }
+}
 ```
 
 
