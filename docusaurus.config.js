@@ -96,12 +96,12 @@ const config = {
 					{
 						type: "dropdown",
 						position: "left",
-						label: "Java",
+						label: "系统设计",
 						items: [
 							{
 								type: 'doc',
-								label: 'mybatis笔记',
-								docId: 'orm/mybatis/index',
+								label: '前端库开发',
+								docId: 'js/design/package',
 							}
 						]
 					}
