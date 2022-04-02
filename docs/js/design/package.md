@@ -9,6 +9,19 @@
 3. 怎么用？引用的时候是  `import { util, SelfComponent } from "xxx"`，使用上，util.isArray(), 对于组件引入后直接用即可（任何框架都一样）。
 4. 项目的完善？编写类型定义文件，使用TS改造，编写测试保证健壮，编写文档网站。
 
+## 环境
+
+|     主要包  |       版本      |
+| :---------: | :--------------: |
+| webpack | 5 |
+| @babel-loader | 8+ |
+| @babel/preset-env | 7+ |
+| @babel/core | 7+ |
+| html-webpack-plugin | 5 +|
+| vue | 3+ |
+| vue-loader | 17+ |
+| NodeJS | 14+ |
+| vue-template-compiler | ^2.6.14 |
 ## 目标
 
 - 能够熟悉前端底层包封装的整体规范和宏观思想
