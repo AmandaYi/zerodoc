@@ -22,6 +22,7 @@
 | vue-loader | 17+ |
 | NodeJS | 14+ |
 | vue-template-compiler | ^2.6.14 |
+
 ## 目标
 
 - 能够熟悉前端底层包封装的整体规范和宏观思想
