@@ -102,9 +102,26 @@ const config = {
 								type: 'doc',
 								label: '前端库开发',
 								docId: 'js/design/package',
-							}
+							},
+							{
+								type: 'doc',
+								label: '知识',
+								docId: 'web/01',
+							},
 						]
-					}
+					},
+					// {
+					// 	type: "dropdown",
+					// 	position: "left",
+					// 	label: "学习",
+					// 	items: [
+					// 		{
+					// 			type: 'doc',
+					// 			label: '前端入门',
+					// 			docId: 'web/01',
+					// 		},
+					// 	]
+					// },
 					// {
 					// 	type: 'doc',
 					// 	docId: 'js/js',
