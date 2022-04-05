@@ -14,7 +14,7 @@
 - 能够熟悉前端底层包封装的整体规范和宏观思想
 - 熟悉构建工具原理和webpack配置编写方法
 - 熟悉package.json的部分规范
-- 能够高质量完成的封装一个前端组件库和前端工具库的水平
+- 能够达到高质量完整的封装一个前端组件库和前端工具库的水平
 
 ## 划分目录功能
 build 迭代后的文件 
@@ -132,6 +132,10 @@ export {util, BaseCard};
 
 
 ## webpack构建配置
+
+:::success
+webpack关于`@babel/preset-env`,`core.js`等一类的配置，可以参考TypeScript笔记里面的webpack配置。提示自己备忘。
+:::
 
 包依赖:
 
