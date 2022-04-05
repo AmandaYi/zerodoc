@@ -659,7 +659,7 @@ const compilerOptions = {
       - 有错误的情况下不进行编译
       - 默认值：false
 
-## 4、webpack
+## 4、webpack配置
 
 - 通常情况下，实际开发中我们都需要使用构建工具对代码进行打包，TS同样也可以结合构建工具一起使用，下边以webpack为例介绍一下如何结合构建工具使用TS。
 
