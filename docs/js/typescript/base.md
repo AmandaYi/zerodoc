@@ -810,6 +810,24 @@ npm i -D webpack webpack-cli webpack-dev-server typescript ts-loader clean-webpa
             - core-js用来使老版本的浏览器支持新版ES语法
 
 ### 修改webpack.config.js配置文件
+
+:::tip
+即使用了babel，假如要支持ie老版本的话，也会自动转换的，必须用core.js作为垫片，实现新特性的函数。
+配置里面最主要的是按需引入core.js
+"useBuiltIns": "usage"
+
+另外，loader注意点是，如果有多个loader，需要把先处理的写到后面，因为loader的处理顺序从后往前处理的。
+:::
+:::warning
+webpack里面的babel会把代码打包，生成js为(()=>{...code}),但是即使里面的code能够兼容ie一类的，但是外边的自调用函数是webpack加上的，所以ie还是不能认识webpack的箭头函数，
+所以应该给webpack也设置一个环境兼容，不允许使用箭头函数。
+```javascript
+    // 告诉webpack不使用箭头
+    environment:{
+        arrowFunction: false
+    }
+```
+:::
 ```javascript
 // 引入一个包
 const path = require('path');

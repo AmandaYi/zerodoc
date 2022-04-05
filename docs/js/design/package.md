@@ -9,8 +9,6 @@
 3. 怎么用？引用的时候是  `import { util, SelfComponent } from "xxx"`，使用上，util.isArray(), 对于组件引入后直接用即可（任何框架都一样）。
 4. 项目的完善？编写类型定义文件，使用TS改造，编写测试保证健壮，编写文档网站。
 
-
-
 ## 目标
 
 - 能够熟悉前端底层包封装的整体规范和宏观思想
@@ -465,6 +463,22 @@ module.exports = {
 }
 ```
 
+修改`package.json`增加启动命令`npm run server`
+
+开发服务器可以有两种服务命令
+
+1. `webpack-dev-server --config webpack.config.development.js`
+2. `webpack serve --config webpack.config.development.js --open chrome.exe`
+
+一般采用第一种
+
+```diff
+  "scripts": {
++    "server": "webpack-dev-server --config webpack.config.development.js",
+     "build": "webpack --config webpack.config.production.js"
+  },
+```
+
 此时package.json
 ```json 
 {
@@ -496,14 +510,7 @@ module.exports = {
   }
 }
 ```
-修改`package.json`增加启动命令`npm run server`
 
-```diff
-  "scripts": {
-+    "server": "webpack --config webpack.config.development.js",
-     "build": "webpack --config webpack.config.production.js"
-  },
-```
 
 ## 编写类型定义文件 xxx.d.ts
 
@@ -557,7 +564,9 @@ files代表需要发版到版本库的文件
     "build": "webpack --config webpack.config.production.js"
   },
 ```
+
 此时的package.json
+
 ```json
 {
   "name": "lib-resource",
