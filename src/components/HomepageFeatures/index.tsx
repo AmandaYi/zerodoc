@@ -7,14 +7,20 @@ type FeatureItem = {
   Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: JSX.Element;
 };
-
 const FeatureList: FeatureItem[] = [
   {
     title: '1',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis debitis nesciunt odio! Alias aliquid dolore doloribus excepturi itaque laboriosam magnam natus nulla perferendis placeat quaerat, quia ratione sequi, ullam veniam?
+        And did you get what<br/>
+        you wanted from this life, even so?<br/>
+        I did.<br/>
+        And what did you want?<br/>
+        To call myself beloved, to feel myself<br/>
+        beloved on the earth.<br/>
+
+
       </>
     ),
   },
@@ -23,7 +29,10 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at aut blanditiis commodi, dignissimos dolores eaque earum eos hic omnis quas qui quis velit. Eos laboriosam libero nulla suscipit velit!
+        Chaque individu est un arbre<br/>
+        Sa racine ancré e dans la terre<br/>
+        Tandis que son esprit erre partout<br/>
+        Nous somme tous lesé trangers de la terre<br/>
       </>
     ),
   },
@@ -32,7 +41,12 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa cum cumque delectus et exercitationem fugiat fugit iusto sapiente, totam vero voluptatem? Ab dignissimos, nam non praesentium quam quia recusandae.
+        穿过无尽雾霾，过去已被掩盖；<br/>
+        越过茫茫人海，内心依然空白；<br/>
+        回忆和现在 哪个值得依赖；<br/>
+        明天和意外 哪个会先到来；<br/>
+        经过无数站台 还守着期待；<br/>
+        翻过重重山脉 徒增了感慨。<br/>
       </>
     ),
   },
@@ -45,7 +59,6 @@ function Feature({title, Svg, description}: FeatureItem) {
         <Svg className={styles.featureSvg} role="img" />
       </div>
       <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
         <p>{description}</p>
       </div>
     </div>
