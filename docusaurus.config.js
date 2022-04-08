@@ -25,7 +25,7 @@ const config = {
 			/** @type {import('@docusaurus/preset-classic').Options} */
 			({
 				docs: {
-					sidebarPath: require.resolve('./sidebarsConfig.js'),
+					sidebarPath: require.resolve('./config/sidebarsConfig.js'),
 					// Please change this to your repo.
 					// editUrl: 'https://github.com/facebook/docusaurus/tree/main/packa  ges/create-docusaurus/templates/shared/',
 				},
