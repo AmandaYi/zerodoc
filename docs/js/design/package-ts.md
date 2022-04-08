@@ -63,7 +63,7 @@ TS引入了代码的类型，其他的都不会变化，那么主要修改的就
 	resolve: {
 		// 兼容处理后缀名，比如导入导出的时候，不需要写后缀名，让webpack进行自我推断
    -	extensions: [".js", ".vue"]
-   +	extensions: [".js", ".ts" ".vue"]
+   +	extensions: [".js", ".ts", ".vue"]
 	}
 ```
 
