@@ -27,6 +27,16 @@ module.exports = {
 					type: 'doc',
 					label: 'TypeScript',
 					docId: 'js/typescript/base',
+				},
+				{
+					type: 'doc',
+					label: '视频直播技术',
+					docId: 'js/video/index',
+				},
+				{
+					type: 'doc',
+					label:"常用功能",
+					docId: 'js/normal/index',
 				}
 			]
 		},
