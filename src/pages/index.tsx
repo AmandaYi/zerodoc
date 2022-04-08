@@ -1,12 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import Layout from '@theme/Layout';
+import Layout from '@theme/Layout'; // @docusaurus/preset-classic  declare module '@theme/Layout'
+
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
-
+//
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -26,12 +27,11 @@ function HomepageHeader() {
   );
 }
 
+
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+    <Layout>
       <HomepageHeader />
       <main>
         <HomepageFeatures />
@@ -39,9 +39,5 @@ export default function Home(): JSX.Element {
     </Layout>
   );
 }
-
-
-
-
 
 

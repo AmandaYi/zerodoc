@@ -408,7 +408,7 @@ const htmlPlugin = require("html-webpack-plugin");
 module.exports = {
 	mode: "development",
 	entry: {
-		exampleTitle: "./example/BaseCardComponent/index.js"
+		exampleTitle: "./example/BaseCardComponent/navbarConfig.js"
 	},
 	// target: 'node', // 这是最关键的
 	target: 'web', // <=== 默认为 'web'，可省略

@@ -3,13 +3,15 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const navbarConfig = require("./config/navbarConfig");
+const footerConfig = require("./config/footerConfig");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-	title: '赵哲云',
+	title: '无缘无故~望着我',
 	tagline: '敛冷于眼，藏拙于神，潜动于灵魂，似愚非愚，大巧无巧，我们在思考中抵达内心的宁静和丰富。吾本来兹土,传法救迷情。一花开五叶，结果自然成。​',
-	url: 'https://your-docusaurus-test-site.com',
-	baseUrl: '/newblog/',
+	url: 'http://www.baby8013.com',
+	baseUrl: '/',
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
 	// favicon: 'img/favicon.ico',
@@ -23,9 +25,9 @@ const config = {
 			/** @type {import('@docusaurus/preset-classic').Options} */
 			({
 				docs: {
-					sidebarPath: require.resolve('./sidebars.js'),
+					sidebarPath: require.resolve('./sidebarsConfig.js'),
 					// Please change this to your repo.
-					// editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+					// editUrl: 'https://github.com/facebook/docusaurus/tree/main/packa  ges/create-docusaurus/templates/shared/',
 				},
 				blog: {
 					showReadingTime: true,
@@ -39,148 +41,22 @@ const config = {
 			}),
 		],
 	],
-
+	plugins: ['@docusaurus/theme-live-codeblock'],
 	themeConfig:
 	/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
-			navbar: {
-				title: '赵哲云',
-				// logo: {
-				// 	alt: '赵哲云',
-				// 	src: 'img/logo.svg',
-				// },
-				items: [
-					// 这些项目可以根据type字段具有不同的行为。以下部分将向您介绍所有可用的导航栏项目类型
-					{
-						type: "dropdown",
-						position: "left",
-						label: "前端",
-						items:[
-							// {
-							// 	label: "2",
-							// 	href: 'https://www.facebook.com',
-							// },
-							{
-								type: 'doc',
-								label: 'vue',
-								docId: 'js/vue/vue2',
-							},
-							{
-								type: 'doc',
-								label: 'webpack',
-								docId: 'js/webpack/index',
-							},
-							{
-								type: 'doc',
-								label: 'TypeScript',
-								docId: 'js/typescript/base',
-							}
-						]
-					},
-					{
-						type: "dropdown",
-						position: "left",
-						label: "Java",
-						items:[
-							// {
-							// 	label: "2",
-							// 	href: 'https://www.facebook.com',
-							// },
-							{
-								type: 'doc',
-								label: 'mybatis笔记',
-								docId: 'orm/mybatis/index',
-							},
-						]
-					},
-					{
-						type: "dropdown",
-						position: "left",
-						label: "系统设计",
-						items: [
-							{
-								type: 'doc',
-								label: '前端库开发',
-								docId: 'js/design/package',
-							},
-							{
-								type: 'doc',
-								label: '知识',
-								docId: 'web/01',
-							},
-						]
-					},
-					// {
-					// 	type: "dropdown",
-					// 	position: "left",
-					// 	label: "学习",
-					// 	items: [
-					// 		{
-					// 			type: 'doc',
-					// 			label: '前端入门',
-					// 			docId: 'web/01',
-					// 		},
-					// 	]
-					// },
-					// {
-					// 	type: 'doc',
-					// 	docId: 'js/js',
-					// 	position: 'left',
-					// 	label: 'js',
-					// },
-					// {to: '/blog', label: 'Blog', position: 'left'},
-					// {
-					// 	href: 'https://github.com/facebook/docusaurus',
-					// 	label: 'GitHub',
-					// 	position: 'right',
-					// },
-				],
+			liveCodeBlock: {
+				/**
+				 * The position of the live playground, above or under the editor
+				 * Possible values: "top" | "bottom"
+				 */
+				// 这个主题提供了一个 @theme/CodeBlock 组件，该组件基于 react-live 构建。您可以在 交互式代码编辑器 章节查阅相关文档。
+				playgroundPosition: 'bottom',
 			},
-			footer: {
-				style: 'dark',
-				// links: [
-				// 	{
-				// 		title: 'Docs',
-				// 		items: [
-				// 			{
-				// 				label: 'Tutorial',
-				// 				to: '/docs/js/js',
-				// 			},
-				// 		],
-				// 	},
-				// 	{
-				// 		title: 'Community',
-				// 		items: [
-				// 			{
-				// 				label: 'Stack Overflow',
-				// 				href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-				// 			},
-				// 			{
-				// 				label: 'Discord',
-				// 				href: 'https://discordapp.com/invite/docusaurus',
-				// 			},
-				// 			{
-				// 				label: 'Twitter',
-				// 				href: 'https://twitter.com/docusaurus',
-				// 			},
-				// 		],
-				// 	},
-				// 	{
-				// 		title: 'More',
-				// 		items: [
-				// 			{
-				// 				label: 'Blog',
-				// 				to: '/blog',
-				// 			},
-				// 			{
-				// 				label: 'GitHub',
-				// 				href: 'https://github.com/facebook/docusaurus',
-				// 			},
-				// 		],
-				// 	},
-				// ],
-				copyright: `Copy right © ${new Date().getFullYear()}  Inc. By zhaozheyun `,
-			},
+
+			navbar: navbarConfig,
+			footer: footerConfig,
+
 			prism: {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme,
