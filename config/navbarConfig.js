@@ -20,7 +20,7 @@ module.exports = {
 				},
 				{
 					type: 'doc',
-					label: 'webpack',
+					label: 'webpack@5',
 					docId: 'js/webpack/index',
 				},
 				{
@@ -32,6 +32,11 @@ module.exports = {
 					type: 'doc',
 					label: '视频直播技术',
 					docId: 'js/video/index',
+				},
+				{
+					type: 'doc',
+					label: 'webpack@3',
+					docId: 'js/webpack3/index',
 				},
 				{
 					type: 'doc',
