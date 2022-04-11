@@ -1,3 +1,7 @@
+---
+displayed_sidebar: JSTypeScript
+---
+
 # 笔记和开发
 
 ## 0、TypeScript简介

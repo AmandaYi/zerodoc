@@ -22,7 +22,9 @@ const config = {
 		[
 			// 使用的主题是什么， 支持简写，比如 '@docusaurus/preset-classic' 可以简写为 'classic'
 			'@docusaurus/preset-classic',
+
 			/** @type {import('@docusaurus/preset-classic').Options} */
+
 			({
 				docs: {
 					sidebarPath: require.resolve('./config/sidebarsConfig.js'),
@@ -31,6 +33,8 @@ const config = {
 				},
 				blog: {
 					showReadingTime: true,
+					blogSidebarTitle: 'All posts',
+					blogSidebarCount: 'ALL',
 					// Please change this to your repo.
 					// editUrl:
 						// 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',

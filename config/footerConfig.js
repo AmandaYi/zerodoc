@@ -18,6 +18,10 @@ module.exports =  {
 				{
 					label: "TypeScript",
 					to: "/docs/js/typescript/base"
+				},
+				{
+					label: "webpack常用功能30篇",
+					to: "/docs/js/webpack3/01"
 				}
 			]
 		},

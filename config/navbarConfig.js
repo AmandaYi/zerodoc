@@ -12,21 +12,26 @@ module.exports = {
 			type: "dropdown",
 			position: "left",
 			label: "前端",
-			items:[
-				{
-					type: 'doc',
-					label: 'vue',
-					docId: 'js/vue/vue2',
-				},
-				{
-					type: 'doc',
-					label: 'webpack@5',
-					docId: 'js/webpack/index',
-				},
+			items: [
 				{
 					type: 'doc',
 					label: 'TypeScript',
 					docId: 'js/typescript/base',
+				},
+				{
+					type: 'doc',
+					label: 'webpack5核心笔记',
+					docId: 'js/webpack/index',
+				},
+				{
+					type: 'doc',
+					label: 'webpack常用功能30篇',
+					docId: 'js/webpack3/index',
+				},
+				{
+					type: 'doc',
+					label: 'vue',
+					docId: 'js/vue/vue2',
 				},
 				{
 					type: 'doc',
@@ -35,21 +40,17 @@ module.exports = {
 				},
 				{
 					type: 'doc',
-					label: 'webpack@3',
-					docId: 'js/webpack3/index',
-				},
-				{
-					type: 'doc',
-					label:"常用功能",
+					label: "JS常用功能记录",
 					docId: 'js/normal/index',
 				}
+
 			]
 		},
 		{
 			type: "dropdown",
 			position: "left",
 			label: "Java",
-			items:[
+			items: [
 				{
 					type: 'doc',
 					label: 'mybatis笔记',
@@ -107,7 +108,28 @@ module.exports = {
 					docId: "structure/analyse"
 				},
 			]
+		},
+		{
+			type: "doc",
+			position: "right",
+			label: "关于",
+			docId: "about/index"
+		},
+		{
+			type: "dropdown",
+			position: "right",
+			label: "其他",
+			items: [
+				{
+					to: "blog/rich/poor",
+					label: "胡思乱想",
+				}
+			]
 		}
+		// {
+		// 	type: 'search',
+		// 	position: 'right',
+		// },
 	],
 }
 
