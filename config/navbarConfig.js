@@ -1,3 +1,5 @@
+const baseConfig = require("./baseConfig")
+
 module.exports = {
 	// 自动隐藏的粘性导航条,当用户开始向下滚动页面时自动隐藏导航条，当用户向上滚动页面时则显示导航条。
 	hideOnScroll: true,
@@ -107,6 +109,11 @@ module.exports = {
 					label: "声网白板接入",
 					docId: "structure/analyse"
 				},
+				{
+					label: "大小写转换",
+					href: baseConfig.baseUrl + 'tools/toggle_word/index.html',
+					target: "_blank"
+				}
 			]
 		},
 		{

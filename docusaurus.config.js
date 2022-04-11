@@ -5,19 +5,14 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const navbarConfig = require("./config/navbarConfig");
 const footerConfig = require("./config/footerConfig");
-
+const baseConfig = require("./config/baseConfig")
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-	title: '无缘无故~望着我',
-	tagline: '敛冷于眼，藏拙于神，潜动于灵魂，似愚非愚，大巧无巧，我们在思考中抵达内心的宁静和丰富。吾本来兹土,传法救迷情。一花开五叶，结果自然成。​',
-	url: 'http://www.baby8013.com',
-	baseUrl: '/',
-	onBrokenLinks: 'throw',
-	onBrokenMarkdownLinks: 'warn',
+	...baseConfig,
 	// favicon: 'img/favicon.ico',
 	// organizationName: 'facebook', // Usually your GitHub org/user name.
 	// projectName: 'docusaurus', // Usually your repo name.
-	staticDirectories: ['static'],
+	staticDirectories: ['static', 'public'],
 	presets: [
 		[
 			// 使用的主题是什么， 支持简写，比如 '@docusaurus/preset-classic' 可以简写为 'classic'
