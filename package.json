@@ -12,7 +12,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "pushbuild": "node cicd/pushServer.js"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.17",
@@ -27,7 +28,10 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.0.0-beta.17",
     "@tsconfig/docusaurus": "^1.0.4",
-    "typescript": "^4.6.2"
+    "ssh2": "^1.9.0",
+    "ssh2-sftp-client": "^8.0.0",
+    "typescript": "^4.6.2",
+    "yml": "^1.0.0"
   },
   "browserslist": {
     "production": [
