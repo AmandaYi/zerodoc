@@ -153,7 +153,7 @@ Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: -1
 2. 在POP的时候，判断是否为空栈。即增加isEmpty方法判断是否栈为空。
 
 ```
-class ArrayStack {
+public class ArrayStack {
     // 最大容量
     int maxStack = 0;
     // 索引指针
