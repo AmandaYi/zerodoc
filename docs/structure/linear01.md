@@ -65,157 +65,16 @@
 
 可以使用单链表来实现栈。通过在表顶端插入一个元素来实现 PUSH，通过删除表顶端元素来实现 POP。使用链表方式实现的栈又叫动态栈。动态栈有链表的部分特性，即元素与元素之间在物理存储上可以不连续，但是功能有些受限制，动态栈只能在栈顶处进行插入和删除操作，不能在栈尾或栈中间进行插入和删除操作
 
+参考：
+
 ### 数组实现栈
 
 栈也可以用数组来实现。使用数组方式实现的栈叫静态栈。 
 
-```java
+参考：
 
-public class ArrayStack {
-    // 最大容量
-    int maxStack = 0;
-    // 索引指针
-    int top = -1;
-    // 定义一个栈
-    int[] stack;
-
-    // 构造器
-    public ArrayStack(int maxStack) {
-        this.maxStack = maxStack;
-        this.stack = new int[maxStack];
-    }    
-
-    // 压栈
-    public void push(int v) {
-        // 压栈， 增加数据，索引+1，然后在索引出赋上压入的值
-        this.top += 1; 
-        this.stack[this.top] = v;       
-    }
-    // 弹栈，返回值弹出了什么值，返回值可以用泛型，但是这里为了理解用int即可
-    public int pop() {
-        // 先把弹出的值保存下来，方便返回，然后索引减一
-        int popResult = this.stack[this.top];
-        this.top -= 1;
-        return popResult;
-    }
-    public int length() {
-        return this.top + 1;
-    }
-    // 查看
-    public void list() {
-        int len = this.length();
-        for(int i = 0; i < len; i++ ) {
-            System.out.printf("stack[%d] = %d", i , this.stack[i]);
-        } 
-    }
-}   
-    
-```
-
-
-
-### 数组实现栈的问题
-
-1. 问题1，PUSH方法的范围限制问题，举例，如果栈里面的数据已经达到最大栈容量了，那么再往里面压栈，就会运行时错误了，称为超出栈容量。
-```java 
-    public static void main(String[] args) {
-        ArrayStack arrayStack = new ArrayStack(3);
-        arrayStack.push(1);
-        arrayStack.push(2);
-        arrayStack.push(3);
-        arrayStack.push(4);
-    }
-```
-结果，总是数组索引越界。
-```bash 
-Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 3
-	at ArrayStack.push(ArrayStack.java:20)
-	at ArrayStack.main(ArrayStack.java:45)
-```
-2. 问题2，POP方法的范围限制问题，举例，如果栈里面无数据，那么就会造成访问一个索引为负的值，即用不存在的空间，也会运行时错误。
-```java 
-    public static void main(String[] args) {
-        ArrayStack arrayStack = new ArrayStack(3);
-        arrayStack.push(1);
-        arrayStack.pop();
-        arrayStack.pop();
-    }
-```
-结果，总是数组索引越界。
-```bash 
-Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: -1
-	at ArrayStack.pop(ArrayStack.java:25)
-	at ArrayStack.main(ArrayStack.java:44)
-```
-
-解决方案：
-1. 在PUSH的时候，判断是否达到最大容量。即增加isFull方法判断是否栈容量已满。
-2. 在POP的时候，判断是否为空栈。即增加isEmpty方法判断是否栈为空。
-
-```
-public class ArrayStack {
-    // 最大容量
-    int maxStack = 0;
-    // 索引指针
-    int top = -1;
-    // 定义一个栈
-    int[] stack;
-
-    // 构造器
-    public ArrayStack(int maxStack) {
-        this.maxStack = maxStack;
-        this.stack = new int[maxStack];
-    }    
-    
-    // 判断栈为空
-    public boolean isEmpty() {
-        return this.top == -1;
-    }
-    // 判断栈已满
-    
-    public boolean isFull() {
-        // 此处不要好奇，如果最大容量this.maxStack为0怎么办，如果为0，那么0 - 1也是等于-1，刚好等于索引值，也证明是栈容量已满。
-        return this.top == this.maxStack - 1;
-    }    
-
-    // 压栈
-    public void push(int v) {
-        // 错误优先，提前判断
-        if(this.isFull()) {
-            throw new RuntimeException("已达到最大容量，无法压栈");
-        }
-        // 压栈， 增加数据，索引+1，然后在索引出赋上压入的值
-        this.top += 1; 
-        this.stack[this.top] = v;       
-    }
-    // 弹栈，返回值弹出了什么值，返回值可以用泛型，但是这里为了理解用int即可
-    public int pop() {
-        // 错误优先，提前判断为空
-        if(this.isEmpty()) {
-            throw new RuntimeException("栈为空，无法弹栈");
-        }
-        // 先把弹出的值保存下来，方便返回，然后索引减一
-        int popResult = this.stack[this.top];
-        this.top -= 1;
-        return popResult;
-    }
-    public int length() {
-        return this.top + 1;
-    }
-    // 查看
-    public void list() {       
-        int len = this.length();
-        for(int i = 0; i < len; i++ ) {
-            System.out.printf("stack[%d] = %d", i , this.stack[i]);
-        } 
-    }
-}   
-    
-```
-
-
-
-
+[数组实现栈][./arrayStackImpl.md]
+ 
 [1]: /images/structure/linear01_01.png
 [2]: /images/structure/linear01_02.png
 [3]: /images/structure/linear01_03.png
