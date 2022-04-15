@@ -43,11 +43,8 @@ public class ArrayStack {
             System.out.printf("stack[%d] = %d", i , this.stack[i]);
         } 
     }
-}   
-    
+}
 ```
-
-
 
 ## 数组实现栈的问题
 
@@ -83,7 +80,8 @@ Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: -1
 	at ArrayStack.main(ArrayStack.java:44)
 ```
 
-解决方案：
+## 方案一限制压栈弹栈
+
 1. 在PUSH的时候，判断是否达到最大容量。即增加isFull方法判断是否栈容量已满。
 2. 在POP的时候，判断是否为空栈。即增加isEmpty方法判断是否栈为空。
 
@@ -148,13 +146,14 @@ public class ArrayStack {
 ```
 
 
-## 数组静态栈的自动扩容缩减（了解）
+## 方案二动态扩容
+### 数组静态栈的自动扩容缩减（了解）
 
 基本原理，
     - 在PUSH前如果发现容量已满，那么自动扩容整个栈容量。
     - 在POP的后，如果有效数据小于容量1/4，就自动缩减一半容量。
 
-```
+```java
 public class ArrayStack02 {
     // 栈
     private int[] stack;

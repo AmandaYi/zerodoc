@@ -75,6 +75,11 @@ module.exports = {
 					label: '知识',
 					docId: 'web/01',
 				},
+				{
+					type: 'doc',
+					label: '前端简易持续集成',
+					docId: 'devops/webops',
+				},
 			]
 		},
 		{

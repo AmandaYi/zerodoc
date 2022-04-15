@@ -1,33 +1,40 @@
 #! /bin/node
 // 脚本作用：build里面的文件自动传到服务器里面
-const path = require("path")
+const path = require("path");
 let Client = require('ssh2-sftp-client');
 
 const yml = require("yml");
 const yargs = require("yargs/yargs");
-const {hideBin} = require('yargs/helpers')
+const {hideBin} = require('yargs/helpers');
 
+// 想要上传的静态文件所在的文件夹
 let localPath = path.resolve(__dirname, "..", "build");
-let remotePath = "/mnt/sdb/wwwroot/www.baby8013.com"
-
+// 远程文件夹的存放位置，最好绝对路径
+let remotePath = "/mnt/sdb/wwwroot/www.baby8013.com";
+// 声明上传文件服务类
 class PushServer {
+	// 服务实例
 	sftp;
+	// 是否删除远程的文件夹
 	isRmdir = false;
+	// SSH配置
 	serverConfig;
 
+	// 初始化配置
 	constructor() {
 		this.sftp = new Client();
 		let applicationConfig = yml.load("application.yml");
 		this.serverConfig = applicationConfig.serverConfig;
 	}
-
+	// 初始配置项目
 	initConfig() {
-		const argv = yargs(hideBin(process.argv)).argv
+		const argv = yargs(hideBin(process.argv)).argv;
 		if (argv.rmdir) { // 0 false, 都是false, 不写值默认true
 			this.isRmdir = true;
 		}
 	}
-
+	// 推送需要推送的文件夹到远程文件夹
+	// 具体操作，根据命令行里面的rmdir参数配置，可选的把远程的文件夹清空或者不清空
 	async publicDoc() {
 		await this.sftp.connect({
 			host: this.serverConfig.host,
@@ -44,7 +51,7 @@ class PushServer {
 			}
 			this.sftp.on('upload', info => {
 				console.log(`正在上传: ${info.source} ---> ${JSON.stringify(info)}`);
-			})
+			});
 			await this.sftp.uploadDir(localPath, remotePath)
 		}
 		this.sftp.end();
@@ -56,5 +63,5 @@ class PushServer {
 	}
 
 }
-
+// 调用
 new PushServer().main();
