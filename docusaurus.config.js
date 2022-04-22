@@ -68,7 +68,9 @@ const config = {
 			},
 
 			navbar: navbarConfig,
+			// navbar: require.resolve('./config/navbarConfig.js').default,
 			footer: footerConfig,
+			// footer: require.resolve('./config/footerConfig.js').default,
 
 			prism: {
 				theme: lightCodeTheme,

@@ -86,8 +86,14 @@ const sidebarsConfig = {
 				type: 'category',
 				label: "栈",
 				collapsed: true,
-				items: ['structure/linear01', 'structure/arrayStackImpl']
-			}]
+				items: ['structure/linear01', 'structure/arrayStackImpl', 'structure/linkedListStackImpl']
+			},
+				{
+					type: "category",
+					label: "链表",
+					collapsed: true,
+					items: ['structure/linear02']
+				}]
 		},
 		// {
 		// 	type: 'category',
