@@ -92,7 +92,7 @@ const sidebarsConfig = {
 					type: "category",
 					label: "链表",
 					collapsed: true,
-					items: ['structure/linear02', 'structure/lineOneWayLinkedListImpl', 'structure/lineTwoWayLinkedListImpl']
+					items: ['structure/linear02', 'structure/lineOneWayLinkedListImpl', 'structure/lineTwoWayLinkedListImpl', 'structure/lineCircleLinkedListImpl']
 				}]
 		},
 		// {
