@@ -92,8 +92,17 @@ const sidebarsConfig = {
 					type: "category",
 					label: "链表",
 					collapsed: true,
-					items: ['structure/linear02', 'structure/lineOneWayLinkedListImpl', 'structure/lineTwoWayLinkedListImpl', 'structure/lineCircleLinkedListImpl']
-				}]
+					items: ['structure/linear02', 'structure/lineOneWayLinkedListImpl', 'structure/lineTwoWayLinkedListImpl', 'structure/algorithmLineCircleLinkedListImpl']
+				},
+				{
+					type: "category",
+					label: '稀疏数组',
+					collapsed: true,
+					items: ['structure/sparseArray'],
+				},
+			],
+
+
 		},
 		// {
 		// 	type: 'category',
