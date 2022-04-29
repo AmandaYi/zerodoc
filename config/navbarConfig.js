@@ -122,6 +122,18 @@ module.exports = {
 			]
 		},
 		{
+			type: "dropdown",
+			position: "left",
+			label: "MAYA",
+			items: [
+				{
+					type: "doc",
+					label: "maya",
+					docId: "maya/01"
+				}
+			]
+		},
+		{
 			type: "doc",
 			position: "right",
 			label: "关于",
