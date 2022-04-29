@@ -25,7 +25,8 @@ function HomepageHeader() {
     </header>
   );
 }
-
+// @ts-ignore
+import M from "/static/video/100.mp3";
 
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
@@ -34,6 +35,7 @@ export default function Home(): JSX.Element {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        {/*<audio src={M} controls/>*/}
       </main>
     </Layout>
   );
