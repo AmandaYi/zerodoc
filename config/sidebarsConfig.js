@@ -100,6 +100,13 @@ const sidebarsConfig = {
 					collapsed: true,
 					items: ['structure/sparseArray'],
 				},
+
+				{
+					type: "category",
+					label: '队列',
+					collapsed: true,
+					items: ['structure/linear03', 'structure/queueArrayImpl', 'structure/queueLinkedImpl'],
+				},
 			],
 
 
