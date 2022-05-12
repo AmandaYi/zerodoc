@@ -101,8 +101,8 @@ module.exports = {
 			items: [
 				{
 					type: "doc",
-					label: "WPS文档接入（NodeJS版）",
-					docId: "structure/analyse"
+					label: "金山文档在线编辑接入",
+					docId: "project/officeOnlineEdit"
 				},
 				{
 					type: "doc",
@@ -121,35 +121,35 @@ module.exports = {
 				}
 			]
 		},
-		{
-			type: "dropdown",
-			position: "left",
-			label: "MAYA",
-			items: [
-				{
-					type: "doc",
-					label: "maya",
-					docId: "maya/01"
-				}
-			]
-		},
+		// {
+		// 	type: "dropdown",
+		// 	position: "left",
+		// 	label: "MAYA",
+		// 	items: [
+		// 		{
+		// 			type: "doc",
+		// 			label: "maya",
+		// 			docId: "maya/01"
+		// 		}
+		// 	]
+		// },
 		{
 			type: "doc",
 			position: "right",
 			label: "关于",
 			docId: "about/index"
 		},
-		{
-			type: "dropdown",
-			position: "right",
-			label: "其他",
-			items: [
-				{
-					to: "blog/rich/poor",
-					label: "胡思乱想",
-				}
-			]
-		}
+		// {
+		// 	type: "dropdown",
+		// 	position: "right",
+		// 	label: "其他",
+		// 	items: [
+		// 		{
+		// 			to: "blog/rich/poor",
+		// 			label: "胡思乱想",
+		// 		}
+		// 	]
+		// }
 		// {
 		// 	type: 'search',
 		// 	position: 'right',
