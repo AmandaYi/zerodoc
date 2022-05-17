@@ -41,8 +41,8 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        穿过无尽雾霾 过去已被掩盖<br/>
-        越过茫茫人海 内心依然空白<br/>
+        {/*穿过无尽雾霾 过去已被掩盖<br/>*/}
+        {/*越过茫茫人海 内心依然空白<br/>*/}
         回忆和现在 哪个值得依赖<br/>
         明天和意外 哪个会先到来<br/>
         {/*经过无数站台 还守着期待*/}

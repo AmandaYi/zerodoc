@@ -35,7 +35,7 @@ const sidebarsConfig = {
 		{
 			type: 'category',
 			label: 'VUE',
-			items: ['js/vue/vue2', 'js/vue/vue3'],
+			items: ['js/vue/vue2'],
 		}
 	],
 	JSTypeScript: [

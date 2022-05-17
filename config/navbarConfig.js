@@ -104,11 +104,11 @@ module.exports = {
 					label: "金山文档在线编辑接入",
 					docId: "project/officeOnlineEdit"
 				},
-				{
-					type: "doc",
-					label: "WPS文档接入（Java版）",
-					docId: "structure/analyse"
-				},
+				// {
+				// 	type: "doc",
+				// 	label: "WPS文档接入（Java版）",
+				// 	docId: "structure/analyse"
+				// },
 				{
 					type: "doc",
 					label: "声网白板接入",
