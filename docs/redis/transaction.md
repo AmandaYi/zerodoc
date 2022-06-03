@@ -516,6 +516,25 @@ public class SecKill_redisByScript {
 
 这里使用lua脚本，把多个操作控制为一个操作，利用redis的单线程特性，每次只执行一个lua脚本，这样子就完成了每次处理一个用户的请求。
 
+```bash 
+local userid=KEYS[1]; 
+local prodid=KEYS[2];
+local qtkey="sk:"..prodid..":qt";
+local usersKey="sk:"..prodid.":usr'; 
+local userExists=redis.call("sismember",usersKey,userid);
+if tonumber(userExists)==1 then 
+  return 2;
+end
+local num= redis.call("get" ,qtkey);
+if tonumber(num)<=0 then 
+  return 0; 
+else 
+  redis.call("decr",qtkey);
+  redis.call("sadd",usersKey,userid);
+end
+return 1;
+```
+
 4. 超时问题
 
 因此每次创建一个redis实例，过分的依赖服务器资源了，所以说可以使用redis的连接池反复的使用资源，一定程度上节约资源。
