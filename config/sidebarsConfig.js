@@ -38,6 +38,20 @@ const sidebarsConfig = {
 			items: ['js/vue/vue2'],
 		}
 	],
+	RN: [
+		{
+			type: 'category',
+			label: 'React Native',
+			items: ['js/rn/base', 'js/rn/rnenv','js/rn/flexbox','js/rn/font', 'js/rn/codepush'],
+		}
+	],
+	JSReact: [
+		{
+			type: 'category',
+			label: 'React',
+			items: ['js/react/base', 'js/react/normal', 'js/react/life' ,'js/react/extension', 'js/react/reactRouter6'],
+		}
+	],
 	JSTypeScript: [
 		{
 			type: "category",
@@ -77,6 +91,11 @@ const sidebarsConfig = {
 			type: "doc",
 			id: 'structure/analyse',
 			label: '算法分析',
+		},
+		{
+			type: "doc",
+			id: 'structure/linear04',
+			label: '跳跃表效率分析',
 		},
 		{
 			type: 'category',
@@ -129,6 +148,13 @@ const sidebarsConfig = {
 			type: 'category',
 			label: 'ORM',
 			items: ['orm/mybatis/index'],
+		},
+	],
+	Redis: [
+		{
+			type: 'category',
+			label: 'redis',
+			items: ['redis/base','redis/structure','redis/structure2','redis/transaction'],
 		},
 	],
 };

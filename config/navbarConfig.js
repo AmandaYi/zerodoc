@@ -15,6 +15,17 @@ module.exports = {
 			position: "left",
 			label: "前端",
 			items: [
+
+				{
+					type: 'doc',
+					label: 'react',
+					docId: 'js/react/base',
+				},
+				{
+					type: 'doc',
+					label: 'react native',
+					docId: 'js/rn/base',
+				},
 				{
 					type: 'doc',
 					label: 'TypeScript',
@@ -44,7 +55,7 @@ module.exports = {
 					type: 'doc',
 					label: "JS常用功能记录",
 					docId: 'js/normal/index',
-				}
+				},
 
 			]
 		},
@@ -57,6 +68,11 @@ module.exports = {
 					type: 'doc',
 					label: 'mybatis笔记',
 					docId: 'orm/mybatis/index',
+				},
+				{
+					type: 'doc',
+					label: 'redis6笔记',
+					docId: 'redis/base',
 				},
 			]
 		},
@@ -133,12 +149,12 @@ module.exports = {
 		// 		}
 		// 	]
 		// },
-		{
-			type: "doc",
-			position: "right",
-			label: "关于",
-			docId: "about/index"
-		},
+		// {
+		// 	type: "doc",
+		// 	position: "right",
+		// 	label: "关于",
+		// 	docId: "about/index"
+		// },
 		// {
 		// 	type: "dropdown",
 		// 	position: "right",

@@ -10,7 +10,9 @@ const {hideBin} = require('yargs/helpers');
 // 想要上传的静态文件所在的文件夹
 let localPath = path.resolve(__dirname, "..", "build");
 // 远程文件夹的存放位置，最好绝对路径
-let remotePath = "/mnt/sdb/wwwroot/www.baby8013.com";
+let remotePath = "";
+// let remotePath = "/mnt/sdb/wwwroot/www.baby8013.com";
+// let remotePath = "/zzy/www.baby8013.com";
 // 声明上传文件服务类
 class PushServer {
 	// 服务实例
@@ -25,6 +27,7 @@ class PushServer {
 		this.sftp = new Client();
 		let applicationConfig = yml.load("application.yml");
 		this.serverConfig = applicationConfig.serverConfig;
+		remotePath = applicationConfig.serverConfig.remotePath;
 	}
 	// 初始配置项目
 	initConfig() {
