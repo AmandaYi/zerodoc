@@ -8,6 +8,14 @@ module.exports =  {
 				{
 					label: "前端通用工具库设计开发",
 					to: "/docs/js/design/package"
+				},
+				{
+					label: "金山文档在线编辑接入",
+					to: "/docs/project/officeOnlineEdit"
+				},
+				{
+					label: "纯静态文件的持续集成发布",
+					to: "/docs/devops/webops"
 				}
 			]
 		},
@@ -18,6 +26,10 @@ module.exports =  {
 				{
 					label: "TypeScript",
 					to: "/docs/js/typescript/base"
+				},
+				{
+					label: "Redis事务与锁",
+					to: "/docs/redis/transaction"
 				},
 				{
 					label: "webpack常用功能30篇",
