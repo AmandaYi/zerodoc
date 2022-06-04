@@ -154,7 +154,18 @@ const sidebarsConfig = {
 		{
 			type: 'category',
 			label: 'redis',
-			items: ['redis/base','redis/structure','redis/structure2','redis/transaction'],
+			items: [
+				'redis/base',
+				'redis/structure',
+				'redis/structure2',
+				'redis/transaction',
+				'redis/pubandsub',
+				'redis/rdb',
+				'redis/aof',
+				'redis/rdbaof',
+				'redis/masterslave',
+				'redis/sentinel',
+			],
 		},
 	],
 };
