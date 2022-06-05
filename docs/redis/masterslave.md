@@ -124,6 +124,10 @@ redis-server redis6381.conf
 - 增量复制：Master继续将新的所有收集到的修改命令依次传给slave,完成同步
 - 但是只要是重新连接master,一次完全同步（全量复制)将被自动执行
 
+## 主从密码
+
+修改redis.conf内容，masterauto xxx，其中xxx就是密码。
+
 [1]: /images/redis/mslave01.png
 [2]: /images/redis/mslave02.png
 [3]: /images/redis/mslave03.png

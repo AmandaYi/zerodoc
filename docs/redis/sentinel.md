@@ -122,6 +122,43 @@ redis-sentinel ./sentinel-26380.conf
 redis-sentinel ./sentinel-26381.conf
 ```
 
+### 哨兵切换主机原理
+
+哨兵会在主机下线后，进行投票选出一个从机作为主机。
+
+同时，redis.conf的配置slave-priority 100，值越小优先级越高。再者，根据从机偏移量，指的是看哪个从机的数据最全。
+
+每个redis实例启动后都会随机生成一个40位的runid，根据runid进行从机切换为主机，然后已经下线的主机，配置指向新的主机。
+
+### 使用
+
+只需要用连接池连接任意一个哨兵的ip和端口就能完成对redis的各种操作，如下例子
+
+```java 
+private static JedisSentinelPool jedisSentinelPool = null;
+
+public static Jedis getJedisFromSentinel(){
+    if(jedisSentinelPool==null){
+        Set<String> sentinelSet=new HashSet<>();
+        sentinelSet.add("192.168.11.103:26379");
+        
+        JedisPoolConfig jedisPoolConfig =new JedisPoolConfig();
+        jedisPoolConfig.setMaxTotal(10); //最大可用连接数
+        jedisPoolConfig.setMaxIdle(5); //最大闲置连接数
+        jedisPoolConfig.setMinIdle(5); //最小闲置连接数
+        jedisPoolConfig.setBlockWhenExhausted(true); //连接耗尽是否等待
+        jedisPoolConfig.setMaxWaitMillis(2000); //等待时间
+        jedisPoolConfig.setTestOnBorrow(true); //取连接的时候进行一下测试 ping pong
+        
+        jedisSentinelPool=new JedisSentinelPool("mymaster",sentinelSet,jedisPoolConfig);
+        return jedisSentinelPool.getResource();
+    }else{
+        return jedisSentinelPool.getResource();
+    }
+}
+
+```
+
 ## 总结
 
 

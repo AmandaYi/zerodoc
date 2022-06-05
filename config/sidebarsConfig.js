@@ -165,6 +165,7 @@ const sidebarsConfig = {
 				'redis/rdbaof',
 				'redis/masterslave',
 				'redis/sentinel',
+				'redis/cluster'
 			],
 		},
 	],
