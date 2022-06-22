@@ -150,6 +150,18 @@ const sidebarsConfig = {
 			items: ['orm/mybatis/index'],
 		},
 	],
+	Redis2: [
+		{
+			type: 'category',
+			label: 'redis应用问题',
+			items: [
+				'redis/cachepenetration',
+				'redis/cachebreakdown',
+				'redis/cacheavalanche',
+				'redis/distributedlock'
+			]
+		}
+	],
 	Redis: [
 		{
 			type: 'category',
@@ -169,6 +181,15 @@ const sidebarsConfig = {
 			],
 		},
 	],
+	WordPress: [
+		{
+			type: 'category',
+			label: 'redis',
+			items: [
+				'wordpress/base'
+			]
+		}
+	]
 };
 
 module.exports = sidebarsConfig;

@@ -1,4 +1,9 @@
 #! /bin/node
+// require("events").EventEmitter.defaultMaxListeners = 0;
+process.on('warning', e => console.warn(e.stack))
+// 不限制监听数量
+process.setMaxListeners(0)
+
 // 脚本作用：build里面的文件自动传到服务器里面
 const path = require("path");
 let Client = require('ssh2-sftp-client');

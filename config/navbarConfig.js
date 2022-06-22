@@ -74,6 +74,12 @@ module.exports = {
 					label: 'redis6笔记',
 					docId: 'redis/base',
 				},
+				{
+					type: 'doc',
+					label: 'redis应用问题',
+					docId: 'redis/cachepenetration',
+				},
+
 			]
 		},
 		{
@@ -95,6 +101,11 @@ module.exports = {
 					type: 'doc',
 					label: '前端简易持续集成',
 					docId: 'devops/webops',
+				},
+				{
+					type: 'doc',
+					label: 'WordPress主题开发',
+					docId: 'wordpress/base',
 				},
 			]
 		},
