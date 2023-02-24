@@ -52,10 +52,13 @@ module.exports =  {
 			// 心电感应/隐身 表示集富庶与敬爱于一身的能力。透视、洞察敌人心理
 			items: [
 				{
-					label: "Vue源码",
-					to: "/docs/js/vue/vue2"
+					label: "React",
+					to: "/docs/js/react/base"
 				},
-
+				{
+					label: "Vue",
+					to: "/docs/js/vue/vue3base"
+				},
 			]
 		},
 			{

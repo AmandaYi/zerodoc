@@ -23,6 +23,11 @@ module.exports = {
 				},
 				{
 					type: 'doc',
+					label: 'vue',
+					docId: 'js/vue/vue3base',
+				},
+				{
+					type: 'doc',
 					label: 'react native',
 					docId: 'js/rn/base',
 				},
@@ -40,11 +45,6 @@ module.exports = {
 					type: 'doc',
 					label: 'webpack常用功能30篇',
 					docId: 'js/webpack3/index',
-				},
-				{
-					type: 'doc',
-					label: 'vue',
-					docId: 'js/vue/vue2',
 				},
 				{
 					type: 'doc',
@@ -92,10 +92,15 @@ module.exports = {
 					label: '前端库开发',
 					docId: 'js/design/package',
 				},
+				// {
+				// 	type: 'doc',
+				// 	label: '知识',
+				// 	docId: 'web/01',
+				// },
 				{
 					type: 'doc',
-					label: '知识',
-					docId: 'web/01',
+					label: 'Hybird混合开发原理',
+					docId: 'js/hybird/base',
 				},
 				{
 					type: 'doc',

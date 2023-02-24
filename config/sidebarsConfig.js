@@ -35,7 +35,9 @@ const sidebarsConfig = {
 		{
 			type: 'category',
 			label: 'VUE',
-			items: ['js/vue/vue2'],
+			items: ['js/vue/vue3base','js/vue/vue3setup','js/vue/vue3watch','js/vue/vue3components','js/vue/vue3normaldiff',
+				'js/vue/vue3ts',
+				'js/vue/vue3refvsreactive','js/vue/vue2', 'js/vue/lifecyclediff', 'js/vue/reactivediff'],
 		}
 	],
 	RN: [
