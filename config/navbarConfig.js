@@ -153,6 +153,39 @@ module.exports = {
 				}
 			]
 		},
+		{
+			type: "dropdown",
+			position: "left",
+			label: "项目体验",
+			items: [
+				{
+					label: "在线办公软件",
+					href: baseConfig.baseUrl + 'office-online',
+					target: "_blank"
+				},
+				{
+					label: "在线协作白板",
+					href: baseConfig.baseUrl + 'blackboard-online',
+					target: "_blank"
+				},
+				{
+					label: "JS日历",
+					href: baseConfig.baseUrl + 'calendar',
+					target: "_blank"
+				},
+				{
+					label: "视频直播",
+					href: baseConfig.baseUrl + 'video-call',
+					target: "_blank"
+				},
+				{
+					label: "在线电子签章",
+					href: baseConfig.baseUrl + 'elec-sign',
+					target: "_blank"
+				},
+				// 还有一些再想想gulpinit，cache，成就很多
+			]
+		}
 		// {
 		// 	type: "dropdown",
 		// 	position: "left",

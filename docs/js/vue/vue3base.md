@@ -510,7 +510,7 @@ obj.insertObj = markRaw(insertObj)
     setup(){
         ......
         let car = reactive({name:'奔驰',price:'40万'})
-        provide('car',car)
+        provide('calendar',car)
         ......
     }
 ```
@@ -520,7 +520,7 @@ obj.insertObj = markRaw(insertObj)
 ```js
     setup(props,context){
         ......
-        const car = inject('car')
+        const car = inject('calendar')
         return {car}
         ......
     }
