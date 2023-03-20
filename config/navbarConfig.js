@@ -156,7 +156,7 @@ module.exports = {
 		{
 			type: "dropdown",
 			position: "left",
-			label: "项目体验",
+			label: "项目抽离功能",
 			items: [
 				{
 					label: "在线办公软件",
