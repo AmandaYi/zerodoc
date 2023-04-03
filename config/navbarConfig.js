@@ -62,21 +62,26 @@ module.exports = {
 		{
 			type: "dropdown",
 			position: "left",
-			label: "Java",
+			label: "数据库",
 			items: [
 				{
+					type: "doc",
+					label: "MySQL",
+					docId: "mysql/join"
+				},
+				{
 					type: 'doc',
-					label: 'mybatis笔记',
+					label: 'Mybatis笔记',
 					docId: 'orm/mybatis/index',
 				},
 				{
 					type: 'doc',
-					label: 'redis6笔记',
+					label: 'Redis6笔记',
 					docId: 'redis/base',
 				},
 				{
 					type: 'doc',
-					label: 'redis应用问题',
+					label: 'Redis应用问题',
 					docId: 'redis/cachepenetration',
 				},
 
@@ -185,7 +190,19 @@ module.exports = {
 				},
 				// 还有一些再想想gulpinit，cache，成就很多
 			]
-		}
+		},
+		// {
+		// 	type: "dropdown",
+		// 	position: "left",
+		// 	label: "SQL",
+		// 	items: [
+		// 		{
+		// 						type: "doc",
+		// 						label: "MySQL",
+		// 						docId: "mysql/join"
+		// 		}
+		// 		]
+		// }
 		// {
 		// 	type: "dropdown",
 		// 	position: "left",

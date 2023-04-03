@@ -35,23 +35,23 @@ const sidebarsConfig = {
 		{
 			type: 'category',
 			label: 'VUE',
-			items: ['js/vue/vue3base','js/vue/vue3setup','js/vue/vue3watch','js/vue/vue3components','js/vue/vue3normaldiff',
+			items: ['js/vue/vue3base', 'js/vue/vue3setup', 'js/vue/vue3watch', 'js/vue/vue3components', 'js/vue/vue3normaldiff',
 				'js/vue/vue3ts',
-				'js/vue/vue3refvsreactive','js/vue/vue2', 'js/vue/lifecyclediff', 'js/vue/reactivediff'],
+				'js/vue/vue3refvsreactive', 'js/vue/vue2', 'js/vue/lifecyclediff', 'js/vue/reactivediff'],
 		}
 	],
 	RN: [
 		{
 			type: 'category',
 			label: 'React Native',
-			items: ['js/rn/base', 'js/rn/rnenv','js/rn/flexbox','js/rn/font', 'js/rn/codepush'],
+			items: ['js/rn/base', 'js/rn/rnenv', 'js/rn/flexbox', 'js/rn/font', 'js/rn/codepush'],
 		}
 	],
 	JSReact: [
 		{
 			type: 'category',
 			label: 'React',
-			items: ['js/react/base', 'js/react/normal', 'js/react/life' ,'js/react/extension', 'js/react/reactRouter6'],
+			items: ['js/react/base', 'js/react/normal', 'js/react/life', 'js/react/extension', 'js/react/reactRouter6'],
 		}
 	],
 	JSTypeScript: [
@@ -145,7 +145,7 @@ const sidebarsConfig = {
 	// 		items: ['structure/linear01', 'structure/arrayStackImpl']
 	// 	}
 	// ],
-	Java: [
+	Mybatis: [
 		{
 			type: 'category',
 			label: 'ORM',
@@ -186,9 +186,18 @@ const sidebarsConfig = {
 	WordPress: [
 		{
 			type: 'category',
-			label: 'redis',
+			label: 'WordPress',
 			items: [
 				'wordpress/base'
+			]
+		}
+	],
+	MySQL: [
+		{
+			type: 'category',
+			label: 'MySQL',
+			items: [
+				'mysql/join', 'mysql/sub', 'mysql/view'
 			]
 		}
 	]

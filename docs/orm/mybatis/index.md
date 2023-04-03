@@ -1,5 +1,7 @@
 ---
-    title: Mybatis笔记
+displayed_sidebar: Mybatis
+
+title: Mybatis笔记
 ---
 
 # Mybatis学习笔记
