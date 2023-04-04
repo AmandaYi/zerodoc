@@ -134,7 +134,7 @@ module.exports = {
 		{
 			type: "dropdown",
 			position: "left",
-			label: "生态项目",
+			label: "在线项目文档",
 			items: [
 				{
 					type: "doc",

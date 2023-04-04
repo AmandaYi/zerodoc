@@ -3,7 +3,7 @@ displayed_sidebar: MySQL
 ---
 
 
-# MySQL的视图View
+# MySQL的视图
 
 
 

@@ -197,7 +197,22 @@ const sidebarsConfig = {
 			type: 'category',
 			label: 'MySQL',
 			items: [
-				'mysql/join', 'mysql/sub', 'mysql/view'
+				'mysql/join',
+				'mysql/sub',
+				'mysql/view',
+				'mysql/transaction',
+				'mysql/index',
+				'mysql/procedure',
+				'mysql/entity',
+				'mysql/design',
+				'mysql/canonical',
+				'mysql/select',
+				'mysql/datatype',
+				'mysql/key',
+				'mysql/databases',
+				'mysql/tables',
+				'mysql/character',
+				'mysql/base'
 			]
 		}
 	]
