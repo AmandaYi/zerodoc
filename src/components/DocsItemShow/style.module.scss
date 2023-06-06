@@ -1,0 +1,117 @@
+
+.card {
+  border: 1px solid #ccc;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 320px;
+  cursor: pointer;
+  top: 0;
+  transition: top 0.2s linear;
+
+  &:hover {
+    top: -20px;
+    box-shadow: var(--site-item-box-shadow-current);
+  }
+
+  .cardContent {
+    overflow: hidden;
+    transition: transform 0.3s linear;
+    &:hover{
+      transform: scale(1.5);
+    }
+    .cardImage {
+      width: 100%;
+      border-bottom: 1px solid var(--site-border-color);
+
+      img {
+        border-radius: 6px;
+        width: 100%;
+
+      }
+    }
+  }
+
+  .cardFooter {
+
+    position: absolute;
+    height: 40%;
+    overflow: hidden;
+    width: 100%;
+    background-color: #ffffff;
+    bottom: 0;
+    left: 0;
+    //padding: 20px 10px;
+    padding: 10px 10px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    .cardTitle {
+
+      overflow: hidden;
+
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      a.cardText {
+
+        color: var(--ifm-link-color);
+        text-decoration: none;
+        font-weight: 600;
+
+        h4 {
+          display: inline-block;
+          position: relative;
+          margin-bottom: 0;
+
+          &::after {
+            content: "";
+            display: block;
+            background: var(--ifm-link-color);
+            position: absolute;
+            bottom: -1px;
+            height: 2px;
+            left: 50%;
+            width: 0;
+            transition: all 0.3s linear;
+          }
+
+          &:hover::after {
+            left: 0;
+            width: 100%;
+          }
+        }
+      }
+
+      a.cardSourceLink {
+        min-width: 50px;
+        text-align: center;
+
+        span {
+          font-size: 14px;
+          color: #ffffff;
+          background-color: var(--ifm-color-primary-unimportant);
+          padding: 3px 6px;
+          border-radius: 3px;
+        }
+
+        &:hover span {
+          background-color: var(--ifm-color-primary);
+          color: #ffffff;
+        }
+      }
+    }
+
+    .cardDesc {
+
+      overflow: hidden;
+      font-size: 14px;
+      color: var(--site-color-font);
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

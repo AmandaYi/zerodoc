@@ -13,7 +13,7 @@ module.exports = {
 		{
 			type: "dropdown",
 			position: "left",
-			label: "前端",
+			label: "笔记",
 			items: [
 
 				{
@@ -62,7 +62,7 @@ module.exports = {
 		{
 			type: "dropdown",
 			position: "left",
-			label: "数据库",
+			label: "数据存储",
 			items: [
 				{
 					type: "doc",
@@ -90,11 +90,23 @@ module.exports = {
 		{
 			type: "dropdown",
 			position: "left",
-			label: "系统设计",
+			label: "计算机基础知识",
+			items: [
+				{
+					type: "doc",
+					label: "数据结构与算法",
+					docId: "structure/analyse"
+				}
+			]
+		},
+		{
+			type: "dropdown",
+			position: "right",
+			label: "项目文档",
 			items: [
 				{
 					type: 'doc',
-					label: '前端库开发',
+					label: 'npm库开发',
 					docId: 'js/design/package',
 				},
 				// {
@@ -109,7 +121,7 @@ module.exports = {
 				},
 				{
 					type: 'doc',
-					label: '前端简易持续集成',
+					label: '简易持续集成',
 					docId: 'devops/webops',
 				},
 				{
@@ -117,28 +129,9 @@ module.exports = {
 					label: 'WordPress主题开发',
 					docId: 'wordpress/base',
 				},
-			]
-		},
-		{
-			type: "dropdown",
-			position: "left",
-			label: "计算机基础知识",
-			items: [
 				{
 					type: "doc",
-					label: "数据结构与算法",
-					docId: "structure/analyse"
-				}
-			]
-		},
-		{
-			type: "dropdown",
-			position: "left",
-			label: "在线项目文档",
-			items: [
-				{
-					type: "doc",
-					label: "金山文档在线编辑接入",
+					label: "办公文档多人同步编辑项目",
 					docId: "project/officeOnlineEdit"
 				},
 				// {
@@ -152,45 +145,55 @@ module.exports = {
 					docId: "structure/analyse"
 				},
 				{
-					label: "大小写转换",
-					href: baseConfig.baseUrl + 'tools/toggle_word/index.html',
-					target: "_blank"
-				}
+					type: "doc",
+					label: "go-zero微服务文档",
+					docId: "go-zero/project/prepare"
+				},
+			// 	{
+			// 		label: "大小写转换",
+
+			// 		target: "_blank"
+			// 	}
 			]
 		},
 		{
-			type: "dropdown",
-			position: "left",
-			label: "项目抽离功能",
-			items: [
-				{
-					label: "在线办公软件",
-					href: baseConfig.baseUrl + 'office-online',
-					target: "_blank"
-				},
-				{
-					label: "在线协作白板",
-					href: baseConfig.baseUrl + 'blackboard-online',
-					target: "_blank"
-				},
-				{
-					label: "JS日历",
-					href: baseConfig.baseUrl + 'calendar',
-					target: "_blank"
-				},
-				{
-					label: "视频直播",
-					href: baseConfig.baseUrl + 'video-call',
-					target: "_blank"
-				},
-				{
-					label: "在线电子签章",
-					href: baseConfig.baseUrl + 'elec-sign',
-					target: "_blank"
-				},
-				// 还有一些再想想gulpinit，cache，成就很多
-			]
-		},
+			label: '项目',
+			position: 'right',
+			href: baseConfig.baseUrl + 'project',
+		}
+		// {
+		// 	type: "dropdown",
+		// 	position: "left",
+		// 	label: "项目",
+		// 	items: [
+		// 		// {
+		// 		// 	label: "在线办公软件",
+		// 		// 	href: baseConfig.baseUrl + 'office-online',
+		// 		// 	target: "_blank"
+		// 		// },
+		// 		// {
+		// 		// 	label: "在线协作白板",
+		// 		// 	href: baseConfig.baseUrl + 'blackboard-online',
+		// 		// 	target: "_blank"
+		// 		// },
+		// 		// {
+		// 		// 	label: "JS日历",
+		// 		// 	href: baseConfig.baseUrl + 'calendar',
+		// 		// 	target: "_blank"
+		// 		// },
+		// 		// {
+		// 		// 	label: "视频直播",
+		// 		// 	href: baseConfig.baseUrl + 'video-call',
+		// 		// 	target: "_blank"
+		// 		// },
+		// 		// {
+		// 		// 	label: "在线电子签章",
+		// 		// 	href: baseConfig.baseUrl + 'elec-sign',
+		// 		// 	target: "_blank"
+		// 		// },
+		// 		// 还有一些再想想gulpinit，cache，成就很多
+		// 	]
+		// },
 		// {
 		// 	type: "dropdown",
 		// 	position: "left",

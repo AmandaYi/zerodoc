@@ -1,0 +1,58 @@
+.viewTypeSwitch {
+
+  .iconGroup {
+    text-align: center;
+    width: 100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .iconCommon {
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .iconNormal {
+      color: var(--site-border-color);
+
+      &:hover {
+        color: var(--ifm-color-primary);
+      }
+    }
+
+    .iconActive {
+      color: var(--ifm-color-primary);
+    }
+  }
+}
+
+.sitePersonInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+
+  .docsList {
+    flex: 1;
+  }
+
+  .personInfo {
+
+  }
+}
+
+@media screen and (max-width: 996px) {
+  .viewTypeSwitch {
+    display: none;
+  }
+  .sitePersonInfo {
+    flex-direction: column;
+
+    .personInfo {
+      visibility: hidden;
+      display: none;
+    }
+  }
+}

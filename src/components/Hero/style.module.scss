@@ -1,0 +1,55 @@
+.viewHero {
+  width: 90%;
+  margin: 0 auto;
+  //height: calc(100vh - 60px);
+  height: calc(80% - 60px);
+  display: flex;
+
+  .heroSummary {
+    min-width: 300px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .nice {
+      font-size: 50px;
+    }
+
+    .zzy {
+      font-size: 30px;
+    }
+
+    .desc {
+      font-size: 18px;
+    }
+
+    .button {
+      color: #ffffff;
+      padding: 15px 30px;
+      background-color: var(--ifm-color-primary);
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: var(--site-item-box-shadow-current);
+      }
+    }
+  }
+
+  .heroImg {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 996px), screen and (max-width: 1200px) {
+  .viewHero {
+    width: 95%;
+    flex-direction: column;
+  }
+}
+

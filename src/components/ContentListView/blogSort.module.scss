@@ -1,0 +1,96 @@
+.sortItem {
+
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: var(--site-item-box-shadow);
+  cursor: pointer;
+  position: relative;
+  top: 0;
+  transition: top 0.2s linear;
+
+  &:hover {
+    top: -10px;
+    box-shadow: var(--site-item-box-shadow-current);
+  }
+
+  .sortHeader {
+    .articleTitle {
+      display: inline-block;
+      position: relative;
+
+      &::after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 0;
+        position: absolute;
+        left: 50%;
+        bottom: -1px;
+        background: var(--ifm-link-color);
+        transition: all 0.3s linear;
+      }
+
+      &:hover::after {
+        left: 0;
+        width: 100%;
+      }
+    }
+
+    .summary {
+      font-size: 16px;
+      color: var(--ifm-color-primary-unimportant);
+    }
+
+    .personInfo {
+      display: flex;
+      flex-direction: row;
+
+      img {
+        height: 3rem;
+        width: 3rem;
+      }
+
+      .infoBase {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .userName {
+          //cursor: pointer;
+        }
+
+        .summaryPerson {
+          font-size: 14px;
+          color: var(--ifm-color-primary-unimportant);
+        }
+
+        span {
+
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .sortContent {
+    border-top: 1px dotted var(--site-border-color);
+    text-indent: 2em;
+    padding: 20px 6px;
+  }
+
+  .sortFooter {
+    padding-top: 8px;
+    border-top: 1px dotted var(--site-border-color);
+    display: flex;
+    justify-content: space-between;
+
+    .tagList {
+
+    }
+
+    .moreText {
+      font-weight: 600;
+    }
+  }
+}

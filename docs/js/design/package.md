@@ -9,6 +9,8 @@
 3. 怎么用？引用的时候是  `import { util, SelfComponent } from "xxx"`，使用上，util.isArray(), 对于组件引入后直接用即可（任何框架都一样）。
 4. 项目的完善？编写类型定义文件，使用TS改造，编写测试保证健壮，编写文档网站。
 
+[源码地址](https://github.com/AmandaYi/util-resource)
+
 ## 目标
 
 - 能够熟悉前端底层包封装的整体规范和宏观思想
@@ -39,6 +41,9 @@ types 类型定义文件
 | vue-template-compiler | ^2.6.14 |
 
 ## 编写代码
+
+
+
 封装标题组件，根据传入的title展示界面
 封装一个util库，具备一个判断数组的函数
 

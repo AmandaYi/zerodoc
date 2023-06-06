@@ -1,6 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-
+const path = require("path")
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const navbarConfig = require("./config/navbarConfig");
@@ -8,7 +8,7 @@ const footerConfig = require("./config/footerConfig");
 const baseConfig = require("./config/baseConfig")
 let scripts = []
 // 代码统计功能
-if(process.env.NODE_ENV  === "production") {
+if (process.env.NODE_ENV === "production") {
 	scripts.push({
 		src: 'https://hm.baidu.com/hm.js?0c2f44724c29f9207682097a4ae0ee1d',
 		async: true,
@@ -22,7 +22,8 @@ const config = {
 	baseUrl: baseConfig.baseUrl,
 	onBrokenLinks: baseConfig.onBrokenLinks,
 	onBrokenMarkdownLinks: baseConfig.onBrokenMarkdownLinks,
-	scripts: [...scripts] ,
+
+	scripts: [...scripts],
 	// favicon: 'img/favicon.ico',
 	// organizationName: 'facebook', // Usually your GitHub org/user name.
 	// projectName: 'docusaurus', // Usually your repo name.
@@ -35,26 +36,46 @@ const config = {
 			/** @type {import('@docusaurus/preset-classic').Options} */
 
 			({
+				// docs: false,
 				docs: {
 					sidebarPath: require.resolve('./config/sidebarsConfig.js'),
 					// Please change this to your repo.
 					// editUrl: 'https://github.com/facebook/docusaurus/tree/main/packa  ges/create-docusaurus/templates/shared/',
 				},
-				blog: {
-					showReadingTime: true,
-					blogSidebarTitle: 'All posts',
-					blogSidebarCount: 'ALL',
-					// Please change this to your repo.
-					// editUrl:
-					// 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-				},
+				blog: false,
+				// blog: {
+				// 	// showReadingTime: true,
+				// 	// blogSidebarTitle: 'All posts',
+				// 	// blogSidebarCount: 'ALL',
+				// 	// Please change this to your repo.
+				// 	// editUrl:
+				// 	// 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+				// },
 				theme: {
 					customCss: require.resolve('./src/css/custom.css'),
 				},
 			}),
 		],
 	],
-	plugins: ['@docusaurus/theme-live-codeblock'],
+	plugins: [
+		// [path.resolve(__dirname, './src/plugins/plugin-content-docs'),{
+		// 	sidebarPath: require.resolve('./config/sidebarsConfig.js'),
+		// }],
+		'docusaurus-plugin-sass', '@docusaurus/theme-live-codeblock',
+		[
+			path.resolve(__dirname, './src/plugins/plugin-content-blog'),
+			{
+				showReadingTime: true,
+				blogSidebarTitle: 'All posts',
+				blogSidebarCount: 0
+			},
+		],
+		[
+			'@docusaurus/plugin-ideal-image',
+			{
+				disableInDev: false,
+			},
+		],],
 	themeConfig:
 	/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({

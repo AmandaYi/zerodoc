@@ -1,0 +1,18 @@
+.view {
+  max-width: 1920px;
+  margin: 0 auto;
+  width: 100%;
+
+  .viewBox {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 996px), screen and (max-width: 1200px) {
+  .view {
+    .viewBox {
+      width: 95%;
+    }
+  }
+}
