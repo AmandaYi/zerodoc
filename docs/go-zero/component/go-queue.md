@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 9
 ---
 
-# go-queue
+# 延迟队列go-queue
 
 延迟队列：一种带有 延迟功能 的消息队列
 

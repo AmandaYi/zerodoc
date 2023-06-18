@@ -2,7 +2,7 @@
 sidebar_position: 9
 ---
 
-# 时间轮介绍
+# 时间轮介绍TimingWheel
 
 本文来介绍 `go-zero` 中 **延迟操作**。**延迟操作**，可以采用两个方案：
 

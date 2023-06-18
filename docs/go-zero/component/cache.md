@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 2
 ---
 
 # 缓存
@@ -179,7 +179,7 @@ sidebar_position: 4
 
 这是从 go-zero 的官方示例 `bookstore` 里截的一个 `CRUD + Cache` 的生成说明。我们可以通过指定的建表 `sql` 文件或者 `datasource` 来提供给 `goctl` 所需的 `schema`，然后 `goctl` 的 `model` 子命令可以一键生成所需的 `CRUD + Cache` 代码。
 
-这样就确保了所有人写的缓存代码都是一样的，工具生成能不一样吗？:P
+这样就确保了所有人写的缓存代码都是一样的，工具生成能不一样吗？
 
 
 

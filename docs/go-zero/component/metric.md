@@ -1,9 +1,25 @@
 ---
-sidebar_position: 10
+sidebar_position: 8
 ---
 
 # 指标监控
 
+在微服务治理中，服务监控也是非常重要的一个环节，监控一个服务是否正常工作，需要从多维度进行，如：
+* mysql指标
+* mongo指标
+* redis指标
+* 请求日志
+* 服务指标统计
+* 服务健康检测
+...
+
+监控的工作非常大，本节仅以其中的`服务指标监控`作为例子进行说明。
+  
+## 基于prometheus的微服务指标监控
+
+服务上线后我们往往需要对服务进行监控，以便能及早发现问题并做针对性的优化，监控又可分为多种形式，比如日志监控，调用链监控，指标监控等等。而通过指标监控能清晰的观察出服务指标的变化趋势，了解服务的运行状态，对于保证服务稳定起着非常重要的作用
+prometheus是一个开源的系统监控和告警工具，支持强大的查询语言PromQL允许用户实时选择和汇聚时间序列数据，时间序列数据是服务端通过HTTP协议主动拉取获得，也可以通过中间网关来推送时间序列数据，可以通过静态配置文件或服务发现来获取监控目标
+  
 ### 监控接入
 
 `go-zero` 框架中集成了基于 `prometheus` 的服务指标监控。但是没有显式打开，需要开发者在 `config.yaml` 中配置：
@@ -49,9 +65,6 @@ docker run \
 
 那 `go-zero` 是如何集成监控指标？监控的又是什么指标？我们如何定义我们自己的指标？下面就来解释这些问题
 
-:::tip
-以上的基本接入，可以参看我们的另外一篇：https://zeromicro.github.io/go-zero/service-monitor.html
-:::
 
 ### 如何集成
 
@@ -157,5 +170,30 @@ func (h *histogram) observe(v float64, bucket int) {
 - 当然，开发者也可以在业务逻辑中书写统计的指标逻辑。同上。
 
 上述都是针对 HTTP 部分逻辑的解析，RPC 部分的逻辑类似，你可以在 拦截器 部分看到设计。
+
+## grafana可视化界面
+
+grafana是一款可视化工具，功能强大，支持多种数据来源Prometheus、Elasticsearch、Graphite等，安装比较简单请参考官方文档，grafana默认端口3000，安装好后再浏览器输入http://localhost:3000/，默认账号和密码都为admin
+下面演示如何基于以上指标进行可视化界面的绘制：
+点击左侧边栏`Configuration`->`Data Source`->`Add data source`进行数据源添加，其中HTTP的URL为数据源的地址
+![grafana](/images/go_zero/grafana.png)
+
+点击左侧边栏添加dashboard，然后添加Variables方便针对不同的标签进行过滤筛选比如添加app变量用来过滤不同的服务
+![grafana-app](/images/go_zero/grafana-app.png)
+
+进入dashboard点击右上角Add panel添加面板，以path维度统计接口的qps
+![grafana-app](/images/go_zero/grafana-qps.png)
+
+最终的效果如下所示，可以通过服务名称过滤不同的服务，面板展示了path为/shorten的qps变化趋势
+![grafana-app](/images/go_zero/grafana-panel.png)
+
+
+
+
+
+
+
+
+
 
 

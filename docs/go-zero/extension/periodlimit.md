@@ -1,6 +1,3 @@
----
-sidebar_position: 7
----
 
 # periodlimit限流
 
@@ -8,6 +5,7 @@ sidebar_position: 7
 
 
 本文就来介绍一下 `periodlimit` 。
+
 ## 使用
 ```go
 const (
@@ -94,8 +92,9 @@ end
 | 2 | HitQuota | 2 | **hit limit** |
 
 下面这张图描述了请求进入的过程，以及请求触发 `limit` 时后续发生的情况：
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/261626/1605430483430-92415ed3-e88f-487d-8fd6-8c58a9abe334.png#align=left&display=inline&height=524&margin=%5Bobject%20Object%5D&name=image.png&originHeight=524&originWidth=1051&size=90836&status=done&style=none&width=1051)
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/261626/1605495120249-f6b05ac2-7090-47b0-a3c0-da50df6206dd.png#align=left&display=inline&height=557&margin=%5Bobject%20Object%5D&name=image.png&originHeight=557&originWidth=456&size=53785&status=done&style=none&width=456)
+![image.png](/images/go_zero/periodlimit-1.png)
+![image.png](/images/go_zero/periodlimit-2.png)
+
 ## 后续处理
 
 
@@ -109,8 +108,6 @@ end
 1. 如果需要处理这些请求，开发者可以借助 `mq` 将请求缓冲，减缓请求的压力
 1. 采用 `tokenlimit`，允许暂时的流量冲击
 
-
-
 所以下一篇我们就来聊聊 `tokenlimit`
 
 
@@ -120,12 +117,5 @@ end
 
 ## 参考
 
-
-- [go-zero periodlimit](https://github.com/zeromicro/go-zero/blob/master/core/limit/periodlimit.go)
 - [分布式服务限流实战，已经为你排好坑了](https://www.infoq.cn/article/Qg2tX8fyw5Vt-f3HH673)
-- [tokenlimit](tokenlimit.md)
-
-
-
-
-
+ 
