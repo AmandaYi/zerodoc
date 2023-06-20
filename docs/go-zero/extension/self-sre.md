@@ -58,4 +58,3 @@ func (p *Proba) TrueOnProba(proba float64) (truth bool) {
 ```
 
 
-<Vssue title="自适应熔断中间件" />

@@ -33,6 +33,3 @@ func main() {
 
 - `errorHandler` 返回的 `int` 作为 `http status code` 返回客户端
 - 如果 `errorHandler` 返回的 `interface{}` 是 `error` 类型的话，那么会直接用 `err.Error()` 的内容以非 `json` 的格式返回客户端，不是 `error` 的话，那么会 `marshal` 成 `json` 再返回
-
-
-<Vssue title="自定义错误返回" />

@@ -194,6 +194,3 @@ redis-svc:6379> get go-zero
 
 `goctl` 工具极大简化了 K8S yaml 文件的编写，提供了开箱即用的最佳实践，并且支持了模板自定义。
 
-
-<Vssue title="goctlkube" />
-

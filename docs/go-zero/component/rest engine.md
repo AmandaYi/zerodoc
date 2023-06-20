@@ -112,5 +112,3 @@ Verbose: false
 | Signature |  |  | 配置签名，这个比较复杂，后续会另外起一篇文章详细解释签名，签名目的是为了防止传输内容被抓包暴露协议内容。 |
 
 
-<Vssue title="restengine" />
-

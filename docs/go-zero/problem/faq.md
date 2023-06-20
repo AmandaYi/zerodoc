@@ -6,7 +6,7 @@
    > 还是在其他目录，出现上述问题的原因就是 `goctl` 所在目录不在 `PATH` (环境变量)中所致。
 
 2. rpc怎么调用
-   > 该问题可以参考快速开始中的[rpc编写与调用](rpc-call.md)介绍，其中有rpc调用的使用逻辑。
+   > 该问题可以参考快速开始中的rpc介绍，其中有rpc调用的使用逻辑。
 
 3. proto使用了import，goctl命令需要怎么写。
    > `goctl` 对于import的proto指定 `BasePath` 提供了 `protoc` 的flag映射，即 `--proto_path, -I`，
@@ -24,10 +24,10 @@
    > ```
    
 6. jwt鉴权怎么实现
-   > 请参考[jwt鉴权](jwt.md)
+ 参考业务jwt实现
 
 7. api中间件怎么使用
-   > 请参考[中间件](middleware.md)
+ 参考中间件
 
 8. 怎么关闭输出的统计日志(stat)？
    > logx.DisableStat()

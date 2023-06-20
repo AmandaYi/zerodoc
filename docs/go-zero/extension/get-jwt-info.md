@@ -189,4 +189,3 @@ NOTE: 这里的`authorization`需要替换为你当前获取到且未过期的ac
 ![auth.png](https://cdn.nlark.com/yuque/0/2020/png/465993/1603555619289-17719ef7-f94b-4ae8-b4f8-30de85a2d72b.png#align=left&display=inline&height=508&margin=%5Bobject%20Object%5D&name=auth.png&originHeight=508&originWidth=2224&size=124071&status=done&style=none&width=2224)
 
 
-<Vssue title="获取用户信息JWT" />

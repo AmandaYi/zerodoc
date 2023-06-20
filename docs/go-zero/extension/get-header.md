@@ -152,4 +152,4 @@ $ curl -i -X GET \
 ![user-info.png](https://cdn.nlark.com/yuque/0/2020/png/465993/1603555677203-b4cf3af3-c437-4361-8b2b-59d8941b68df.png#align=left&display=inline&height=544&margin=%5Bobject%20Object%5D&name=user-info.png&originHeight=544&originWidth=2224&size=136083&status=done&style=none&width=2224)
 
 
-<Vssue title="获取用户信息header" />
+

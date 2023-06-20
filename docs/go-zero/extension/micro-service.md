@@ -331,13 +331,3 @@ $ go mod init go-zero-demo
 
 # 源码
 [mall源码](https://github.com/zeromicro/go-zero-demo/tree/master/mall)
-
-# 猜你想看
-* [goctl使用说明](goctl.md)
-* [api目录结构介绍](api-dir.md)
-* [api语法](api-grammar.md)
-* [api配置文件介绍](api-config.md)
-* [api中间件使用](middleware.md)
-* [rpc目录](rpc-dir.md)
-* [rpc配置](rpc-config.md)
-* [rpc调用方说明](rpc-call.md)

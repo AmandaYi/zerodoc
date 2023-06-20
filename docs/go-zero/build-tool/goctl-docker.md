@@ -136,4 +136,4 @@ Content-Length: 14
 `goctl` 工具极大简化了 `Dockerfile` 文件的编写，提供了开箱即用的最佳实践，并且支持了模板自定义。
 
 
-<Vssue title="goctldocker" />
+
