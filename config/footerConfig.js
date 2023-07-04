@@ -2,7 +2,7 @@ module.exports =  {
 	style: 'dark',
 		links: [
 		{
-			title: '列',
+			title: '探索',
 			// 救济他人的心，分裂一切阻碍自己的障碍微细会
 			items: [
 				{
@@ -20,7 +20,7 @@ module.exports =  {
 			]
 		},
 		{
-			title: '前',
+			title: '基础知识',
 			// 五元素控制，更好的使用编程
 			items: [
 				{
@@ -38,7 +38,7 @@ module.exports =  {
 			]
 		},
 		{
-			title: '皆',
+			title: '计算机',
 			// 危机感应	表现知人心、操纵人心的能力 解开一切困扰-
 			items: [
 				{
@@ -48,7 +48,7 @@ module.exports =  {
 			]
 		},
 		{
-			title: '阵',
+			title: 'VDom',
 			// 心电感应/隐身 表示集富庶与敬爱于一身的能力。透视、洞察敌人心理
 			items: [
 				{
@@ -62,7 +62,7 @@ module.exports =  {
 			]
 		},
 			{
-				title: "者",
+				title: "其他",
 				// 表现自由支配自己躯体和别人躯体的力量。万物之灵力，任我接洽
 				items: [
 					{

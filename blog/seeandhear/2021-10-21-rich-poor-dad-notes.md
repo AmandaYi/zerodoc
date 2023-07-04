@@ -2,6 +2,8 @@
 slug: rich/poor
 date: 2021-10-21 13:18
 title: 富爸爸穷爸爸-读书笔记
+unlisted: true
+draft: true
 ---
 
 ## 一、课程篇－准备基础思维 
