@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 0
 ---
 
 # 布隆过滤器
@@ -78,4 +78,42 @@ func (f *BloomFilter) Exists(data []byte) (bool, error) {
 }
 ```
 
-本节主要介绍了go-zero框架中的 core.bloom 工具，在实际的项目中非常实用。用好工具对于提升服务性能和开发效率都有很大的帮助，希望本篇文章能给大家带来一些收获。
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/zeromicro/go-zero/core/bloom"
+	"github.com/zeromicro/go-zero/core/stores/redis"
+)
+
+func main() {
+	store := redis.New("127.0.0.1:6379", func(r *redis.Redis) {
+		r.Pass = "123456"
+		r.Type = redis.NodeType // 单点类型
+		//r.Type = redis.ClusterType // 集群类型
+		r.Addr = "127.0.0.1:6379"
+	})
+	filter := bloom.New(store, "testbloom", 1024)
+	filter.Add([]byte("123456"))
+	filter.Add([]byte("zzy"))
+
+	//查找是否存在当前值，如果存在才能执行业务
+	if ok, err := filter.Exists([]byte("123456")); ok && err != nil {
+		fmt.Println("正常执行业务 do something")
+	} else {
+		fmt.Println("不存在的数据，请联系管理员")
+	}
+}
+
+```
+
+
+## 布隆过滤器的哈希
+谁都可以实现布隆过滤器，每个人的算法均不相同，但是，最后的结果基本一样，均为ADD是稳定的，但是查询是不稳定的，这时候，可以再查一遍数据库即可。
+
+布隆过滤器是一个常用的数据结构，通过牺牲准确率获得更高的空间利用率，在实现上会调整bit数组大小和hash计算次数提高准确率。
+布隆过滤器应用场景有限，一般适用于大量数据重复过滤的情况，在使用时应该根据数据特点与hashmap,bitmap等数据结构做对比。
+

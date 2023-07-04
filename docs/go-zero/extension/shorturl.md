@@ -231,7 +231,8 @@ sidebar_position: 0
   可以通过命令生成 proto 文件模板
 
   ```shell
-  goctl rpc template -o transform.proto
+  # goctl rpc template -o transform.proto // 旧命令
+  goctl rpc -o transform.proto // 新命令
   ```
 
   修改后文件内容如下：
@@ -240,6 +241,8 @@ sidebar_position: 0
   syntax = "proto3";
   
   package transform;
+  
+  option go_package="./transform";
   
   message expandReq {
       string shorten = 1;
@@ -266,7 +269,8 @@ sidebar_position: 0
 * 用 `goctl` 生成 rpc 代码，在 `rpc/transform` 目录下执行命令
 
   ```shell
-  goctl rpc proto -src transform.proto -dir .
+  # goctl rpc proto -src transform.proto -dir . # 旧命令
+  goctl rpc protoc .\transform.proto --go_out=./pb --go-grpc_out=./pb --zrpc_out=. # 新命令
   ```
 
   **注意：不能在 GOPATH 目录下执行以上命令**

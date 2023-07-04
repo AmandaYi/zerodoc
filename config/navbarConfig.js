@@ -13,66 +13,18 @@ module.exports = {
 		{
 			type: "dropdown",
 			position: "left",
-			label: "笔记",
+			label: "技术笔记Note",
 			items: [
-
 				{
 					type: 'doc',
 					label: 'react',
 					docId: 'js/react/base',
 				},
+
 				{
 					type: 'doc',
 					label: 'vue',
 					docId: 'js/vue/vue3base',
-				},
-				{
-					type: 'doc',
-					label: 'react native',
-					docId: 'js/rn/base',
-				},
-				{
-					type: 'doc',
-					label: 'TypeScript',
-					docId: 'js/typescript/base',
-				},
-				{
-					type: 'doc',
-					label: 'webpack5核心笔记',
-					docId: 'js/webpack/index',
-				},
-				{
-					type: 'doc',
-					label: 'webpack常用功能30篇',
-					docId: 'js/webpack3/index',
-				},
-				{
-					type: 'doc',
-					label: '视频直播技术',
-					docId: 'js/video/index',
-				},
-				{
-					type: 'doc',
-					label: "JS常用功能记录",
-					docId: 'js/normal/index',
-				},
-
-			]
-		},
-		{
-			type: "dropdown",
-			position: "left",
-			label: "数据存储",
-			items: [
-				{
-					type: "doc",
-					label: "MySQL",
-					docId: "mysql/join"
-				},
-				{
-					type: 'doc',
-					label: 'Mybatis笔记',
-					docId: 'orm/mybatis/index',
 				},
 				{
 					type: 'doc',
@@ -84,26 +36,22 @@ module.exports = {
 					label: 'Redis应用问题',
 					docId: 'redis/cachepenetration',
 				},
-
-			]
-		},
-		{
-			type: "dropdown",
-			position: "left",
-			label: "计算机基础知识",
-			items: [
 				{
 					type: "doc",
-					label: "数据结构与算法",
-					docId: "structure/analyse"
-				}
-			]
-		},
-		{
-			type: "dropdown",
-			position: "right",
-			label: "项目文档",
-			items: [
+					label: "go-zero微服务文档",
+					docId: "go-zero/project/prepare"
+				},
+				{
+					type: "doc",
+					label: "微服务扩展阅读",
+					docId: "go-zero/extension/bloom"
+				},
+
+				{
+					type: 'doc',
+					label: 'TypeScript',
+					docId: 'js/typescript/base',
+				},
 				{
 					type: 'doc',
 					label: 'npm库开发',
@@ -144,18 +92,143 @@ module.exports = {
 					label: "声网白板接入",
 					docId: "structure/analyse"
 				},
+
+
+				{
+					type: 'doc',
+					label: 'react native',
+					docId: 'js/rn/base',
+				},
+				{
+					type: 'doc',
+					label: 'webpack5核心笔记',
+					docId: 'js/webpack/index',
+				},
+				{
+					type: 'doc',
+					label: 'webpack常用功能30篇',
+					docId: 'js/webpack3/index',
+				},
+				{
+					type: 'doc',
+					label: '视频直播技术',
+					docId: 'js/video/index',
+				},
+				{
+					type: 'doc',
+					label: "JS常用功能记录",
+					docId: 'js/normal/index',
+				},
 				{
 					type: "doc",
-					label: "go-zero微服务文档",
-					docId: "go-zero/project/prepare"
+					label: "MySQL",
+					docId: "mysql/join"
 				},
-			// 	{
-			// 		label: "大小写转换",
+				{
+					type: 'doc',
+					label: 'Mybatis笔记',
+					docId: 'orm/mybatis/index',
+				},
 
-			// 		target: "_blank"
-			// 	}
 			]
 		},
+		// {
+		// 	type: "dropdown",
+		// 	position: "left",
+		// 	label: "数据存储",
+		// 	items: [
+		// 		{
+		// 			type: "doc",
+		// 			label: "MySQL",
+		// 			docId: "mysql/join"
+		// 		},
+		// 		{
+		// 			type: 'doc',
+		// 			label: 'Mybatis笔记',
+		// 			docId: 'orm/mybatis/index',
+		// 		},
+		// 		{
+		// 			type: 'doc',
+		// 			label: 'Redis6笔记',
+		// 			docId: 'redis/base',
+		// 		},
+		// 		{
+		// 			type: 'doc',
+		// 			label: 'Redis应用问题',
+		// 			docId: 'redis/cachepenetration',
+		// 		},
+		//
+		// 	]
+		// },
+		{
+			type: "dropdown",
+			position: "left",
+			label: "计算机基础知识",
+			items: [
+				{
+					type: "doc",
+					label: "数据结构与算法",
+					docId: "structure/analyse"
+				}
+			]
+		},
+		// {
+		// 	type: "dropdown",
+		// 	position: "right",
+		// 	label: "项目文档",
+		// 	items: [
+		// 		{
+		// 			type: 'doc',
+		// 			label: 'npm库开发',
+		// 			docId: 'js/design/package',
+		// 		},
+		// 		// {
+		// 		// 	type: 'doc',
+		// 		// 	label: '知识',
+		// 		// 	docId: 'web/01',
+		// 		// },
+		// 		{
+		// 			type: 'doc',
+		// 			label: 'Hybird混合开发原理',
+		// 			docId: 'js/hybird/base',
+		// 		},
+		// 		{
+		// 			type: 'doc',
+		// 			label: '简易持续集成',
+		// 			docId: 'devops/webops',
+		// 		},
+		// 		{
+		// 			type: 'doc',
+		// 			label: 'WordPress主题开发',
+		// 			docId: 'wordpress/base',
+		// 		},
+		// 		{
+		// 			type: "doc",
+		// 			label: "办公文档多人同步编辑项目",
+		// 			docId: "project/officeOnlineEdit"
+		// 		},
+		// 		// {
+		// 		// 	type: "doc",
+		// 		// 	label: "WPS文档接入（Java版）",
+		// 		// 	docId: "structure/analyse"
+		// 		// },
+		// 		{
+		// 			type: "doc",
+		// 			label: "声网白板接入",
+		// 			docId: "structure/analyse"
+		// 		},
+		// 		{
+		// 			type: "doc",
+		// 			label: "go-zero微服务文档",
+		// 			docId: "go-zero/project/prepare"
+		// 		},
+		// 	// 	{
+		// 	// 		label: "大小写转换",
+		//
+		// 	// 		target: "_blank"
+		// 	// 	}
+		// 	]
+		// },
 		{
 			label: '项目',
 			position: 'right',
