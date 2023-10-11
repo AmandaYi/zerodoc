@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/creatifydemo/static/css/main.54d5d719.css",
+    "main.js": "/creatifydemo/static/js/main.a5937722.js",
+    "index.html": "/creatifydemo/index.html",
+    "main.54d5d719.css.map": "/creatifydemo/static/css/main.54d5d719.css.map",
+    "main.a5937722.js.map": "/creatifydemo/static/js/main.a5937722.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.54d5d719.css",
+    "static/js/main.a5937722.js"
+  ]
+}
