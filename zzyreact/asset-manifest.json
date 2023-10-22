@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/zzyreact/static/css/main.73d8c0b6.css",
+    "main.js": "/zzyreact/static/js/main.b317be25.js",
+    "index.html": "/zzyreact/index.html",
+    "main.73d8c0b6.css.map": "/zzyreact/static/css/main.73d8c0b6.css.map",
+    "main.b317be25.js.map": "/zzyreact/static/js/main.b317be25.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.73d8c0b6.css",
+    "static/js/main.b317be25.js"
+  ]
+}
