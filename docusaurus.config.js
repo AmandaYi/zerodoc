@@ -10,7 +10,7 @@ let scripts = []
 // 代码统计功能
 if (process.env.NODE_ENV === "production") {
 	scripts.push({
-		src: 'https://hm.baidu.com/hm.js?0c2f44724c29f9207682097a4ae0ee1d',
+		src: 'https://hm.baidu.com/hm.js?748e7c913214342d8f0706348a9df9f3',
 		async: true,
 	})
 }
@@ -24,6 +24,10 @@ const config = {
 	onBrokenMarkdownLinks: baseConfig.onBrokenMarkdownLinks,
 
 	scripts: [...scripts],
+	i18n:{
+		defaultLocale: 'zh-CN',
+		locales:['zh-CN']
+	},
 	// favicon: 'img/favicon.ico',
 	// organizationName: 'facebook', // Usually your GitHub org/user name.
 	// projectName: 'docusaurus', // Usually your repo name.
@@ -40,7 +44,7 @@ const config = {
 				docs: {
 					sidebarPath: require.resolve('./config/sidebarsConfig.js'),
 					// Please change this to your repo.
-					// editUrl: 'https://github.com/facebook/docusaurus/tree/main/packa  ges/create-docusaurus/templates/shared/',
+					// editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
 				},
 				blog: false,
 				// blog: {
@@ -76,9 +80,14 @@ const config = {
 				disableInDev: false,
 			},
 		],],
+
+
 	themeConfig:
 	/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
+			htmlAttributes: {
+				name:"999"
+			},
 			liveCodeBlock: {
 				/**
 				 * The position of the live playground, above or under the editor

@@ -1,5 +1,16 @@
 #! /bin/node
 // require("events").EventEmitter.defaultMaxListeners = 0;
+
+/**
+ * 项目根目录需要的配置文件格式application.yml
+ * serverConfig:
+ *   remotePath: /xxx
+ * host: xxx
+ * port: 22
+ * username: xxx
+ * password: xxx
+ */
+
 process.on('warning', e => console.warn(e.stack))
 // 不限制监听数量
 process.setMaxListeners(0)
@@ -16,8 +27,6 @@ const {hideBin} = require('yargs/helpers');
 let localPath = path.resolve(__dirname, "..", "build");
 // 远程文件夹的存放位置，最好绝对路径
 let remotePath = "";
-// let remotePath = "/mnt/sdb/wwwroot/www.baby8013.com";
-// let remotePath = "/zzy/www.baby8013.com";
 // 声明上传文件服务类
 class PushServer {
 	// 服务实例

@@ -16,7 +16,7 @@ export default function UserInfo() {
           <img src={avatorLogo} alt=""/>
         </div>
         <div className={styles.name}>
-          赵哲云
+          ZEROYI
         </div>
         <div className={styles.summary}>
           {siteConfig.tagline}
