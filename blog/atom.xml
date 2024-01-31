@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://www.equflower.com/blog</id>
-    <title>无缘无故~ Blog</title>
+    <title>无缘无故~望着我 Blog</title>
     <updated>2022-04-25T10:20:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://www.equflower.com/blog"/>
-    <subtitle>无缘无故~ Blog</subtitle>
+    <subtitle>无缘无故~望着我 Blog</subtitle>
     <entry>
         <title type="html"><![CDATA[认真努力，多做点事情，少说点话。]]></title>
         <id>http://www.equflower.com/blog/admonish</id>
