@@ -69,18 +69,20 @@ module.exports =  {
 						label: "正则表达式流程图转换",
 						href: "https://regexper.com/",
 						target: "_blank",
+						rel: "nofollow noopener noreferrer"
 					},
 					{
 						label: "分布式流量控制组件",
 						href: "https://sentinelguard.io/zh-cn/index.html",
 						target: "_blank",
+						rel: "nofollow noopener noreferrer"
 					}
 				]
 			}
 	],
 		copyright: `
 								<div>以生死为此岸，涅槃为彼岸，此岸苦苦挣扎，彼岸超然洒脱。</div>
-								<div>Copy right © ${new Date().getFullYear()}  Inc. By zhaozheyun</div>
+								<div>Copy right © ${new Date().getFullYear()}  Inc. By ZeroYi</div>
 								<div><a href="https://beian.miit.gov.cn/" target="_blank" class="footer__link-item">豫ICP备2023031390号</a></div>
 							`,
 

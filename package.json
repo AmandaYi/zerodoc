@@ -15,7 +15,7 @@
     "typecheck": "tsc",
     "pushServer": "node cicd/pushServer.js",
     "pushServerWidthRmdir": "node cicd/pushServer.js --rmdir=true",
-    "buildPipePush": "npm run build && npm run pushServer"
+    "pushServerWithBuild": "npm run build && npm run pushServer"
   },
   "dependencies": {
     "@docusaurus/core": "2.3.1",
