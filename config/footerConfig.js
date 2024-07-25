@@ -83,7 +83,7 @@ module.exports =  {
 		copyright: `
 								<div>以生死为此岸，涅槃为彼岸，此岸苦苦挣扎，彼岸超然洒脱。</div>
 								<!-- <div>Copy right © ${new Date().getFullYear()}  Inc. By ZeroYi</div> -->
-								<div><a href="https://beian.miit.gov.cn/" target="_blank" class="footer__link-item">豫ICP备2023031390号-1</a></div>
+<!--								<div><a href="https://beian.miit.gov.cn/" target="_blank" class="footer__link-item">豫ICP备2023031390号-1</a></div>-->
 							`,
 
 
