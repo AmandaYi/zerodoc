@@ -4,7 +4,7 @@ module.exports = {
 	// 自动隐藏的粘性导航条,当用户开始向下滚动页面时自动隐藏导航条，当用户向上滚动页面时则显示导航条。
 	hideOnScroll: true,
 	// title: 'ZEROYI',
-	title: '健康生活与学习',
+	title: 'ZEROYI',
 	// logo: {
 	// 	alt: '赵哲云',
 	// 	src: 'img/logo.svg',
@@ -174,35 +174,35 @@ module.exports = {
 			]
 		},
 		{
-			label: '新问博客',
+			label: '文学',
 			position: 'left',
 			href: 'https://www.xinwenmh.cn',
 		},
-		{
-			label: '小红书运营',
-			position: 'left',
-			href: 'https://www.xinwenmh.cn/category-1.html',
-		},
-		{
-			label: '抖音运营',
-			position: 'left',
-			href: 'https://www.xinwenmh.cn/category-2.html',
-		},
-		{
-			label: '视频号运营',
-			position: 'left',
-			href: 'https://www.xinwenmh.cn/category-3.html',
-		},
-		{
-			label: '自媒体',
-			position: 'left',
-			href: 'https://www.xinwenmh.cn/category-4.html',
-		},
-		{
-			label: 'SEO',
-			position: 'left',
-			href: 'https://www.xinwenmh.cn/category-5.html',
-		},
+		// {
+		// 	label: '小红书运营',
+		// 	position: 'left',
+		// 	href: 'https://www.xinwenmh.cn/category-1.html',
+		// },
+		// {
+		// 	label: '抖音运营',
+		// 	position: 'left',
+		// 	href: 'https://www.xinwenmh.cn/category-2.html',
+		// },
+		// {
+		// 	label: '视频号运营',
+		// 	position: 'left',
+		// 	href: 'https://www.xinwenmh.cn/category-3.html',
+		// },
+		// {
+		// 	label: '自媒体',
+		// 	position: 'left',
+		// 	href: 'https://www.xinwenmh.cn/category-4.html',
+		// },
+		// {
+		// 	label: 'SEO',
+		// 	position: 'left',
+		// 	href: 'https://www.xinwenmh.cn/category-5.html',
+		// },
 		// {
 		// 	type: "dropdown",
 		// 	position: "right",
