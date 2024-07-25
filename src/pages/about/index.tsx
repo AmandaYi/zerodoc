@@ -82,21 +82,21 @@ export default function About() {
 
           <div className={styles.contact}>
             <h2>⛱联系我</h2>
-            <div className={styles.contactLine}>
-              <div className={styles.label}><MdOutlineMailOutline/><span className={styles.labelText}>邮箱：</span></div>
-              <div className={styles.value}><Link href={"mailto:amandayi521@gmail.com"}>amandayi521@gmail.com</Link>
-              </div>
-            </div>
+            {/*<div className={styles.contactLine}>*/}
+            {/*  <div className={styles.label}><MdOutlineMailOutline/><span className={styles.labelText}>邮箱：</span></div>*/}
+            {/*  <div className={styles.value}><Link href={"mailto:amandayi521@gmail.com"}>amandayi521@gmail.com</Link>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
             <div className={styles.contactLine}>
               <div className={styles.label}><AiFillWechat/><span className={styles.labelText}>微信：</span></div>
               <div className={styles.value}><img src="/img/weixin.png" width={200} alt=""/></div>
             </div>
-            <div className={styles.contactLine}>
-              <div className={styles.label}><VscGithub/><span className={styles.labelText}>Github:</span></div>
-              <div className={styles.value}>
-                <Link href={"https://github.com/AmandaYi"}>https://github.com/AmandaYi</Link>
-              </div>
-            </div>
+            {/*<div className={styles.contactLine}>*/}
+            {/*  <div className={styles.label}><VscGithub/><span className={styles.labelText}>Github:</span></div>*/}
+            {/*  <div className={styles.value}>*/}
+            {/*    <Link href={"https://github.com/AmandaYi"}>https://github.com/AmandaYi</Link>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
           </div>
         </div>
       </ViewLayout></Layout>

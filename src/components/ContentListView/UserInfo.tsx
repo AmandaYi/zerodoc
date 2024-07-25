@@ -43,10 +43,10 @@ export default function UserInfo() {
         {/*    </Link>*/}
         {/*  </li>*/}
         {/*</ul>*/}
-        <ul className={styles.contactList}>
+        {/*<ul className={styles.contactList}>*/}
           {/*<Link><VscRss/></Link>*/}
-          <Link href={selfConfig.githubUrl}><VscGithub/></Link>
-        </ul>
+        {/*  <Link href={selfConfig.githubUrl}><VscGithub/></Link>*/}
+        {/*</ul>*/}
       </div>
       {/*<div className={styles.tagContainer}>*/}
       {/*  <div className={styles.tagTitle}>*/}
