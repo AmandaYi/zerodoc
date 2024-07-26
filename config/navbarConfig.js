@@ -1,14 +1,14 @@
+const { positional } = require("yargs")
 const baseConfig = require("./baseConfig")
 
 module.exports = {
 	// 自动隐藏的粘性导航条,当用户开始向下滚动页面时自动隐藏导航条，当用户向上滚动页面时则显示导航条。
 	hideOnScroll: true,
-	// title: 'ZEROYI',
 	title: 'ZEROYI',
-	// logo: {
-	// 	alt: '赵哲云',
-	// 	src: 'img/logo.svg',
-	// },
+	logo: {
+		// alt: '赵哲云',
+		src: 'img/logo.svg',
+	},
 	items: [
 		// 这些项目可以根据type字段具有不同的行为。以下部分将向您介绍所有可用的导航栏项目类型
 		{
@@ -58,11 +58,6 @@ module.exports = {
 					label: 'npm库开发',
 					docId: 'js/design/package',
 				},
-				// {
-				// 	type: 'doc',
-				// 	label: '知识',
-				// 	docId: 'web/01',
-				// },
 				{
 					type: 'doc',
 					label: 'Hybird混合开发原理',
@@ -83,11 +78,6 @@ module.exports = {
 					label: "办公文档多人同步编辑项目",
 					docId: "project/officeOnlineEdit"
 				},
-				// {
-				// 	type: "doc",
-				// 	label: "WPS文档接入（Java版）",
-				// 	docId: "structure/analyse"
-				// },
 				{
 					type: "doc",
 					label: "声网白板接入",
@@ -133,34 +123,6 @@ module.exports = {
 
 			]
 		},
-		// {
-		// 	type: "dropdown",
-		// 	position: "left",
-		// 	label: "数据存储",
-		// 	items: [
-		// 		{
-		// 			type: "doc",
-		// 			label: "MySQL",
-		// 			docId: "mysql/join"
-		// 		},
-		// 		{
-		// 			type: 'doc',
-		// 			label: 'Mybatis笔记',
-		// 			docId: 'orm/mybatis/index',
-		// 		},
-		// 		{
-		// 			type: 'doc',
-		// 			label: 'Redis6笔记',
-		// 			docId: 'redis/base',
-		// 		},
-		// 		{
-		// 			type: 'doc',
-		// 			label: 'Redis应用问题',
-		// 			docId: 'redis/cachepenetration',
-		// 		},
-		//
-		// 	]
-		// },
 		{
 			type: "dropdown",
 			position: "left",
@@ -174,175 +136,27 @@ module.exports = {
 			]
 		},
 		{
+			type: "dropdown",
+			positional: "left",
+			label: "安全工程",
+			items: [
+				{
+					type: 'doc',
+					label: 'Web逆向工程',
+					docId: 'rsecu/webjs/1',
+				},
+			]
+		},
+		{
 			label: '文学',
 			position: 'left',
 			href: 'https://www.xinwenmh.cn',
 		},
-		// {
-		// 	label: '小红书运营',
-		// 	position: 'left',
-		// 	href: 'https://www.xinwenmh.cn/category-1.html',
-		// },
-		// {
-		// 	label: '抖音运营',
-		// 	position: 'left',
-		// 	href: 'https://www.xinwenmh.cn/category-2.html',
-		// },
-		// {
-		// 	label: '视频号运营',
-		// 	position: 'left',
-		// 	href: 'https://www.xinwenmh.cn/category-3.html',
-		// },
-		// {
-		// 	label: '自媒体',
-		// 	position: 'left',
-		// 	href: 'https://www.xinwenmh.cn/category-4.html',
-		// },
-		// {
-		// 	label: 'SEO',
-		// 	position: 'left',
-		// 	href: 'https://www.xinwenmh.cn/category-5.html',
-		// },
-		// {
-		// 	type: "dropdown",
-		// 	position: "right",
-		// 	label: "项目文档",
-		// 	items: [
-		// 		{
-		// 			type: 'doc',
-		// 			label: 'npm库开发',
-		// 			docId: 'js/design/package',
-		// 		},
-		// 		// {
-		// 		// 	type: 'doc',
-		// 		// 	label: '知识',
-		// 		// 	docId: 'web/01',
-		// 		// },
-		// 		{
-		// 			type: 'doc',
-		// 			label: 'Hybird混合开发原理',
-		// 			docId: 'js/hybird/base',
-		// 		},
-		// 		{
-		// 			type: 'doc',
-		// 			label: '简易持续集成',
-		// 			docId: 'devops/webops',
-		// 		},
-		// 		{
-		// 			type: 'doc',
-		// 			label: 'WordPress主题开发',
-		// 			docId: 'wordpress/base',
-		// 		},
-		// 		{
-		// 			type: "doc",
-		// 			label: "办公文档多人同步编辑项目",
-		// 			docId: "project/officeOnlineEdit"
-		// 		},
-		// 		// {
-		// 		// 	type: "doc",
-		// 		// 	label: "WPS文档接入（Java版）",
-		// 		// 	docId: "structure/analyse"
-		// 		// },
-		// 		{
-		// 			type: "doc",
-		// 			label: "声网白板接入",
-		// 			docId: "structure/analyse"
-		// 		},
-		// 		{
-		// 			type: "doc",
-		// 			label: "go-zero微服务文档",
-		// 			docId: "go-zero/project/prepare"
-		// 		},
-		// 	// 	{
-		// 	// 		label: "大小写转换",
-		//
-		// 	// 		target: "_blank"
-		// 	// 	}
-		// 	]
-		// },
 		{
 			label: '项目',
 			position: 'right',
 			href: baseConfig.baseUrl + 'project',
 		}
-		// {
-		// 	type: "dropdown",
-		// 	position: "left",
-		// 	label: "项目",
-		// 	items: [
-		// 		// {
-		// 		// 	label: "在线办公软件",
-		// 		// 	href: baseConfig.baseUrl + 'office-online',
-		// 		// 	target: "_blank"
-		// 		// },
-		// 		// {
-		// 		// 	label: "在线协作白板",
-		// 		// 	href: baseConfig.baseUrl + 'blackboard-online',
-		// 		// 	target: "_blank"
-		// 		// },
-		// 		// {
-		// 		// 	label: "JS日历",
-		// 		// 	href: baseConfig.baseUrl + 'calendar',
-		// 		// 	target: "_blank"
-		// 		// },
-		// 		// {
-		// 		// 	label: "视频直播",
-		// 		// 	href: baseConfig.baseUrl + 'video-call',
-		// 		// 	target: "_blank"
-		// 		// },
-		// 		// {
-		// 		// 	label: "在线电子签章",
-		// 		// 	href: baseConfig.baseUrl + 'elec-sign',
-		// 		// 	target: "_blank"
-		// 		// },
-		// 		// 还有一些再想想gulpinit，cache，成就很多
-		// 	]
-		// },
-		// {
-		// 	type: "dropdown",
-		// 	position: "left",
-		// 	label: "SQL",
-		// 	items: [
-		// 		{
-		// 						type: "doc",
-		// 						label: "MySQL",
-		// 						docId: "mysql/join"
-		// 		}
-		// 		]
-		// }
-		// {
-		// 	type: "dropdown",
-		// 	position: "left",
-		// 	label: "MAYA",
-		// 	items: [
-		// 		{
-		// 			type: "doc",
-		// 			label: "maya",
-		// 			docId: "maya/01"
-		// 		}
-		// 	]
-		// },
-		// {
-		// 	type: "doc",
-		// 	position: "right",
-		// 	label: "关于",
-		// 	docId: "about/index"
-		// },
-		// {
-		// 	type: "dropdown",
-		// 	position: "right",
-		// 	label: "其他",
-		// 	items: [
-		// 		{
-		// 			to: "blog/rich/poor",
-		// 			label: "胡思乱想",
-		// 		}
-		// 	]
-		// }
-		// {
-		// 	type: 'search',
-		// 	position: 'right',
-		// },
 	],
 }
 

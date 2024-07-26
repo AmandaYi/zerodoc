@@ -89,7 +89,7 @@ export default function About() {
             {/*</div>*/}
             <div className={styles.contactLine}>
               <div className={styles.label}><AiFillWechat/><span className={styles.labelText}>微信：</span></div>
-              <div className={styles.value}><img src="/img/weixin.png" width={200} alt=""/></div>
+              <div className={styles.value}><img src="img/weixin.png" width={200} alt=""/></div>
             </div>
             {/*<div className={styles.contactLine}>*/}
             {/*  <div className={styles.label}><VscGithub/><span className={styles.labelText}>Github:</span></div>*/}
