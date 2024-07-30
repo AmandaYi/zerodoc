@@ -1,0 +1,137 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# 浏览器解析JS
+
+:::tip
+纯理论知识，了解即可。
+:::
+浏览器解析JS的原理，其实就是浏览器的主要工作原理，至于HTML和CSS的解析不必理会。
+
+## 执行逻辑
+ 
+接下来咱们先看段代码，你觉得下面这段代码输出的结果是什么？
+
+```
+showName()
+console.log(myname)
+var myname = 'Web逆向'
+function showName() {
+    console.log('函数showName被执行');
+}
+```
+
+JavaScript是按顺序执行的。若按照这个逻辑来理解的话，那么：
+
+当执行到第1行的时候，由于函数showName还没有定义，所以执行应该会报错；
+同样执行第2行的时候，由于变量myname函数也未定义，所以同样也会报错
+
+然而实际执行结果却并非如此， 如下图：
+
+<img alt="执行过程" src={useBaseUrl('/images/rsecu/webjs/1_5_1.png')} />
+
+第1行输出“函数showName被执行”，第2行输出“undefined”，这和前面想象中的顺序执行有点不一样啊！
+
+通过上面的执行结果，你应该已经知道了函数或者变量可以在定义之前使用，那如果使用没有定义的变量或者函数，JavaScript代码还能继续执行吗？为了验证这点，我们可以删除第3行变量myname的定义，如下所示：
+
+```
+showName()
+console.log(myname)
+function showName() {
+    console.log('函数showName被执行');
+}
+```
+然后再次执行这段代码时，JavaScript引擎就会报错，结果如下：
+
+从上面两段代码的执行结果来看，我们可以得出如下三个结论。
+
+执行过程中，若使用了未声明的变量，那么JavaScript执行会报错。
+在一个变量定义之前使用它，不会出错，但是该变量的值会为undefined，而不是定义时的值。
+在一个函数定义之前使用它，不会出错，且函数能正确执行
+结论很好理解，因为变量没有定义，这样在执行JavaScript代码时，就找不到该变量，所以JavaScript会抛出错误。
+
+但是对于第二个和第三个结论，就挺让人费解的：
+
+变量和函数为什么能在其定义之前使用？这似乎表明JavaScript代码并不是一行一行执行的。
+
+同样的方式，变量和函数的处理结果为什么不一样？比如上面的执行结果，提前使用的showName函数能打印出来完整结果，但是提前使用的myname变量值却是undefined，而不是定义时使用 "Web逆向" 的这个值
+
+## 
+要解释这两个问题，你就需要先了解下什么是变量提升。
+
+不过在介绍变量提升之前，我们先通过下面这段代码，来看看什么是JavaScript中的声明和赋值。
+```
+var myname = 'Web逆向'
+```
+
+这段代码你可以把它看成是两行代码组成的：
+
+```
+var myname    //声明部分
+myname = 'Web逆向'  //赋值部分
+```
+
+上面是变量的声明和赋值，那接下来我们再来看看函数的声明和赋值，结合下面这段代码：
+```
+function foo(){
+  console.log('foo')
+}
+
+var bar = function(){
+  console.log('bar')
+}
+```
+
+第一个函数foo是一个完整的函数声明，也就是说没有涉及到赋值操作；第二个函数是先声明变量bar，再把function(){console.log('bar')}赋值给bar。
+
+好了，理解了声明和赋值操作，那接下来我们就可以聊聊什么是变量提升了。
+
+所谓的变量提升，是指在JavaScript代码执行过程中，JavaScript引擎把变量的声明部分和函数的声明部分提升到代码开头的“行为”。变量被提升后，会给变量设置默认值，这个默认值就是我们熟悉的undefined。
+
+下面我们来模拟下实现：
+
+```
+/*
+* 变量提升部分
+*/
+// 把变量 myname提升到开头，
+// 同时给myname赋值为undefined
+var myname = undefined
+// 把函数showName提升到开头
+function showName() {
+    console.log('showName被调用');
+}
+
+/*
+* 可执行代码部分
+*/
+showName()
+console.log(myname)
+// 去掉var声明部分，保留赋值语句
+myname = 'Web逆向'
+```
+
+第一处是把声明的部分都提升到了代码开头，如变量myname和函数showName，并给变量设置默认值undefined；
+第二处是移除原本声明的变量和函数，如var myname = 'Web逆向'的语句，移除了var声明，整个移除showName的函数声明。
+通过这两步，就可以实现变量提升的效果。你也可以执行这段模拟变量提升的代码，其输出结果和第一段代码应该是完全一样的。
+
+## 总结
+
+JavaScript代码执行过程中，需要先做变量提升，而之所以需要实现变量提升，是因为JavaScript代码在执行之前需要先编译。 在编译阶段，变量和函数会被存放到变量环境中，变量的默认值会被设置为undefined；在代码执行阶段，JavaScript引擎会从变量环境中去查找自定义的变量和函数。
+
+
+## 作业思考
+
+:::info
+```
+showName()
+var showName = function() {
+    console.log(2)
+}
+function showName() {
+    console.log(1)
+}
+```
+你能按照JavaScript的执行流程，来分析最终输出结果吗？
+
+答案是1，想想为什么会这样。
+:::
