@@ -18,17 +18,6 @@ module.exports = {
 			items: [
 				{
 					type: 'doc',
-					label: 'react',
-					docId: 'js/react/base',
-				},
-
-				{
-					type: 'doc',
-					label: 'vue',
-					docId: 'js/vue/vue3base',
-				},
-				{
-					type: 'doc',
 					label: 'Redis6笔记',
 					docId: 'redis/base',
 				},
@@ -47,6 +36,18 @@ module.exports = {
 					label: "微服务扩展阅读",
 					docId: "go-zero/extension/bloom"
 				},
+				{
+					type: 'doc',
+					label: 'react',
+					docId: 'js/react/base',
+				},
+
+				{
+					type: 'doc',
+					label: 'vue',
+					docId: 'js/vue/vue3base',
+				},
+				
 
 				{
 					type: 'doc',
@@ -68,6 +69,18 @@ module.exports = {
 					label: '简易持续集成',
 					docId: 'devops/webops',
 				},
+				
+				{
+					type: "doc",
+					label: "MySQL",
+					docId: "mysql/join"
+				},
+				{
+					type: 'doc',
+					label: 'Mybatis笔记',
+					docId: 'orm/mybatis/index',
+				},
+
 				{
 					type: 'doc',
 					label: 'WordPress主题开发',
@@ -110,17 +123,6 @@ module.exports = {
 					label: "JS常用功能记录",
 					docId: 'js/normal/index',
 				},
-				{
-					type: "doc",
-					label: "MySQL",
-					docId: "mysql/join"
-				},
-				{
-					type: 'doc',
-					label: 'Mybatis笔记',
-					docId: 'orm/mybatis/index',
-				},
-
 			]
 		},
 		{
