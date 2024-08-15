@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="generator" content="Docusaurus v2.3.1">
-<link rel="alternate" type="application/rss+xml" href="/zerodoc/blog/rss.xml" title="无缘无故~望着我 RSS Feed">
-<link rel="alternate" type="application/atom+xml" href="/zerodoc/blog/atom.xml" title="无缘无故~望着我 Atom Feed">
+<link rel="alternate" type="application/rss+xml" href="/zerodoc/blog/rss.xml" title="ZZY的技术笔记 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/zerodoc/blog/atom.xml" title="ZZY的技术笔记 Atom Feed">
 
-<script src="https://hm.baidu.com/hm.js?748e7c913214342d8f0706348a9df9f3" async></script><title data-rh="true">开发规范 | 无缘无故~望着我</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://amandayi.github.io/zerodoc/docs/go-zero/project/specification"><meta data-rh="true" name="docusaurus_locale" content="zh-CN"><meta data-rh="true" name="docsearch:language" content="zh-CN"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="开发规范 | 无缘无故~望着我"><meta data-rh="true" name="description" content="在实际业务开发中，除了要提高业务开发效率，缩短业务开发周期，保证线上业务高性能，高可用的指标外，好的编程习惯也是一个开发人员基本素养之一，在本章节， 我们将介绍一下go-zero中的编码规范，本章节为可选章节，内容仅供交流与参考"><meta data-rh="true" property="og:description" content="在实际业务开发中，除了要提高业务开发效率，缩短业务开发周期，保证线上业务高性能，高可用的指标外，好的编程习惯也是一个开发人员基本素养之一，在本章节， 我们将介绍一下go-zero中的编码规范，本章节为可选章节，内容仅供交流与参考"><link data-rh="true" rel="canonical" href="https://amandayi.github.io/zerodoc/docs/go-zero/project/specification"><link data-rh="true" rel="alternate" href="https://amandayi.github.io/zerodoc/docs/go-zero/project/specification" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://amandayi.github.io/zerodoc/docs/go-zero/project/specification" hreflang="x-default"><link rel="stylesheet" href="/zerodoc/assets/css/styles.eeff9f6e.css">
+<script src="https://hm.baidu.com/hm.js?748e7c913214342d8f0706348a9df9f3" async></script><title data-rh="true">开发规范 | ZZY的技术笔记</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://amandayi.github.io/zerodoc/docs/go-zero/project/specification"><meta data-rh="true" name="docusaurus_locale" content="zh-CN"><meta data-rh="true" name="docsearch:language" content="zh-CN"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="开发规范 | ZZY的技术笔记"><meta data-rh="true" name="description" content="在实际业务开发中，除了要提高业务开发效率，缩短业务开发周期，保证线上业务高性能，高可用的指标外，好的编程习惯也是一个开发人员基本素养之一，在本章节， 我们将介绍一下go-zero中的编码规范，本章节为可选章节，内容仅供交流与参考"><meta data-rh="true" property="og:description" content="在实际业务开发中，除了要提高业务开发效率，缩短业务开发周期，保证线上业务高性能，高可用的指标外，好的编程习惯也是一个开发人员基本素养之一，在本章节， 我们将介绍一下go-zero中的编码规范，本章节为可选章节，内容仅供交流与参考"><link data-rh="true" rel="canonical" href="https://amandayi.github.io/zerodoc/docs/go-zero/project/specification"><link data-rh="true" rel="alternate" href="https://amandayi.github.io/zerodoc/docs/go-zero/project/specification" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://amandayi.github.io/zerodoc/docs/go-zero/project/specification" hreflang="x-default"><link rel="stylesheet" href="/zerodoc/assets/css/styles.eeff9f6e.css">
 <link rel="preload" href="/zerodoc/assets/js/runtime~main.30e5a151.js" as="script">
-<link rel="preload" href="/zerodoc/assets/js/main.3a1df976.js" as="script">
+<link rel="preload" href="/zerodoc/assets/js/main.2136cd84.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -22,6 +22,6 @@
 <!--								<div><a href="https://beian.miit.gov.cn/" target="_blank" class="footer__link-item">豫ICP备2023031390号-1</a></div>-->
 							</div></div></div></footer></div>
 <script src="/zerodoc/assets/js/runtime~main.30e5a151.js"></script>
-<script src="/zerodoc/assets/js/main.3a1df976.js"></script>
+<script src="/zerodoc/assets/js/main.2136cd84.js"></script>
 </body>
 </html>
