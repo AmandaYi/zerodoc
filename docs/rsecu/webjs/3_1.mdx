@@ -1,0 +1,95 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# JS逆向AJAX断点调试法
+
+考虑到对AJAX的逆向调试知识不足。因此提供AJAX断点调试法。
+
+## 思路
+
+1. 找到AJAX请求的URL
+2. 找到请求的参数
+3. 找到请求的返回值
+4. 找到请求的返回值的类型
+5. 找到请求的返回值的类型对应的解析函数
+6. 找到解析函数的调用点
+7. 找到调用点的调用点
+8. 找到调用点的调用点对应的函数
+
+## 步骤
+
+1. 找到AJAX请求的URL
+
+   ```js
+   var url = 'http://www.example.com/ajax/getData';
+   ```
+
+2. 找到请求的参数
+
+   ```js
+   var params = {
+       id: 1,
+       name: 'John'
+   };
+   ```
+
+3. 找到请求的返回值
+
+## 实战
+
+我找一个网站举例： https://www.gm99.com/
+
+目的：学习怎么使用AJAX断点来找到password的加密位置
+
+
+### 开始举例分析
+
+打开网站，输入账号，密码。示例账号13111111111， 密码：123456。输入完成之后进行抓包分析。
+
+
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_1.png')} />
+在这里主要说一个如何过滤xhr请求，不要使用浏览器调试工具Filter过滤工具栏下的XHR来进行过滤，因为不准确。在这个示例中如果选中XHR选项你就会发现过滤之后一个网络请求包都没。
+
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_2.png')} />
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_3.png')} />
+如图所示：
+建议直接观察网络请求包(上图中的Initator选项是一个js文件,Initator选项就是图片中鼠标位置）就可以使用本节所讲的xhr断点调试法。也可以根据异步请求的url路径来添加异步断点，当异步请求的路径包含/login/login3的时候就会被断住如下图所示：
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_4.png')} />
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_5.png')} />
+
+移动鼠标到如下位置：这里弹出来的就是调用顺序，里面的getData等这类就是一个一个的函数调用。
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_6.png')} />
+
+首先排除jquery库中的调用栈，因为jquery是别人封装好的前端框架，该网站开发人员不可能修改框架，来实现对密码的加密，因此要首先排除掉jquery库中的调用栈。首先在点击s.login所处的位置，如下图所示：
+:::tip
+排除jquery库中的调用栈，这里说的不够绝对，如果遇到很大的公司，可能情况下会修改jquery的源码，比如阿里。这里想告知的事情是，比如很大的公司这种他如果用的有jquery或者vue或者react，那么也要稍微分析一下框架里面的调用栈，看看，但是一般情况没动过，阿里那边告诉我是，前端的框架里面几乎不对框架里面的内容改动，改动框架一般出现在对后端框架修改，前端这块的框架例外是遇到公共服务网站或者政府类网站才会把加密的事情放到框架级别。
+:::
+:::info
+上面介绍了怎么创建XHR的断点，但是此网址是用jqery包裹了一层，特别容易造成捕获断点失效问题，因此对于XHR断点要有自己的分析想法，不要遇到了一种情况是，自己监听的URL是对的，但是就是无法进入断点产生疑惑问题。
+:::
+
+这里接着分析完毕，因此此网站断点无法进入，这里手动进行分析进入，我们查看上图后，发现除去框架jQuery的部分之外，都是home.min.js文件了，因此我们先点第一个Login即可。
+接着点击上面的n.login后面的home.min文件。可以直接进入登录函数内容。
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_7.png')} />
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_8.png')} />
+
+这里的函数混淆程度很低，因此要么打断点，要么直接看即可。经过观察，密码经过了`o = a.encode(t.password, s)`后进行加密，因此就知道了密码在这里发生了改变。
+
+按照目前网址的混淆习惯，必定encode也在a的原型链上，所以说，搜索在当前文件搜一下encode即可。
+
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_9.png')} />
+
+最后发现加密函数在`return encodeURIComponent(this.jsencrypt.encrypt(i))`里面。
+
+<img alt="手动分析网站" src={useBaseUrl('/images/rsecu/webjs/3_1_10.png')} />
+
+### 对加密函数模拟执行
+一般情况会在VSCODE + 补环境或者VSCODE + JSRPC中进行处理，这里直接在this.getKey带个断点得到结果就行了。
+
+### Web逆向脚本开发
+
+就是在上面的全部基础上，配合补环境或者JSRPC，和home.min.js文件，进行脚本开发。
+
+## 总结
+
+此篇是为了便于说明AJAX的断点，以及引导学习分析方案，此篇是从简单入口，后面会有对事件进行断点，怎么写自己的脚本，对市面上常见的网站和常见的验证方案引导怎么分析。
+要深刻的明白，只学怎么做没用，要学会为什么这么做事，只有这样子掌握了系统的逆向分析方法，才能在遇到各种问题的时候不怕。
