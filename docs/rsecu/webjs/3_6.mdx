@@ -1,0 +1,238 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# HOOK
+
+## 定义
+在JavaScript中，"hook"（钩子）这个术语通常指的是一个编程模式或机制，它允许你“挂钩”到某个事件或过程上，在特定的时刻执行自定义代码。钩子的概念并不限于JavaScript，它是软件开发中的通用概念。
+
+能够在不改变现有代码结构的情况下添加新行为或修改现有行为。
+通俗来讲，Hook 其实就是拦路打劫，Hook 的过程，就是冒名顶替的过程。
+
+## JS中的HOOK
+在 JavaScript 逆向中，替换原函数的过程都可以被称为 Hook。
+直接覆盖原函数是最简单的做法，以上代码将 a 函数进行了重写。
+```js
+function a() {
+  console.log("a");
+}
+
+a = function b() {
+  console.log("b");
+};
+
+a()  // b
+```
+
+这种原函数直接覆盖的方法通常只用来进行临时调试，实用性不大，在实际 JS 逆向过程中，一般不这么干，主要是用内置对象的方法，一般是Object.defineProperty()和Proxy对象。
+
+## Object.defineProperty
+如果熟悉Vue2的话，就会熟悉Vue2源码中，Object.defineProperty()就是用来替换原函数的。感兴趣可以去搜搜Vue2源码中的Object.defineProperty。
+
+函数定义如下：
+
+Object.defineProperty(obj, prop, descriptor) ，它的作用就是直接在一个对象上定义一个新属性，或者修改一个对象的现有属性。
+
+obj：要定义属性的对象。
+
+prop：要定义或修改的属性的名称。
+
+descriptor：要定义或修改的属性描述符。
+
+| 属性名       | 默认值    | 含义                                         |
+| ------------ | --------- | -------------------------------------------- |
+| get          | undefined | 存取描述符，目标属性获取值的方法             |
+| set          | undefined | 存取描述符，目标属性设置值的方法             |
+| value        | undefined | 数据描述符，设置属性的值                     |
+| writable     | false     | 数据描述符，目标属性的值是否可以被重写       |
+| enumerable   | false     | 目标属性是否可以被枚举                       |
+| configurable | false     | 目标属性是否可以被删除或是否可以再次修改特性 |
+
+一般情况对象赋值的方法是如下：
+
+```js
+let o = {}
+o.name = "小明"
+o["source"] = "100"
+```
+
+使用 Object.defineProperty() 方法
+
+```js
+let o = {}
+Object.defineProperty(o, 'name', {
+   value: '小明',
+   writable: true  // 是否可以被重写
+})
+console.log(o.name) // '小明'
+o.name = "小红"
+console.log(o.name) // '小红'
+```
+在 Hook 中，使用最多的是存取描述符，即 get 和 set。
+
+get：属性的 getter 函数，如果没有 getter，则为 undefined，当访问该属性时，会调用此函数，执行时不传入任何参数，但是会传入 this 对象（由于继承关系，这里的 this 并不一定是定义该属性的对象），该函数的返回值会被用作属性的值。
+
+set：属性的 setter 函数，如果没有 setter，则为 undefined，当属性值被修改时，会调用此函数，该方法接受一个参数，也就是被赋予的新值，会传入赋值时的 this 对象。
+```js
+let o = {
+  name: '小明',
+
+};
+let count = 0
+
+// 定义一个 age 获取值时返回定义好的变量 count
+Object.defineProperty(o, 'age', {
+  get: function () {
+    console.log('获取age属性的值');
+    return count;
+  },
+  set: function (val) {
+    console.log('设置age属性的值')
+    count = val + 1;
+  },
+});
+console.log(o.age);
+o.age = 1;
+console.log(o.age);
+```
+最后会这么输出
+```bash
+获取age属性的值
+0
+设置age属性的值
+获取age属性的值
+2
+```
+通过这样的方法，我们就可以在设置某个值的时候，添加一些代码，比如 debugger;，让其断下，然后利用调用栈进行调试，找到参数加密、或者参数生成的地方，需要注意的是，网站加载时首先要运行我们的 Hook 代码，再运行网站自己的代码，才能够成功断下，这个过程我们可以称之为 Hook 代码的注入，以下将介绍几种主流的注入方法。
+
+下面的所有方法要建立在这条原则上，网站加载时首先要运行我们的 Hook 代码
+
+## Fiddler 插件注入
+
+这里给出链接供学习。不懂的再沟通。
+
+首先是Fiddler插件的安装方法（用这个插件进行HOOK）：
+
+
+这是插件的文件地址：https://gitcode.com/open-source-toolkit/86bdc/overview
+
+这是插件的使用说明：https://blog.csdn.net/weixin_51231433/article/details/142371498
+
+插件的安装说明，直接看文件地址的说明就醒了，晚上的插件安装方式不一定正确。
+
+插件的使用说明看懂后，其实也学会了Fidder的HOOK使用方式了。
+
+这里给出主要的流程说明，其原理可以理解为拦截 —> 加工 —> 放行的一个过程，利用 Fiddler 替换响应，在 Fiddler 拦截到数据后，在源码第一行插入 Hook 代码，由于 Hook 代码是一个自执行函数，那么网页一旦加载，就必然会先运行 Hook 代码。
+
+为了防止糊里糊涂的，这里举例：
+
+假如我要找一个cookie里面的值，但是这个值是前端通过一定的请求或者啥的重新生成的，因此静态代码是无法查到的。
+
+比如，我要cookie的值 _selfWindow，但是默认情况下，值是-1，-1的时候是静态代码判断，发现是-1直接报错，但是第一次进入网页的时候，会请求后端，然后后端会重新生成这个值，然后赋值给这个cookie，这时候，静态代码是无法查到的。只有重新赋值_selfWindow = 100 时候，才能走正确的流程。
+那么我们就可以写一个自执行的函数处理。
+
+```js
+(function () {
+  'use strict';
+  var cookieTemp = '';
+  Object.defineProperty(document, 'cookie', {
+    set: function (val) {
+      if (val.indexOf('_selfWindow') != -1) {
+        debugger;
+      }
+      console.log('Hook捕获到cookie设置->', val);
+      cookieTemp = val;
+      return val;
+    },
+    get: function () {
+      return cookieTemp;
+    },
+  });
+})();
+```
+if (val.indexOf('_selfWindow') != -1) {debugger;} 的意思是检索 _selfWindow 在字符串中首次出现的位置，等于 -1 表示这个字符串值没有出现，反之则出现。如果出现了，那么就 debugger 断下。
+有了上面的代码，就可以使用上面的Fidder插件直接引入上面的函数就能先一步拦截处理逻辑，如下图所示。
+
+<img alt="Fidder Hook" src={useBaseUrl('/images/rsecu/webjs/3_6_1.png')} />
+
+
+浏览器清除 cookie 后重新进入要逆向的页面，可以看到成功断下，在 console 控制台可以看到捕获的一些 cookie 值，此时的 val 就是 _selfWindow 的值，打开自己的源代码调试找到右侧的 Call Stack 调用栈里就可以看到一些函数的调用过程，依次向上跟进就能够找到最开始 _selfWindow 生成的地方。
+<img alt="Fidder Hook" src={useBaseUrl('/images/rsecu/webjs/3_6_2.png')} />
+
+
+## 油猴插件
+也就是TamperMonkey，是一款浏览器的插件，支持很多主流的浏览器， 包括 Chrome、Microsoft Edge、Safari、Opera、Firefox、UC 浏览器、360 浏览器、QQ 浏览器，基本上实现了脚本的一次编写，所有平台都能运行，可以说是基于浏览器的应用算是真正的跨平台了。用户可以在 GreasyFork、OpenUserJS 等平台直接获取别人发布的脚本，功能众多且强大，比如视频解析、去广告等。
+
+从各自的浏览器的插件扩展中心进行安装即可。
+
+然后点击图标，添加新脚本，或者点击管理面板，再点击加号新建脚本，写入上面的代码就行啦。
+
+<img alt="TamperMonkey Hook" src={useBaseUrl('/images/rsecu/webjs/3_6_3.png')} />
+
+<img alt="TamperMonkey Hook" src={useBaseUrl('/images/rsecu/webjs/3_6_4.png')} />
+
+更多的可以参考文档的链接。https://www.tampermonkey.net/documentation.php
+注意 @match、@include 和 @run-at ，其他倒是无所谓了。
+
+@match： 从字符串的起始位置匹配正则表达式，只有匹配的网址才会执行对应的脚本，例如 * 匹配所有，https://www.baidu.com/* 匹配百度等，可以参考 Python re 模块里面的 re.match() 方法，允许多个实例
+
+@include： 和 @match 类似，只有匹配的网址才会执行对应的脚本，但是 @include 不会从字符串起始位置匹配，例如 *://*baidu.com/* 匹配百度，具体区别可以参考 TamperMonkey 官方文档
+
+@run-at：脚本注入时机，该选项是能不能 hook 到的关键，有五个值可选：document-start：网页开始时；document-body：body出现时；document-end：载入时或者之后执行；document-idle：载入完成后执行，默认选项；context-menu：在浏览器上下文菜单中单击该脚本时，一般将其设置为 document-start
+
+<img alt="TamperMonkey Hook" src={useBaseUrl('/images/rsecu/webjs/3_6_5.png')} />
+
+对了编写完毕即可保存，才会生成新的脚本。保存按钮在图的左上角的文件菜单里面。
+
+保存完毕才会有新脚本，然后才能去网站启用他，后面的逻辑就和前面的Fidder一致了。
+
+<img alt="TamperMonkey Hook" src={useBaseUrl('/images/rsecu/webjs/3_6_6.png')} />
+
+
+## 浏览器插件注入
+
+这种方法最原始，不太推荐，但是有时候有很好用。好用的原因是碰到极端的网站会用到（具体怎么极端遇到了就知道了，这里不强调也不说明）
+
+浏览器插件官方叫法应该是浏览器扩展（Extension），浏览器插件能够增强浏览器功能，同样也能够帮助我们 Hook，浏览器插件的编写并不复杂，以 Chrome 插件为例，只需要保证项目下有一个 manifest.json 文件即可，它用来设置所有和插件相关的配置，必须放在根目录。其中 manifest_version、name、version 3个参数是必不可少的，如果想要深入学习，可以参考小茗同学的博客和 Google 官方文档。需要注意的是，火狐浏览器插件不一定能在其他浏览器上运行，而 Chrome 插件除了能运行在 Chrome 浏览器之外，还可以运行在所有 webkit 内核的国产浏览器，比如 360 极速浏览器、360 安全浏览器、搜狗浏览器、QQ 浏览器等等。
+
+新建 manifest.json 文件：
+```json
+{
+    "name": "Cookie Hook",          // 插件名称
+    "version": "1.0",               // 插件版本
+    "description": "Cookie Hook",   // 插件描述
+    "manifest_version": 2,          // 清单版本，必须是2或者3
+    "content_scripts": [{
+        "matches": ["<all_urls>"],  // 匹配所有地址
+        "js": ["cookie_hook.js"],   // 注入的代码文件名和路径，如果有多个，则依次注入
+        "all_frames": true,         // 允许将内容脚本嵌入页面的所有框架中
+        "permissions": ["tabs"],    // 权限申请，tabs 表示标签
+        "run_at": "document_start"  // 代码注入的时间
+    }]
+}
+```
+新建 cookie_hook.js 文件：
+```js
+var hook = function() {
+    'use strict';
+    var cookieTemp = '';
+    Object.defineProperty(document, 'cookie', {
+        set: function(val) {
+            if (val.indexOf('_selfWindow') != -1) {
+                debugger;
+            }
+            console.log('Hook捕获到cookie设置->', val);
+            cookieTemp = val;
+            return val;
+        },
+        get: function() {
+            return cookieTemp;
+        },
+    });
+}
+var script = document.createElement('script');
+script.textContent = '(' + hook + ')()';
+(document.head || document.documentElement).appendChild(script);
+script.parentNode.removeChild(script);
+```
+
+将这两个文件放到同一个文件夹，打开 chrome 的扩展程序, 打开开发者模式，加载已解压的扩展程序，选择创建的文件夹即可。
