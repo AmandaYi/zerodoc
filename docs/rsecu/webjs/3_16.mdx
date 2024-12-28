@@ -1,0 +1,207 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Webpack与代码逆向关系
+
+## 基本概念
+webpack是 JavaScript 应用程序的模块打包器,可以把开发中的所有资源（图片、js文件、css文件等）都看成模块，通过loader（加载器）和plugins（插件）对资源进行处理，打包成符合生产环境部署的前端资源。所有的资源都是通过JavaScript渲染出来的。
+
+```js
+!function("形参"){"加载器"}(["模块"])
+
+模块以为数组形式存储，数组中的每个元素都是函数
+```
+
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_1.png')} />
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_2.png')} />
+
+## 单例模式
+
+webpack其实是单例模式
+好处：减少内存开支和系统的新能开销
+
+```js
+funobj = {};// []
+!(function (e) {
+    yyy = {};
+
+    function u(n) {
+        if (yyy[n])
+            return yyy[n].exports;
+
+        var t = yyy[n] = {
+            i: n,
+            l: !1,
+            exports: {}
+        };
+      
+        return e[n].call(t.exports, t, t.exports, u),
+            t.l = !0,
+            t.exports
+    }
+})(funobj)
+```
+
+## webpack数组形式
+给需要处理业务的模块进行打包，通过下标取值。
+
+```js
+!function(e) {
+    var t = {};
+
+    // 加载器  所有的模块都是从这个函数加载 执行
+    function n(r) {
+        if (t[r])
+            return t[r].exports;
+        var o = t[r] = {
+            i: r,
+            l: !1,
+            exports: {}
+        };
+        return e[r].call(o.exports, o, o.exports, n),
+            o.l = !0,
+            o.exports
+    }
+
+    n(0)
+}
+    ([
+        function () {
+            console.log('123456')
+        },
+
+        function () {
+            console.log('模块2')
+        },
+    ])
+```
+## webpack对象形式
+
+```js
+
+!function(e) {
+    var t = {};
+    //  所有的模块 都是从这个加载器 执行的  分发器
+    function n(r) {
+        if (t[r])
+            return t[r].exports;
+        var o = t[r] = {
+            i: r,
+            l: !1,
+            exports: {}
+        };
+        return e[r].call(o.exports, o, o.exports, n),
+        o.l = !0,
+        o.exports
+    }
+   n('aa')  // 对象 根据KEY 找模块
+}({
+
+        0: function () {
+            console.log('我是模块1  负责加密')
+        },
+
+        'aa': function () {
+            console.log('我是模块2  负责解密')
+        },
+
+        2: function () {
+            console.log('我是模块3  负责爬数据')
+        }
+    }
+);
+```
+给需要处理业务的模块进行打包，通过key取值。
+
+数组一般是需要全扣的，对象形式可以半扣
+
+● 找到加载器，使用全局变量如loader，导出加载器 
+● 找到加密函数的索引（如是数组形式） loader(50).default() 
+
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_3.png')} />
+
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_4.png')} />
+
+## 多js文件打包
+
+如果模块比较多，就会将模块打包成JS文件, 然后定义一个全局变量 window["webpackJsonp"] = [ ]，它的作用是存储需要动态导入的模块，然后重写 window["webpackJsonp"] 数组的 push( ) 方法为 webpackJsonpCallback( ),也就是说 window["webpackJsonp"].push( ) 其实执行的是 webpackJsonpCallback( ),window["webpackJsonp"].push( )接收三个参数,第一个参数是模块的ID,第二个参数是 一个数组或者对象,里面定义大量的函数,第三个参数是要调用的函数(可选)
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_5.png')} />
+
+少模块  可以打印e看少哪个模块
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_6.png')} />
+
+## webpack详细解释
+
+```js
+function f(e) {
+    if (u[e]) // 检查模块是否已经被加载过
+        return u[e].exports; // 如果模块已经加载过，直接返回缓存的 exports 对象
+
+    var n = u[e] = { // 创建一个新模块对象，并缓存它
+        i: e, // 模块的 id
+        l: !1, // 模块是否已经加载完毕的标志，初始为 false
+        exports: {} // 模块的 exports 对象，初始为空对象
+    };
+
+    console.log('模块', e); // 输出模块 id
+
+    // 调用模块函数，并将 n.exports、n 和 f 作为参数传入
+    return c[e].call(n.exports, n, n.exports, f),
+        n.l = !0, // 标记模块为已经加载
+        n.exports; // 返回模块的 exports 对象
+}
+
+```
+## c[e].call(n.exports, n, n.exports, f) 的解释
+在这个上下文中：
+● c 是一个对象，包含所有模块的定义。每个模块是一个函数，通常有如下的签名：
+```js
+function(module, exports, require) {
+    // 模块的代码
+}
+```
+
+ 这个函数通常接收三个参数：module, exports, 和 require。这些参数分别对应于：
+  - module：当前模块的对象，包含有关模块的信息（如 module.exports）。
+  - exports：一个对象，用来向外暴露模块的公共接口。模块可以在这个对象上添加属性或方法。
+  - require：用于加载其他模块的函数，在 Webpack 中通常是 f 函数。
+
+ c[e] 是模块 e 对应的函数。在调用 c[e].call 时，这个函数被执行。
+
+ .call 是 JavaScript 函数对象的方法，它允许你指定 this 的值，并传递参数给函数。此处，c[e].call(n.exports, n, n.exports, f) 的 this 被设置为 n.exports。
+  - n.exports 作为 this：这意味着在模块函数内使用 this 的时候，它指向 n.exports。在多数情况下，模块的 this 指向 module.exports。
+  - n：这是模块对象，包含 i（模块 ID），l（模块是否已加载），exports（模块的导出对象）等信息。
+  - n.exports：这是一个空对象，模块函数内部会使用它来定义模块导出。
+  - f：这是模块加载函数（即 require 函数），可以用于加载其他模块。
+因此，c[e].call(n.exports, n, n.exports, f) 实际上是在调用模块函数 c[e]，并传入 module, exports 和 require 三个参数，同时将 this 绑定到 n.exports。
+
+## 自动扣webpack
+
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_7.png')} />
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_8.png')} />
+
+需要扣w，找到w
+
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_9.png')} />
+
+向上走一层走到加载器
+
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_10.png')} />
+
+这里的r就是单例的缓存，将r置空，设置条件断点，这里的0代表不会debugger住，但是会执行将模块存入zhi中
+ 
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_11.png')} />
+
+然后跳到下一个断点这zhi就被写入内容了
+
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_12.png')} />
+
+自动扣
+
+```js
+result = '{';for(let x of Object.keys(zhi)){result = result + '"' + x + '"' + ':' + zhi[x] + ','};result = result + '}'
+
+```
+
+使用chrome浏览器获取的result 直接使用会有问题（听说windows的360极速浏览器没问题），存在转义问题，我们将拷贝的结果，复制给python变量，将这个变量输出到文件中就可以去除转义问题。
+
+<img alt="Webpack" src={useBaseUrl('/images/rsecu/webjs/3_16_13.png')} />

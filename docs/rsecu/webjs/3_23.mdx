@@ -1,0 +1,161 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# 网易云加密参数分析
+
+- 搜索encSecKey，定位到core_163eeace71d519554a5fb05513b6ef91.js
+- params 2次aes加密  encSecKey rsa加密
+
+网上有比较详细的可以参考
+
+https://blog.csdn.net/weixin_50847719/article/details/115269122?spm=1001.2014.3001.5501
+
+https://www.pianshen.com/article/594253414/
+
+
+## 代码
+```js
+import binascii
+import json
+import random
+import base64
+
+import requests
+from Crypto.Cipher import AES
+
+
+def random_b():
+    seed = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    sa = []
+    for i in range(16):
+        sa.append(random.choice(seed))
+    salt = ''.join(sa)
+    return bytes(salt, 'utf-8')
+
+
+# 第二参数，rsa公匙组成
+pub_key = "010001"
+# 第三参数，rsa公匙组成
+modulus = "00e0b509f6259df8642dbc35662901477df22677ec152b5ff68ace615bb7b725152b3ab17a876aea8a5aa76d2e417629ec4ee341f56135fccf695280104e0312ecbda92557c93870114af6c9d05c4f7f0c3685b7a46bee255932575cce10b424d813cfe4875d3e82047b97ddef52741d546b8e289dc6935b3ece0462db0a22b8e7"
+# 第四参数，aes密匙
+secret_key = b'0CoJUm6Qyw8W8jud'
+
+"""
+AES 加密
+"""
+
+
+def aes_encrypt(text, key):
+    # 偏移量
+    iv = b'0102030405060708'
+    # 对长度不是16倍数的字符串进行补全，然后在转为bytes数据
+    pad = 16 - len(text) % 16
+    try:
+        # 如果接到bytes数据（如第一次aes加密得到的密文）要解码再进行补全
+        text = text.decode()
+    except:
+        pass
+    text = text + pad * chr(pad)
+    try:
+        text = text.encode()
+    except:
+        pass
+    encryptor = AES.new(key, AES.MODE_CBC, iv)
+    ciphertext = encryptor.encrypt(text)
+    ciphertext = base64.b64encode(ciphertext).decode('utf-8')  # 得到的密文还要进行base64编码
+    return ciphertext
+
+
+"""
+RSA 加密
+"""
+
+
+def rsa_encrypt(random_char):
+    text = random_char[::-1]  # 明文处理，反序并hex编码
+    rsa = int(binascii.hexlify(text), 16) ** int(pub_key, 16) % int(modulus, 16)
+    return format(rsa, 'x').zfill(256)
+
+
+"""
+构造params
+"""
+
+
+def aes_param(data):
+    text = json.dumps(data)
+    random_char = random_b()
+    params = aes_encrypt(text, secret_key)  # 两次aes加密
+    params = aes_encrypt(params, random_char)
+    enc_sec_key = rsa_encrypt(random_char)
+    data = {
+        'params': params,
+        'encSecKey': enc_sec_key
+    }
+    return data
+
+
+"""
+请求头
+在这里不能将Referer固定写死
+因为在搜索歌曲的时候请求的Referer为：https://music.163.com/search/
+而查看歌词的时候请求的Referer为：'https://music.163.com/song?id=歌曲id
+"""
+headers = {
+    'Connection': 'keep-alive',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+    'Host': 'music.163.com',
+    'Origin': 'https://music.163.com',
+}
+
+"""
+通过歌曲id爬歌词内容
+"""
+
+
+def find_song_word(song_id):
+    referer = 'https://music.163.com/song?id=' + song_id
+    headers['Referer'] = referer
+    url = 'https://music.163.com/weapi/song/lyric?csrf_token='
+    param = {"id": song_id, "lv": -1, "tv": -1, "csrf_token": ""}
+    data = aes_param(param)
+    result = requests.post(url, data=data, headers=headers)
+    result = result.json()
+    return result['lrc']['lyric']
+
+
+if __name__ == '__main__':
+    # 搜索歌曲url
+    query_url = 'https://music.163.com/weapi/cloudsearch/get/web?csrf_token='
+    data = {"hlpretag": "<span class=\"s-fc7\">",
+            "hlposttag": "</span>",
+            "s": "七叔",
+            "type": "1",
+            "offset": "0",
+            "total": "true",
+            "limit": "30",
+            "csrf_token": ""
+            }
+    data = aes_param(data)
+    referer = 'https://music.163.com/search/'
+    headers['Referer'] = referer
+    result = requests.post(query_url, data=data, headers=headers)
+    result = result.json()
+    songs = result['result']['songs']
+    output = []
+    for i in songs:
+        songer = []
+        # 歌曲id
+        song_id = i['id']
+        # 歌词
+        song_content = find_song_word(str(song_id))
+        # 歌曲名
+        song_name = i['name']
+        song_arr = i['ar']
+        # 一首歌可能多人唱, 是个列表 需要遍历
+        for k in song_arr:
+            song_dict = {'id': k['id'], 'name': k['name']}
+            songer.append(song_dict)
+            output.append({'song_id': song_id, 'name': song_name, 'songer': songer, 'content': song_content})
+    print(json.dumps(output, ensure_ascii=False))
+
+```

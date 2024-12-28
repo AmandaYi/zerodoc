@@ -1,0 +1,23 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# 搜狗搜索加密参数分析
+
+基本上知道下面的大概就行了。用得少。
+
+cl.gif
+
+# cl.gif接口 参数
+https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgSzKFKE0U5ML0i6AAGEHAfW2sMwsLeLK--FqXa8Fplpd9VkVe0n3G2xPTIj97q3XF7oG-Tt4AzN-PPKYOVoQ0JoXhVBm3pVYOSTHmQ31EbkQN_SebeOPGrB1vvTyEO4VlugdhUa1tnThu-xe_aZOWRo-yulBhve3EvDghoH3b4XqjORxGUL611f-Hph2drmV5zXj6ee-TZ3AWy5_cOP8XCdP6zvkPgoArRQ..&type=2&query=%E7%8C%BF%E4%BA%BA%E5%AD%A6&token=C447094E84BDEE90E1E52DBF3B4302C8E1CE89F261586252&k=99&h=T
+
+# 源码获取的
+https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgSzKFKE0U5ML0i6AAGEHAfW2sMwsLeLK--FqXa8Fplpd9J4WlhmlPCB0SE6BJ_PFApqAemeLI6hdCooPPzPlHMLzaR9pRBFqKIUc6Y0kNqyU0MOY5rivyrVjCjr6QKUBHiszYZKYnDaiCkAtcnaDvLYXVyLCoXiJzd5_5hgiX5MvWHc-LKmlx02v8aSu5xZdZGq173r9S9RSG4-9HQ9ihdThOJBjQH7pCxQ..&type=2&query=%E7%8C%BF%E4%BA%BA%E5%AD%A6&token=C447094E84BDEE90E1E52DBF3B4302C8E1CE89F261586252
+
+对比发现少了 k和h参数
+
+在网页最下面有加k和h的函数
+ 
+ 第一次请求sogo的时候 要调用下pv.gif 会set-cookie
+先发请求到cl.gif,再重新请求
+```js
+    (function(){$("a").on("mousedown click contextmenu",function(){var b=Math.floor(100*Math.random())+1,a=this.href.indexOf("url="),c=this.href.indexOf("&k=");-1!==a&&-1===c&&(a=this.href.substr(a+4+parseInt("21")+b,1),this.href+="&k="+b+"&h="+a)})})();
+```

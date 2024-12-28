@@ -1,0 +1,149 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# 企知道
+
+主页：https://www.qizhidao.com/check?searchKey=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&tagNum=2&fromRoutePage=check
+接口：https://app.qizhidao.com/qzd-bff-enterprise/qzd/v1/enterprise/zhichan/enterpriseListV2
+
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_1.png')} />
+
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_2.png')} />
+逆向参数：signature参数逆向和返回的data1加密破解
+
+## 逆向分析
+### signature参数
+
+打开控制台就出现debugger，需要先过掉debugger，直接在控制台注入清除debugger的脚本无效，油猴debugger置空也无效，于是采用最原始的，看调用栈，找到debugger的位置并置空。网站比较恶心，加载了6个js文件，每个文件都会进入无限debugger
+
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_3.png')} />
+其中一个js文件的debugger
+
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_4.png')} />
+
+控制台置空所有debugger，方式是遇到一个debugger，就回到调用的地方，然后置空具体的函数
+
+```js
+_0x3b1227 = function(){}
+
+_0x3ef3a5 = function(){}
+
+_0x34e175 = function(){}
+
+_0x5da3d0 = function(){}
+
+_0x56982e = function(){}
+
+_0x206583 = function(){}
+
+
+```
+
+过了debugger之后就开始调试，首先采用了hook header中signature参数的方式，但是由于promise实在是太多了，还是找不到加密的地方，最后采用笨办法一步一步调试总算找到了加密的地方
+
+
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_5.png')} />
+
+```js
+_0x24d112['headers'][_0x188ee1(0x367)] = _0x14cc63 ? _0x547bed(_0x24d112[_0x188ee1(0x259f)]) : _0x2cdce0(Object(_0x330954['c'])(_0x188ee1(0x275c) + 'n', _0x40912f), Object(_0x330954['a'])(_0x40912f))
+```
+
+简化上述的逻辑，发现入参都是undefined，因此只需要扣_0x2cdce0这一个函数就好了，下面就是一通补环境，这里比较关键的地方是一个大数组，大数组里面就是一个使用的关键字，通过下标去取，以及一段对大数组移位的代码逻辑，最开始忘记补这段代码了，导致数组不对。
+
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_6.png')} />
+最后发现核心加密逻辑就是一个原生的md5~折腾这么久，扣代码倒是很顺序
+
+
+### data1参数
+
+有了第一个参数的经验，响应数据的加密就很简单了，在分析signature的时候，发现下面这样的结构，那么盲猜响应数据的解析就在rep中，核心去找JSON.parse，parse的入参大概率就是解密后的数据，同时一般解密函数也在此
+
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_7.png')} />
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_8.png')} />
+典型的aes，就不扣代码了
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_9.png')} />
+
+## 完整代码
+```js
+var CryptoJS = require('crypto-js')
+
+function md5(text) {
+    return CryptoJS.MD5(text).toString()
+}
+function a43_0x3511() {
+	var _0x12adf2 = []  // 这里就是大数组
+  a43_0x3511 = function() {
+        return _0x12adf2;
+  };
+  return a43_0x3511();
+}
+
+
+var a43_0x1ee926 = a43_0x46c5;
+// 自执行函数 对数据进行了移位
+(function(_0x2e644b, _0xbbee32) {
+    var _0x4f664f = a43_0x46c5
+      , _0x39c23d = _0x2e644b();
+    while (!![]) {
+        try {
+            var _0x1b10d1 = -parseInt(_0x4f664f(0x215e)) / 0x1 + -parseInt(_0x4f664f(0x2a23)) / 0x2 * (-parseInt(_0x4f664f(0x189b)) / 0x3) + -parseInt(_0x4f664f(0x296a)) / 0x4 * (parseInt(_0x4f664f(0xa10)) / 0x5) + parseInt(_0x4f664f(0x174c)) / 0x6 * (parseInt(_0x4f664f(0x1de)) / 0x7) + parseInt(_0x4f664f(0x1283)) / 0x8 * (parseInt(_0x4f664f(0x875)) / 0x9) + parseInt(_0x4f664f(0x68f)) / 0xa * (parseInt(_0x4f664f(0x1f8e)) / 0xb) + -parseInt(_0x4f664f(0x24cb)) / 0xc * (-parseInt(_0x4f664f(0x10ff)) / 0xd);
+            if (_0x1b10d1 === _0xbbee32)
+                break;
+            else
+                _0x39c23d['push'](_0x39c23d['shift']());
+        } catch (_0x598912) {
+            _0x39c23d['push'](_0x39c23d['shift']());
+        }
+    }
+}(a43_0x3511, 0xcc3e8));
+// 数组移位了
+function a43_0x46c5(_0xc3d67f, _0x1fb6f8) {
+    var _0x575c4f = a43_0x3511();
+    return a43_0x46c5 = function(_0x181972, _0x31f5de) {
+        _0x181972 = _0x181972 - 0x17f;
+        var _0x147cb5 = _0x575c4f[_0x181972];
+        return _0x147cb5;
+    }
+    ,
+    a43_0x46c5(_0xc3d67f, _0x1fb6f8);
+}
+
+function _0x2cdce0(_0x2c2b13, _0x21cfbf) {
+    var _0x4b21c4 = function(_0x2ffbbf, _0x2e3768, _0x3167d5) {
+        var _0x3dcd63 = a43_0x46c5, _0xac5b2c, _0x1aec10 = '';
+        void 0x0 === _0x2ffbbf && (_0x2ffbbf = 0x6),
+        _0x3dcd63(0x1667) == typeof _0x2e3768 && (_0x3167d5 = _0x2e3768),
+        _0xac5b2c = _0x2e3768 && 'number' == typeof _0x2e3768 ? Math['round'](Math[_0x3dcd63(0x19c8)]() * (_0x2e3768 - _0x2ffbbf)) + _0x2ffbbf : _0x2ffbbf,
+        _0x3167d5 = _0x3167d5 || _0x3dcd63(0x1406) + _0x3dcd63(0xdb6) + _0x3dcd63(0x1191) + 'efghijklmn' + _0x3dcd63(0x9c6) + _0x3dcd63(0x1ae3) + '89';
+        for (var _0x273add = 0x0; _0x273add < _0xac5b2c; _0x273add++) {
+            var _0x4898f5 = Math['round'](Math[_0x3dcd63(0x19c8)]() * (_0x3167d5[_0x3dcd63(0x276c)] - 0x1));
+            _0x1aec10 += _0x3167d5[_0x3dcd63(0x702)](_0x4898f5, _0x4898f5 + 0x1);
+        }
+        return _0x1aec10;
+    }()
+      , _0x25bb37 = md5(_0x4b21c4);
+    return md5(_0x25bb37 + _0x2c2b13 + _0x21cfbf) + '.' + _0x4b21c4;
+}
+
+// _0x4f16a5 验证是个md5
+// _0x2cdce0(Object(_0x330954['c'])('accessToken', _0x40912f), undefined),
+// 两个参数都是undefined
+console.log(_0x2cdce0());
+
+var data=''
+function tripleAesDecrypt(data) {
+    var aesKey = 'I8V3IwIhrwNbWxqz'
+    var key = CryptoJS.enc.Utf8.parse(aesKey),
+        // iv = CryptoJS.enc.Utf8.parse(aesIv),
+        // CBC 加密方式，Pkcs7 填充方式
+        decrypted = CryptoJS.AES.decrypt(data, key, {
+            // iv: iv,
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
+console.log(tripleAesDecrypt(data));
+```
+执行结果和signature参数结构一致
+
+<img alt="企知道加密逆向" src={useBaseUrl('/images/rsecu/webjs/3_21_10.png')} />
