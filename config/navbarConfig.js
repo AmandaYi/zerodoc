@@ -15,7 +15,12 @@ module.exports = {
 			type: "dropdown",
 			position: "left",
 			label: "技术笔记Note",
-			items: [
+			items: [ 
+			    {
+					type: 'doc',
+					label: '架构设计',
+					docId: 'architecture/rbac',
+				},
 				{
 					type: 'doc',
 					label: 'Redis6笔记',
