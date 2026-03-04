@@ -1,3 +1,7 @@
+---
+displayed_sidebar: Architecture
+---
+
 # VUE，React等纯静态文件页面的持续集成发布
 
 :::info

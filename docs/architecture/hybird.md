@@ -1,4 +1,10 @@
-# hybird常识
+---
+displayed_sidebar: Architecture
+---
+
+# Hybird混合开发
+
+常识
 
 ## hybird是什么,为什么要用hybird
 hybird也就是混合的意思,指的是客户端和前端开发的混合APP,也需要服务器进行配合。

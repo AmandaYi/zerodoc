@@ -2,6 +2,9 @@
 displayed_sidebar: Architecture
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+
 # nodejs实现后台管理系统权限管理RBAC
 
 Nodejs中如何实现后台管理系统权限管理RBAC呢？
@@ -17,13 +20,10 @@ Nodejs中如何实现后台管理系统权限管理RBAC呢？
 - 6、根据当前登录账户的角色信息动态显示左侧菜单
 
 ## 2、用户RBAC权限管理树形图
-![用户RBAC权限管理树形图][1]
 
+<img alt="用户RBAC权限管理树形图" src={useBaseUrl('/images/architecture/rbac01.png')} />
 
 ## 3、RBAC权限控制相关的数据库表
 
-![RBAC权限控制相关的数据库表][2]
+<img alt="BAC权限控制相关的数据库" src={useBaseUrl('/images/architecture/rbac02.png')} />
 
-
-  [1]: /images/architecture/rbac01.png
-  [2]: /images/architecture/rbac01.png

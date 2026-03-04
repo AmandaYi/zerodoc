@@ -20,7 +20,9 @@ const sidebarsConfig = {
 			type: 'category',
 			label: '架构设计',
 			items: [
-				'architecture/rbac'
+				'architecture/rbac',
+				'architecture/hybird',
+				'architecture/webops',
 			],
 		},
 	],

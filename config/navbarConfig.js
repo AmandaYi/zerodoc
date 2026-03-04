@@ -37,11 +37,6 @@ module.exports = {
 					docId: "go-zero/project/prepare"
 				},
 				{
-					type: "doc",
-					label: "微服务扩展阅读",
-					docId: "go-zero/extension/bloom"
-				},
-				{
 					type: 'doc',
 					label: 'react',
 					docId: 'js/react/base',
@@ -52,8 +47,6 @@ module.exports = {
 					label: 'vue',
 					docId: 'js/vue/vue3base',
 				},
-				
-
 				{
 					type: 'doc',
 					label: 'TypeScript',
@@ -64,17 +57,6 @@ module.exports = {
 					label: 'npm库开发',
 					docId: 'js/design/package',
 				},
-				{
-					type: 'doc',
-					label: 'Hybird混合开发原理',
-					docId: 'js/hybird/base',
-				},
-				{
-					type: 'doc',
-					label: '简易持续集成',
-					docId: 'devops/webops',
-				},
-				
 				{
 					type: "doc",
 					label: "MySQL",
