@@ -47,7 +47,7 @@ export default function Home(): JSX.Element {
     },
     {
       title: "NPM通用工具库设计开发",
-      link: "/docs/js/design/package",
+      link: "/docs/architecture/jsnpm/packagediy",
       description: "完整封装一个NPM组件库。",
       source: "images/webpack3/webpack21_01.png"
     },

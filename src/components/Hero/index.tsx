@@ -1,6 +1,6 @@
 import React from "react"
 import Image from '@theme/IdealImage';
-import Year from "./year2024.png"
+import Year from "./year2026.png"
 import styles from "./style.module.scss"
 import Link from "@docusaurus/Link";
 

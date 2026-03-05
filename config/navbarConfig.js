@@ -18,44 +18,34 @@ module.exports = {
 			items: [ 
 			    {
 					type: 'doc',
-					label: '架构设计',
+					label: '程序思路实践',
 					docId: 'architecture/rbac',
 				},
 				{
 					type: 'doc',
-					label: 'Redis6笔记',
+					label: 'Redis6',
 					docId: 'redis/base',
 				},
 				{
-					type: 'doc',
-					label: 'Redis应用问题',
-					docId: 'redis/cachepenetration',
-				},
-				{
 					type: "doc",
-					label: "go-zero微服务文档",
+					label: "go-zero文档",
 					docId: "go-zero/project/prepare"
 				},
 				{
 					type: 'doc',
-					label: 'react',
+					label: 'react笔记',
 					docId: 'js/react/base',
 				},
 
 				{
 					type: 'doc',
-					label: 'vue',
+					label: 'vue笔记',
 					docId: 'js/vue/vue3base',
 				},
 				{
 					type: 'doc',
-					label: 'TypeScript',
+					label: 'TypeScript笔记',
 					docId: 'js/typescript/base',
-				},
-				{
-					type: 'doc',
-					label: 'npm库开发',
-					docId: 'js/design/package',
 				},
 				{
 					type: "doc",
@@ -92,18 +82,8 @@ module.exports = {
 				},
 				{
 					type: 'doc',
-					label: 'webpack5核心笔记',
-					docId: 'js/webpack/index',
-				},
-				{
-					type: 'doc',
 					label: 'webpack常用功能30篇',
 					docId: 'js/webpack3/index',
-				},
-				{
-					type: 'doc',
-					label: '视频直播技术',
-					docId: 'js/video/index',
 				},
 				{
 					type: 'doc',

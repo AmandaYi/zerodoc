@@ -1,0 +1,242 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# 前端直播
+
+## 直播流程原理
+阶段一: 摄像头
+阶段二: 视频编辑
+阶段三: 播放器
+具体如下,
+采集资源-->(H.264视频编码/AAC音频编码/压缩编码)-->字幕叠加-->推流-->CDN分发-->回放
+
+
+<img alt="前端直播的三大常见协议" src={useBaseUrl('/images/video/video01.png')} />
+
+## 视频格式浏览器支持性
+格式: mp4 , webm , hls , flv
+map4:  Chrome,Firfox,Safari 浏览器都支持
+webm: Chrome,Firfox支持
+hls: 具体的来讲这不是一个格式,是一种协议,是苹果公司研发,他是ts文件
+flv: 是b站的视频格式
+
+<img alt="视频格式浏览器支持性" src={useBaseUrl('/images/video/video02.png')} />
+
+
+## 直播协议
+HLS协议
+RTMP协议
+HTTP-FLV协议
+
+
+### HLS协议
+
+HLS协议是一种苹果开发的视频协议,用在Safari浏览器中,
+HLS基于HTTP协议实现，传输内容包括两部分，一是M3U8描述文件，二是TS媒体文件。
+具体就是采用video标签请求一个M3U8文件, 在M3U8文件中写着具体的内容用来请求ts片段文件
+
+<img alt="HLS协议" src={useBaseUrl('/images/video/hls01.png')} />
+
+#### 特殊的多重M3U8文件
+
+<img alt="特殊的多重M3U8文件" src={useBaseUrl('/images/video/hls02.png')} />
+
+## M3U8文件的工作流程
+首先, 下载M3U8文件, 然后在M3U8文件里面有内容,内容根据变量的设置不同,可以分为三种
+Live playlist 动态列表
+Event playlist 静态列表
+Vod playlist 全量列表 , 注释: 全量列表就是不变的m3u8
+
+#### 动态列表
+
+<img alt="动态列表" src={useBaseUrl('/images/video/hls03.png')} />
+
+#### 静态列表
+
+<img alt="静态列表" src={useBaseUrl('/images/video/hls04.png')} />
+
+#### 全量列表
+
+<img alt="全量列表" src={useBaseUrl('/images/video/hls05.png')} />
+
+#### TS文件的解析
+ ts文件分为三层：ts层Transport Stream、pes层 Packet Elemental Stream、es层 Elementary Stream. es层就是音视频数据，pes层是在音视频数据上加了时间戳等对数据帧的说明信息，ts层就是在pes层加入数据流的识别和传输必须的信息
+
+<img alt="TS文件的解析" src={useBaseUrl('/images/video/hls06.png')} />
+
+ ts层的内容是通过PID值来标识的，主要内容包括：PAT表、PMT表、音频流、视频流。解析ts流要先找到PAT表，只要找到PAT就可以找到PMT，然后就可以找到音视频流了。PAT表的PID值固定为0。PAT表和PMT表需要定期插入ts流，因为用户随时可能加入ts流，这个间隔比较小，通常每隔几个视频帧就要加入PAT和PMT。PAT和PMT表是必须的，还可以加入其它表如SDT（业务描述表）等，不过hls流只要有PAT和PMT就可以播放了。
+
+PAT表：他主要的作用就是指明了PMT表的PID值。
+PMT表：他主要的作用就是指明了音视频流的PID值。
+
+音频流/视频流：承载音视频内容。
+
+<img alt="TS文件的解析" src={useBaseUrl('/images/video/hls07.png')} />
+
+## RTMP协议
+RTMP协议是Real Time Messageing Protocol(实时消息传输协议)的首字母缩写
+该协议基于TCP, 是一个协议族, 包括RTMP及本协议及RTMPT/RTMPS/RTMPE等多种变种,RTMP是一种设计用来进行实时数据通信的网络协议,主要用来在Flash,AIR平台和支持RTMP协议的流媒体/交互服务器之间进行音视频和数据通信
+格式,  flv格式
+### RTMP协议原理
+
+<img alt="RTMP协议" src={useBaseUrl('/images/video/rtmp01.png')} />
+
+#### 用途
+ 一般来讲, RTMP协议用来客户端(win客户端)的采集, 播放的话用的不多,
+#### 缺点
+没有延迟, 但是语法API很复杂不利于开发
+
+## HTTP-FLV协议
+
+该协议基于HTTP模式,开发HTTP-FLV协议的主要目的是为了解决两个问题
+HLS协议的延迟率问题, 
+RTMP的语法API难用的问题
+同时,HTTP-FLV协议也是实时的,
+格式是flv
+主要是建立了长链接
+
+### HTTP-FLV协议原理
+
+<img alt="RTMP协议" src={useBaseUrl('/images/video/http-flv01.png')} />
+
+### 优点
+可以在一定程度上避免防火墙的干扰,(有的机房只允许80端口通过)
+可以很好的兼容HTTP302跳转,做到灵活调度,比如,某个CDN节点挂了,那么可以直接很方便的302进行临时跳转到有效资源的CDN上面
+可以直接使用HTTPS做加密通道处理
+很好的支持移动端(Android, IOS)
+
+
+
+## video属性
+
+### 视频地址分类, 
+	1. 虚拟地址 blob:http
+	2. 真实地址 http
+
+### controls控制条
+控制条 controls
+
+### controllist控制条项目
+控制条显示哪些项目 controllist="nodownload nofullscreen"
+
+### poster贴图
+贴图,也就是海报 poster="./xxx.png"
+
+### muted静音
+静音播放muted
+
+### autoplay自动
+自动播放, 在谷歌浏览器中以及移动端是禁止自动播放的, 如果非要自动播放的话,需要设置静音属性
+
+### loop循环
+循环播放, 视频结尾的地方，自动返回视频开始的地方
+
+### preloader预加载
+预加载 有三个值
+`None`: 提示不需要查看该视频, 服务器省流量, 提醒浏览器该视频不要缓存
+`Metadata`: 提示用户不需要查看数据,但是抓取元数据是很有效的,比如计算视频的长度
+`Auto` 优先加载,如果需要的话,下载整个视频, 
+空字符串: 就是`auto`,
+如果不设置的话,会遵循浏览器的默认配置, 不同浏览器的默认设置是不同的,规范没有强制浏览器去遵循该属性的值；这仅仅只是个提示
+注意: `autoplay` 属性优先于 `preload`, 假如用户想自动播放视频，那么很明显浏览器需要下载视频
+
+### volum音量
+音量控制 , 如果直接赋值是没有用的,需要在js中进行控制
+```javascript
+let v = document.getElementById("video")
+v.volume = 0.5
+```
+
+### currentTime时间控制
+读取, 只能用js.只能使用js进行读取`document.querySelector("video").currentTime`,
+如果非要控制时间的话,是可以直接赋值的`document.querySelector("video").currentTime = 100` // 单位是:秒
+
+### src地址
+地址作用: 切换清晰度: 
+就是改变了播放的地址, 然后把切换之前的时间设置进入新的清晰度视频的里面, 
+在地址赋值的时候是相对地址,但是在输出src的时候是全路径
+
+### blod:http
+虚拟地址 
+
+### source多个地址
+可以作为备用地址的切换
+加入`CDN`不稳定,那么会自动启动备用的地址
+可以用`source`
+注意,当使用一个`source`的时候,是和直接使用`src`是没有区别的,
+也就是多个`source`的时候,当前一个出错了,那么会自动寻找下一个`source`, 利用这个原理,我们可以给每一个`source`切换不同的域名,这样子就可以解决这些问题
+
+### currentSrc地址
+在用`source`的时候,那么获取的`src`永远是空的值,需要用`currentSrc`进行来输出当前播放的地址,
+### 也可以检测视频报错
+通过这个原理,检测当前的`currentSrc`是哪一个`source`的值,如果是第一个`source`的值,
+那么就证明没有报错,如果不是第一个`source`的值了,那么就是前面的`source`的地址出现了, 
+之后进行上报错误信息给服务器 
+
+
+
+## video事件
+
+:::tip
+video的事件,都需要用监听的方式进行处理
+步骤均为是`document.querySelector("video").addEventLisener(事件名称,回调函数,是否冒泡)`
+:::
+
+### loadstart开始
+媒体开始加载了 
+
+### durationchange
+总时长的变换监听 
+注意: 视频的总时长一定是加载之后才能拿到总时长,获取总时长, `document,querySelector("video").duration`
+有些拿不到总时长,比如虚拟地址`blob:http`,同时还跟视频的格式有关系
+
+### loadedmetadata元数据
+视频的元数据加载完毕了,目前的内容里面有全部的需要的数据信息,这个事件一定是在获取完毕总时长之后发生,这是规定
+
+### loadeddata第一帧
+视频的第一帧已经加载完毕了, 但是没有足够的数据来播放下一帧,会触发`loadeddata`
+
+### progress下载与buffered
+监听是否正在下载数据 `progress`,有关媒体当前已下载总计的信息可以在元素的`buffered`属性中获取到。
+
+### canplay播放
+监听是否可以播放了, 在媒体数据已经有足够的数据（至少播放数帧）可供播放时触发 ,仅仅是能到达播放水平,但是具体卡不卡不知道
+
+### canplaythrough流畅播放
+监听是否有流畅的数据能够播放, 在媒体的`readyState`变为`CAN_PLAY_THROUGH`时触发，表明媒体可以在保持当前的下载速度的情况下不被中断地播放完毕。注意：手动设置currentTime会使得firefox触发一次canplaythrough事件，其他浏览器或许不会如此。在最后一定还会有N次的progress,这是因为浏览器的预加载功能造成的
+
+### play播放
+监听播放事件 
+
+### pause停止
+监听停止事件 
+
+### seeking点击
+监听点击(处于这个点击动作)进度条的某个时间点的事件 
+
+### seeked
+监听点击(主语这个点击动作之后)进度条的某个时间点的事件 `seeked`, 
+注意: 在此 监听到`seeked`之后,会触发后面的`canpaly`,`canplaythrough`
+注意: 点击了某个时间点之后, 触发的事件的顺序依次是`seeking`, `seeked`, `canplay`, `canplaythroungh`
+
+### waiting等待
+监听视频等待时间, 只有等下一帧需要进行缓冲了,就会触发等待的事件, ,
+注意:点击了时间点进度条之后,一定是先触发`waiting`事件之后,才会依次触发`seeking`, `seeked`, `canplay`, `canplaythroungh`
+
+### playing播放中
+监听播放中的事件 
+注意: 当视频进行解码之后,首先是`canplay`,然后才是`playing`
+
+### timeupdate进度条
+监听进度条事件
+
+### currentTime
+元素的`currentTime`属性表示的时间已经改变的时候,就会触发这个事件
+
+### volumechange音量
+监听音量的事件`volumechange`, 这个可以是属性`volume`的改变也可以是`muted`静音的改变
+
+### ended结束
+监听播放结束的时候触发的事件 
+
+### error错误
+当播放错误的事件监听这个事件error
