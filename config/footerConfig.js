@@ -12,10 +12,6 @@ module.exports =  {
 				{
 					label: "金山文档在线编辑接入",
 					to: "/docs/project/officeOnlineEdit"
-				},
-				{
-					label: "纯静态文件的持续集成发布",
-					to: "/docs/devops/webops"
 				}
 			]
 		},
