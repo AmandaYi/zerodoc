@@ -6,8 +6,8 @@ module.exports =  {
 			// 救济他人的心，分裂一切阻碍自己的障碍微细会
 			items: [
 				{
-					label: "前端通用工具库设计开发",
-					to: "/docs/js/design/package"
+					label: "前端工具库实践",
+					to: "/docs/architecture/jsnpm/packagediy"
 				},
 				{
 					label: "金山文档在线编辑接入",
