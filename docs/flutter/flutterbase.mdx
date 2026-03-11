@@ -1,0 +1,425 @@
+---
+displayed_sidebar: Flutter
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+
+# Flutter 基础
+
+## 基本常识
+
+### 安装
+
+下载Flutter-sdk，解压后即可，然后配置环境变量。其中，Flutter的bin目录下自带对应的dart，系统原来如果有dart的环境变量的话，为了防止dart和flutter的版本不匹配，请使用flutter的环境变量下的dart。
+
+### Widget
+
+Widget是配置文件的意思了，Flutter中都是Widget，可以简单理解为React中的虚拟DOM节点，Flutter中是声明式开发+数据驱动视图开发。也就是配置了一堆widget配置文件，让Flutter引擎自动解析配置后，绘制界面。
+
+Widget表示控件、组件、部件的含义。
+
+### 默认文件
+```
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+```
+runApp函数是Flutter内部提供的一个函数，启动一个Flutter应用就是从调用这个函数开始的。
+MyApp就是入口的类，Flutter也可以理解为是一个单页面应用。与React Native一样都属于一样的。
+
+## Material
+Material是Google公司推行的一套设计风格，有很多的设计规范，如颜色、文字排版、动画等
+●目的：Material为Android、Web、iOS、HarmonyOS多个平台提供统一的交互和视觉体验
+```
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      title: "flutter 01", // title: 用来展示窗口的标题内容（可以不设置）
+      theme: ThemeData(), // theme：用来设置整个应用的主题
+      home: Scaffold( // home: 用来展示窗口的主体内容
+        appBar: AppBar(title: Text("首页")),
+        body: Container(child: Center(child: Text("内容"))),
+        bottomNavigationBar: Container(
+          height: 100,
+          child: Center(child: Text("底部")),
+        ),
+      ),
+    ),
+  );
+}
+```
+<img alt="Material" src={useBaseUrl('/images/flutter/flutter01.png')} />
+
+### Scaffold
+
+Scaffold: 用于构建Material Design风格页面的核心布局组件，提供标准、灵活配置的页面骨架
+
+| 属性   | 主要作用说明 |
+| -- | -- |
+| appBar | 页面顶部的应用栏，通常用于显示标题、导航按钮和操作菜单 |
+| body |  页面的主要内容区域，可以放置任何其他组件，是页面的核心 | 
+| bottomNavigationBar | 底部导航栏，方便用户在不同核心功能页面间切换 |
+| backgroungColor | 设置整个 Scaffold 的背景颜色 |
+| floatingActionButton | 悬浮操作按钮，常用于触发页面的主要动作 |
+| ... | 其他 |
+
+可以参考前面Material整体布局的的代码。
+
+MaterialApp包裹整个应用形成统一的Material Design风格
+
+Scoffold组件可快速搭建页面骨架，如appBar、body、bottomNavigationBar等
+
+Container用来作为容器，设置高度(height)，child用来存放子组件
+
+Text是用来显示文本的组件
+
+## 组件State状态
+
+Flutter分为无状态组件和有状态组件
+
+| 特性 | StatelessWidget(无状态) | StatefulWidget(有状态) | 
+| -- | -- | -- |
+| 核心特征 | 一旦创建，内部状态不可变 | 持有可在其生命周期内改变的状态 | 
+| 使用场景 | 静态内容展示，外观仅由配置参数决定 | 交互式组件，如计数器、可切换开关、表单输入框 | 
+| 生命周期 | 相对简单，主要是构建（build） | 更为复杂，包含状态创建、更新和销毁 | 
+| 代码结构 | 单个类 | 两个关联的类：Widget 本身和单独的 State 类 |
+
+### 无状态组件
+主要是继承StatelessWidget，重写build方法。
+如代码
+```
+import 'package:flutter/material.dart';
+
+// 无状态组件，生命周期只有一个build。在父组件更新的时候的，影响了子组件的时候，会执行子组件的build
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(Object context) {
+    return MaterialApp(
+      title: "无状态组件标题",
+      home: Scaffold(
+        appBar: AppBar(title: Text("标题")),
+        body: Container(child: Center(child: Text("中心"))),
+        bottomNavigationBar: Container(
+          height: 100,
+          child: Center(child: Text("首页")),
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MainPage());
+}
+```
+
+### 有状态组件 
+```
+import 'package:flutter/material.dart';
+
+// 接受和定义参数，核心作用的是创建state对象
+
+// 生命周期是： createState -> State对象创建 -> initState -> didChangeDependencies -> build
+// 更新: didUpdateWidget(有配置变更就执行，没有不执行) -> build（只要更新就执行）
+// 销毁：
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+  @override
+  void initState() {
+    print("initState");
+  }
+
+  @override
+  void didChangeDependencies() {
+    print("依赖已完成改变");
+  }
+
+  @override
+  void didUpdateWidget(MainPage oldWidget) {}
+
+  @override
+  void dispose() {
+    print("state全部移除");
+  }
+}
+
+//  实现业务和可变数据
+class _MainPageState extends State<MainPage> {
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    print("deactivate");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "无状态组件标题",
+      home: Scaffold(
+        appBar: AppBar(title: Text("标题")),
+        body: Container(child: Center(child: Text("中心"))),
+        bottomNavigationBar: Container(
+          height: 100,
+          child: Center(child: Text("首页")),
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MainPage());
+}
+```
+
+## 状态更新setState
+
+和React的类组件差不多，提供了setState方法用于更新有状态组件内部的变量。
+
+```
+import 'package:flutter/material.dart';
+
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  int count = 0;
+  void add() {
+    int t = this.count + 1;
+    setState(() {
+      this.count = t;
+    });
+  }
+
+  void reduce() {
+    int t = this.count - 1;
+    setState(() {
+      this.count = t;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "无状态组件标题",
+      home: Scaffold(
+        appBar: AppBar(title: Text("标题")),
+        body: Container(
+          child: Center(
+            child: Row(
+              children: [
+                TextButton(onPressed: add, child: Text("增加")),
+                Text(count.toString()),
+                TextButton(onPressed: reduce, child: Text("减去")),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: Container(
+          height: 100,
+          child: Center(child: Text("首页")),
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MainPage());
+}
+
+```
+
+
+### 组件生命周期
+参考前面无状态组件和有状态组件的代码内容和代码注释。他和React几乎差不多，都是数据变了，最后视图由Flutter的引擎进行更新即可。也就是一旦需要数据介入，比如做特效，渲染后端的列表等，都需要把变量定义在有状态组件的类红中。
+如果把这些变量放到了无状态组件中，那么所有效果不会生效，原因是无状态组件是不保持state的，每次都会重新赋值变量初始化，因此在无状态组件中，永远是无法把变量和widget下的任何组件绑定的。
+
+## 事件
+
+### 基础点击事件
+
+事件：用户与应用程序交互时触发的各种动作,比如触摸屏幕、滑动、点击等
+
+点击事件： 当点击某个元素触发的动作
+
+常规方案： GestureDetector是 Flutter 中最常用、功能最丰富的手势检测组件。
+
+用法： 使用GestureDetector包裹被点击的元素，传入onTap方法
+
+```
+import 'package:flutter/material.dart';
+
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(Object context) {
+    return MaterialApp(
+      title: "无状态组件标题",
+      home: Scaffold(
+        appBar: AppBar(title: Text("标题")),
+        body: Container(
+          child: Center(
+            child: GestureDetector(
+              child: Text("点我"),
+              onTap: () {
+                print("点击了我");
+              },
+            ),
+            // child: TextButton(
+            //   onPressed: () {
+            //     print("点击了TextButton");
+            //   },
+            //   child: Text("TextButton点击了"),
+            // ),
+          ),
+        ),
+        bottomNavigationBar: Container(
+          height: 100,
+          child: Center(child: Text("首页")),
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MainPage());
+}
+
+```
+
+### 封装的点击事件
+
+Flutter提供了多种方式为组件添加点击交互，
+比如前面代码注释中的TextButton点击事件。
+后面是经常使用的点击事件
+
+|组件类别 | 核心组件 | 场景 |
+| -- | -- | -- |
+| 专用按钮组件 | ElevatedButton、TextButton、OutlineButton、FloatingActionButton | 内置点击动画和样式，通过onPressed参数处理点击逻辑 |
+| 视觉反馈组件 | InkWell |  提供点击事件(onTap)，有MaterialDesign风格的水纹扩散效果 | 
+| 其他交互组件 | IconButton、Switch、Checkbox | 具有特定功能的交互式控件、点击事件(onPressed) | 
+
+## 组件通信
+
+| 通信方式 | 方向 | 适用场景 |
+| -- | -- | -- |
+| 构造函数传递 | 父 => 子 | 简单的数据传递 |
+| 回调函数 | 子 => 父 | 子组件通知父组件 |
+| InheritedWidget | 祖先 => 后代 | 跨层级数据共享 |
+| Provider | 任意组件间 | 状态管理推荐方案 |
+| EventBus | 任意组件间 | 全局事件通信 |
+| Bloc/Riverpod | 任意组件间 | 复杂状态管理 |
+
+代码如下： 
+
+```
+import 'package:flutter/material.dart';
+
+class MainPage extends StatelessWidget {
+  // 子传父信息，使用回调函数即可
+  push(String message) {
+    print(message);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "通信",
+      // 父子 通信  父 -> 子
+      home: Column(
+        children: [Order(orderNo: "123", push: push)],
+      ),
+    );
+  }
+}
+
+class Order extends StatelessWidget {
+  final String? orderNo;
+  final Function(String pushMessage) push;
+  const Order({Key? key, this.orderNo, required this.push}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          Text(orderNo!),
+          GestureDetector(
+            onTap: () {
+              print("传递给父信息");
+            },
+            child: Text("传递给父信息"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MainPage());
+}
+```
+
+## 网络Dia
+
+flutter pub add dio
+
+```
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+
+// 获取网络数据，需要在有状态组件中获取使用
+class MainPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _MainPageState();
+  }
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(title: "网络", home: Text("网络"));
+  }
+
+  // 获取网络数据
+  initData() {
+    Dio()
+        .get("http://")
+        .then((v) {
+          print(v);
+        })
+        .catchError((err) {});
+  }
+
+  // 不要在这里获取网络数据，他可能会陷入循环
+  void didChangeDependencies() {
+    // this.initData();
+  }
+
+  // 最佳是在这个initState周期，获取数据，这个周期只会执行一次。
+  @override
+  void initState() {
+    this.initData();
+  }
+}
+
+void main() {
+  runApp(MainPage());
+}
+```

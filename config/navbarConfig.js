@@ -15,11 +15,46 @@ module.exports = {
 			type: "dropdown",
 			position: "left",
 			label: "技术笔记Note",
-			items: [ 
-			    {
+			items: [
+				{
 					type: 'doc',
 					label: '程序思路实践',
 					docId: 'architecture/rbac',
+				},
+				{
+					type: 'doc',
+					label: 'react笔记',
+					docId: 'js/react/base',
+				},
+				{
+					type: 'doc',
+					label: 'Flutter笔记',
+					docId: 'flutter/flutterbase',
+				},
+				{
+					type: 'doc',
+					label: 'react native笔记',
+					docId: 'js/rn/base',
+				},
+				{
+					type: 'doc',
+					label: 'vue笔记',
+					docId: 'js/vue/vue3base',
+				},
+				{
+					type: 'doc',
+					label: 'TypeScript笔记',
+					docId: 'js/typescript/base',
+				},
+				{
+					type: 'doc',
+					label: 'webpack常用功能',
+					docId: 'js/webpack3/index',
+				},
+				{
+					type: 'doc',
+					label: "JS常用功能记录",
+					docId: 'js/normal/index',
 				},
 				{
 					type: 'doc',
@@ -30,22 +65,6 @@ module.exports = {
 					type: "doc",
 					label: "go-zero文档",
 					docId: "go-zero/project/prepare"
-				},
-				{
-					type: 'doc',
-					label: 'react笔记',
-					docId: 'js/react/base',
-				},
-
-				{
-					type: 'doc',
-					label: 'vue笔记',
-					docId: 'js/vue/vue3base',
-				},
-				{
-					type: 'doc',
-					label: 'TypeScript笔记',
-					docId: 'js/typescript/base',
 				},
 				{
 					type: "doc",
@@ -74,58 +93,42 @@ module.exports = {
 					docId: "structure/analyse"
 				},
 
-
-				{
-					type: 'doc',
-					label: 'react native',
-					docId: 'js/rn/base',
-				},
-				{
-					type: 'doc',
-					label: 'webpack常用功能30篇',
-					docId: 'js/webpack3/index',
-				},
-				{
-					type: 'doc',
-					label: "JS常用功能记录",
-					docId: 'js/normal/index',
-				},
 			]
 		},
-		{
-			type: "dropdown",
-			position: "left",
-			label: "计算机基础知识",
-			items: [
-				{
-					type: "doc",
-					label: "数据结构与算法",
-					docId: "structure/analyse"
-				}
-			]
-		},
-		{
-			type: "dropdown",
-			positional: "left",
-			label: "安全工程",
-			items: [
-				{
-					type: 'doc',
-					label: 'Web逆向工程',
-					docId: 'rsecu/webjs/1',
-				},
-			]
-		},
-		{
-			label: '文学',
-			position: 'left',
-			href: 'https://www.xinwenmh.cn',
-		},
-		{
-			label: '项目',
-			position: 'right',
-			href: baseConfig.baseUrl + 'project',
-		}
+		// {
+		// 	type: "dropdown",
+		// 	position: "left",
+		// 	label: "计算机基础知识",
+		// 	items: [
+		// 		{
+		// 			type: "doc",
+		// 			label: "数据结构与算法",
+		// 			docId: "structure/analyse"
+		// 		}
+		// 	]
+		// },
+		// {
+		// 	type: "dropdown",
+		// 	positional: "left",
+		// 	label: "安全工程",
+		// 	items: [
+		// 		{
+		// 			type: 'doc',
+		// 			label: 'Web逆向工程',
+		// 			docId: 'rsecu/webjs/1',
+		// 		},
+		// 	]
+		// },
+		// {
+		// 	label: '文学',
+		// 	position: 'left',
+		// 	href: 'https://www.xinwenmh.cn',
+		// },
+		// {
+		// 	label: '项目',
+		// 	position: 'right',
+		// 	href: baseConfig.baseUrl + 'project',
+		// }
 	],
 }
 

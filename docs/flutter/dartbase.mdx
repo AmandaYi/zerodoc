@@ -1,0 +1,411 @@
+---
+displayed_sidebar: Flutter
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Dart 笔记
+
+## 基本语法
+
+- 数据类型
+
+### 变量
+ 
+ ```dart
+ void main() {
+  var age = 20; // var之后的类型，不能被改变，这里已经确定了类型了。
+  age = 30;
+  print(age);
+  age = 1 + 1;
+  print(age);
+  var tmp = age.toString(); // 可以转换
+  print(tmp);
+
+  // 常量
+  const pi = 3.14; // const声明 编译器的不改变的值
+  print(pi);
+  final now = DateTime.now(); // final声明 运行期的不改变的值
+  print(now.year);
+}
+```
+
+### 字符串
+
+
+```
+void main() {
+  var name = "小明"; // 可以用var声明字符串
+  String result = "你好$name"; // 也可以用String声明字符串
+  print(result);
+}
+
+```
+
+### 数值
+```
+void main() {
+  int age = 20;
+  double apple = 1000.12;
+  num price = 1;
+  price = 1.1;
+
+  // int只能声明整数，double只能声明小数类型，num可以描述任意数值类型
+}
+
+```
+
+### 布尔
+
+```
+void main() {
+  bool isWork = true;
+  print(isWork);
+}
+
+```
+### List类型
+```
+void main() {
+  List payWay = ["支付宝", "微信"];
+  payWay.add("云闪付"); // 尾部增加一个
+  payWay.addAll(["好多支付方式"]); //尾部增加一个列表
+  payWay.remove("云闪付"); // 移除内容等于云闪付的这个
+  payWay.forEach((item) {
+    print(item);
+  }); // 循环
+  // 还有很多方法，查看API
+}
+
+```
+### Map类型
+```
+void main() {
+  Map m = {"name": "小明", "age": 18};
+  m.forEach((k, v) {
+    print("$k-$v");
+  });
+  // map的其他方法和其他语言差不多，可以查看API
+}
+```
+
+### 动态类型
+```
+void main() {
+  dynamic text = 1;
+  text = "你好";
+  text = <String>["你好"];
+  // dynamic 是动态类型，可以作为任何类型声明
+  print(text.length);
+  // dynamic是个危险的类型能不用就不用，
+  // dynamic和var的区别是，var声明后，类型根据值的类型推导，后面就不能改变类型了，dynamic是随时改变
+  // dynamic就是运行时候的，编译器就是有错误也不会报错
+}
+
+```
+### 空类型检查
+```
+void main() {
+  String? username = null; // 声明一个可空类型
+  username?.startsWith("小明"); // 对象为null的时候跳过操作，返回null
+  // 假如其他地方赋值了
+  // username = "小明";
+  // username!.startsWith("小明"); // 程序员主观认为就是有值，告诉编译器不要报错了。
+
+  // 安全访问的?和非空断言!的区分是，?是客观判断，!是主观判断
+
+  String result = username ?? "默认值zero"; // 空合并
+
+  print(result);
+}
+```
+
+### 运算符
+```
+void main() {
+  const item = 10.11;
+  double price = item * 10;
+  print("价格是$price");
+
+  if (1 > 2) {}
+  1 > 2 && 1 > 3;
+  1 > 2 || 1 > 3;
+  1 & 3;
+}
+
+```
+
+### 流程控制
+```
+void main() {
+  var name = "小明";
+  if (name == "小明") {
+    print("我是小明");
+  } else if (name == "小米") {
+    print("我是小米");
+  } else {
+    print("我是？");
+  }
+
+  print(name == "小明" ? "小明" : "我是？");
+
+  switch (name) {
+    case "小明":
+      {
+        print("小明");
+        break;
+      }
+    case "小米":
+      {
+        print("小米");
+        break;
+      }
+    default:
+      {
+        print("我是？");
+      }
+  }
+
+  int i = 0;
+  while (i < 10) {
+    i++;
+    print(i);
+  }
+  // 这里也有块级作用域
+  for (int i = 0; i < 10; i++) {
+    print(i);
+  }
+}
+
+```
+
+### 函数
+```
+void main() {
+  print(add(1, 2));
+  print(reduce(1, 2));
+
+  print(showText("1", "2", "3"));
+  print(showText1("1", "2", "3"));
+}
+
+int add(int a, int b) {
+  return a + b;
+}
+
+void add2() {
+  print("no return");
+}
+
+// 自动推断返回类型
+reduce(int a, int b) {
+  return a - b;
+}
+
+// 可选位置参数
+String showText(
+  String text1, [
+  String? text2 = "text2",
+  String? text3 = "text3",
+]) {
+  return text1 + text2! + text3!;
+}
+
+// 还有一种没有中括号的形式，这种并不被叫做可选位置参数，只能说是还是三个参数的函数，调用的时候只能传三个参数，如果加了中括号，那么后面的参数不强制数量
+String showText1(String text1, String? text2, String? text3) {
+  return text1 + text2! + text3!;
+}
+```
+## 类
+
+```
+void main() {
+  // Order o = Order.createOrder("联想电脑");
+  // o.successPay();
+  // Order o2 = Order.createOrder("联想电脑2");
+  // o2.successPay();
+  UserOrder uo = UserOrder();
+  uo.successPay();
+}
+
+class Order {
+  String orderId = "no100";
+  String productName = "电脑";
+  void successPay() {
+    print("${this.orderId} ${this.productName}");
+  }
+
+  // 默认构造函数
+  Order(String productName) {
+    this.productName = productName;
+    print("默认构造函数初始化");
+  }
+  // 自主调用的构造函数
+  Order.createOrder(String productName) {
+    this.productName = productName;
+    print("自主调用的构造函数初始化");
+  }
+}
+
+// 继承
+class UserOrder extends Order {
+  // UserOrder() : super("联想电脑型号book100") {}
+  UserOrder() : super.createOrder("联想电脑型号book100") {} // 这样也行，只要调用一个构造函数就行了
+
+  // 重写方法
+  @override
+  void successPay() {
+    // TODO: implement successPay
+    //
+    print("用户购买了${this.productName}");
+  }
+}
+
+```
+ 
+
+### 抽象类
+```
+void main() {
+  WeiXinPay wx = WeiXinPay();
+  wx.pay();
+
+  AliPay ali = AliPay();
+  ali.pay();
+}
+
+abstract class BasePay {
+  pay() {
+    print("支付");
+  }
+}
+
+class WeiXinPay extends BasePay {
+  @override
+  pay() {
+    // TODO: implement pay
+
+    print("微信支付");
+  }
+}
+
+class AliPay implements BasePay {
+  @override
+  pay() {
+    // TODO: implement pay
+
+    print("支付宝支付");
+  }
+}
+```
+### 类的混入
+```
+void main() {}
+// 定义混入对象
+mixin BaseOrder {
+  checkOrderStatus() {
+    print("检查订单状态");
+  }
+}
+
+// 可以混入一个新对象的功能
+class UserOrder with BaseOrder {}
+
+mixin Address {
+  getAddressList() {
+    print("获取全部地址列表");
+  }
+}
+
+// 可以混入多个对象
+class UserVipOrder with BaseOrder, Address {}
+
+mixin VipOrder {
+  checkOrderStatus() {
+    print("检查订单状态，VIP的");
+  }
+}
+
+// 混入继承，后一个的混入对象会覆盖前一个功能的，如VipOrder的checkOrderStatus会覆盖前一个BaseOrder的checkOrderStatus
+class UserVipOrder2 with BaseOrder, VipOrder {}
+
+```
+
+### 泛型
+```
+void main() {
+  // 泛型List
+  List<int> price = [1, 2, 3, 4, 5];
+
+  // 函数泛型
+  void printList<T>(List<T> list) {
+    list.forEach((item) {
+      print(item);
+    });
+  }
+
+  Order o = Order<String>();
+  print(o.productName);
+}
+
+// 类的泛型
+class Order<T> {
+  T? productName;
+}
+
+```
+## 异步编程
+```
+void main() {
+  // 和JS一样，都是单线程的,遇到阻塞就放入异步队列里面
+
+  // 微任务队列
+  // Future.microtask();
+  // 事件队列
+  // Future, Future.delayed(),I/O操作（文件，网络）等
+
+  // 可以理解为Promise
+  Future f = Future(() {
+    print("调用了");
+    return "结果的值"; // 执行成功的结果
+    // throw Exception("结果的值失败了"); // 执行失败的结果
+  });
+
+  f.then((value) {
+    print(value);
+  });
+  f.catchError((err) {
+    print(err);
+  });
+
+  // 链式调用就是return的返回一个Future即可
+  Future(() => 1)
+      .then((v) {
+        return Future(() => 2);
+      })
+      .then((v) {
+        return Future(() => 3);
+      })
+      .then((v) {})
+      .then((v) {})
+      .then((v) {});
+
+
+}
+```
+
+### async/await
+```
+  // async await
+  void getList() async {
+    try {
+      await Future(() {
+        return "得到后端的列表";
+      });
+    } catch (e) {}
+    await Future.delayed(Duration(seconds: 2)); // 这里等待2秒执行后面的逻辑
+    print("得到列表了");
+  }
+
+  getList();
+```

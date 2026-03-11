@@ -28,6 +28,19 @@ const sidebarsConfig = {
 			],
 		},
 	],
+	Flutter:[
+		{
+			type: 'category',
+			label: 'Flutter',
+			items: [
+				'flutter/flutterbase',
+				'flutter/flutterlayout',
+				'flutter/flutterscroll',
+				'flutter/flutterrouter',
+				'flutter/dartbase',
+			],
+		},
+	],
 	JS: [
 		{
 			type: 'category',

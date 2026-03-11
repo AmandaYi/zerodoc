@@ -80,7 +80,7 @@ export default function Home(): JSX.Element {
       <main>
         <Hero/>
         <DocsListGuide docList={docList}/>
-        <ContentListView blogList={blogList}/>
+        {/* <ContentListView blogList={blogList}/> */}
       </main>
     </Layout>
   );

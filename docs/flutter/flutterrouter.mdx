@@ -1,0 +1,159 @@
+---
+displayed_sidebar: Flutter
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+
+# Flutter 路由
+
+## 路由
+路由管理是构建多页面应用的核心，它通过 Navigator 和 Route 来管理页面栈，实现页面跳转和返回，有两种路由模式。
+
+1. 简单路由直接构建页面，更灵活，适合简单应用或快速原型开发。
+2. 命名路由需在MaterialApp的routes中预先注册路由表，适合中大型项目管理。
+
+:::tip
+命名路由参考React-route即可明白，最主要的是上下文对象不要弄丢了,否则跳转会失效。
+:::
+
+### 简单路由
+基本路由适合页面不多、跳转逻辑简单的场景，无需提前注册路由，跳转时创建 MaterialPageRoute实例即可，
+MaterialApp是路由系统的组件，只能有一个MaterialApp包裹。
+
+跳转新页面： Navigator.push(BuildContext context, Route route)
+返回上一页： Navigator.pop(BuildContext context)
+
+
+### 命名路由
+
+应用页面增多后，使用命名路提升代码可维护性。需要先在 MaterialApp中注册一个路由表（routes）并设置initialRoute(首页)。
+```
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+
+// 获取网络数据，需要在有状态组件中获取使用
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MainPageState();
+  }
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "路由",
+      // 1. 基础路由
+      // home: Container(
+      //   child: Column(
+      //     children: [
+      //       // 这是一种简单跳转路由的方式
+      //       GestureDetector(
+      //         onTap: () {
+      //           Navigator.push(
+      //             context,
+      //             // 点击后使用MaterialPageRoute 增加一个路由，并跳转
+      //             MaterialPageRoute(
+      //               builder: (ctx) {
+      //                 return ProductDetail();
+      //               },
+      //             ),
+      //           );
+      //         },
+      //         child: Text("跳转到商品详情"),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      // 2. 多页面路由配置，完整项目用的方案
+      initialRoute: "/productDetail",
+      routes: {
+        "/productDetail": (ctx) => ProductDetail(),
+        "/userInfo": (ctx) => UserInfo(),
+      },
+      home: Column(
+        children: [
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/productDetail");
+            },
+            child: Text("商品详情"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/userInfo");
+            },
+            child: Text("用户详情"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProductDetail extends StatelessWidget {
+  const ProductDetail({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("商品详情页面"),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("返回上一层"),
+        ),
+      ],
+    );
+  }
+}
+
+class UserInfo extends StatelessWidget {
+  const UserInfo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("用户中心页面"),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("返回上一层"),
+        ),
+      ],
+    );
+  }
+}
+
+void main() {
+  runApp(MainPage());
+}
+
+```
+
+### 传递参数
+
+在大型项目中，按照以下方式进行处理路由的参数传递。和React没区别。
+通过路由传递参数是实现页面间数据通信的常用方式,
+
+传递参数(命名路由)：Navigator.pushNamed(context, 地址，arguments: { 参数 })
+
+接收参数(命名路由)：ModalRoute.of(context)?.settings.arguments
+
+接收时机：initState获取不到路由参数，放置在Future.microtask(异步微任务)中。这里是React框架替开发者做了。
+
+### 路由守卫和动态路由
+ 
+这俩拦截器方法可以用来控制权限，也可以用来控制页面在什么环境的跳转问题。
+
+onGenerateRoute：根据 RouteSettings（包含路由名称和参数）动态创建不同的 Route。
+
+onUnknownRoute：跳转一个未在路由表中注册、也未在 onGenerateRoute中处理的路由，会调用此回调。通常显示"404"页面
