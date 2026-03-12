@@ -1,3 +1,5 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 # RN环境搭建
 
 Android： 需要Android环境
@@ -10,7 +12,8 @@ IOS的环境简单点，一键安装XCode即可。
 
 ## 安装py27 
 安装之后配置环境变量 尽可能安装到c盘根目录
-![配置python27的环境变量][1]
+
+<img alt="配置python27的环境变量" src={useBaseUrl('/images/rn/rnenv01.png')} />
 
 ## 安装jdk1.8
 
@@ -25,12 +28,13 @@ IOS的环境简单点，一键安装XCode即可。
 ### 配置JDK环境变量
 JAVA_HOME = JDK的安装路径,比如D:\develop\Java\jdk1.8.0_171
 
-![配置jdk的环境变量][2]
+<img alt="配置jdk的环境变量" src={useBaseUrl('/images/rn/rnenv02.png')} />
 
 然后配置系统变量path的值,在后面加上
 %JAVA_HOME%\bin;
 %JAVA_HOME%\jre\bin;
-![配置jdk的环境变量][3]
+
+<img alt="配置jdk的环境变量" src={useBaseUrl('/images/rn/rnenv03.png')} />
 
 ### 配置CLASSPATH 变量
 配置CLASSPATH 变量,如果已经存在则追加下面的内容,如果不存在则直接新建CLASSPATH
@@ -44,7 +48,8 @@ CLASSPATH变量不要漏掉前面的”.” 点
 Java -version 
 Javac
 ```
-![验证JDK][4]
+
+<img alt="验证JDK" src={useBaseUrl('/images/rn/rnenv04.png')} />
 
 ## 安装AS
 :::tip
@@ -55,21 +60,30 @@ Javac
 下载android studio
 打开网站，找到如下图所示然后下载即可（<span style={{color: 'red'}}>根据自身操作系统下载</span> ）
 http://www.android-studio.org/
-![下载AS][5]
+
+<img alt="下载AS" src={useBaseUrl('/images/rn/rnenv05.png')} />
 
 ### 安装AS
 下载完毕之后,点击安装,完成安装的界面
-![安装AS][6]
+
+<img alt="安装AS" src={useBaseUrl('/images/rn/rnenv06.png')} />
+
 ### 设置SDK保存位置
 打开之后会设置SDK的位置
 
 选中SDK的位置之后,会读取加载一段时间
-![设置SDK][7]
+
+<img alt="设置SDK" src={useBaseUrl('/images/rn/rnenv07.png')} />
+
 ### 下载核心SDK
 然后点击Next,开始下载核心的sdk
-![下载核心SDK][8]
+
+<img alt="下载核心SDK" src={useBaseUrl('/images/rn/rnenv08.png')} />
+
 点击完成之后, 然后打开Android Studio ,找到SDK管理中心
-![下载核心SDK][9]
+
+<img alt="下载核心SDK" src={useBaseUrl('/images/rn/rnenv09.png')} />
+
 ### 配置SDK管理中心
 打开之后,勾选一下四个,
 
@@ -80,23 +94,24 @@ http://www.android-studio.org/
 
 如果没有正常显示详情,那么在右下角打上对号
 
-![配置SDK管理中心][10]
+<img alt="配置SDK管理中心" src={useBaseUrl('/images/rn/rnenv10.png')} />
 
 接下来，选择“SDK工具”选项卡，并选中“Show Package Details”旁边的复选框。查找并展开“Android SDK Build-Tools”条目，然后确保23.0.1已选中。
- 
- ![配置SDK管理中心][11]
+
+<img alt="配置SDK管理中心" src={useBaseUrl('/images/rn/rnenv11.png')} />
 
 最后，点击 OK  下载并安装Android SDK和相关的构建工具。
 
-  ![配置SDK管理中心][12]
-  ![配置SDK管理中心][13]
+<img alt="配置SDK管理中心" src={useBaseUrl('/images/rn/rnenv12.png')} />
+<img alt="配置SDK管理中心" src={useBaseUrl('/images/rn/rnenv13.png')} />
 
 ## AS安装问题
+
 :::tip
 如果出现这个界面,点击Accept接受,然后点击Next,即可正常安装
 :::
 
-  ![AS安装问题][14]
+<img alt="AS安装问题" src={useBaseUrl('/images/rn/rnenv14.png')} />
 
 ## AS重要的配置
 
@@ -110,7 +125,7 @@ http://www.android-studio.org/
 
 `ANDROID_HOME=D:\develop\Android\sdk`
 
-![重要的配置][15]
+<img alt="重要的配置" src={useBaseUrl('/images/rn/rnenv15.png')} />
   
 然后在PATH环境变量里面配置一个`platform-tools`和`tools`
 也就是在PATH后面追加,
@@ -118,12 +133,12 @@ http://www.android-studio.org/
 
 `%ANDROID_HOME%\platform-tools`
 
-![platform-tools和tools的配置][16]
+<img alt="platform-tools和tools的配置" src={useBaseUrl('/images/rn/rnenv16.png')} />
 
 ## adb测试
 重新打开命令行输入 ,adb 测试,如果有内容则成功
 
-![adb测试][17]
+<img alt="adb测试" src={useBaseUrl('/images/rn/rnenv17.png')} />
 
 ## RN的安装与运行
 
@@ -141,8 +156,7 @@ npm uninstall  react-native-cli -g
 npm uninstall yarn  -g
 ```
 
-![RN安装命令行工具][18]
-
+<img alt="RN安装命令行工具" src={useBaseUrl('/images/rn/rnenv18.png')} />
 
 ### 创建新项目
 
@@ -153,22 +167,19 @@ react-native init firstApp
 cd firstApp
 react-native run-android
 ```
-
-![创建新项目][18]
+<img alt="创建新项目" src={useBaseUrl('/images/rn/rnenv18.png')} />
 
 ### 创建安卓模拟器
 
-![创建安卓模拟器][19]
+<img alt="创建安卓模拟器" src={useBaseUrl('/images/rn/rnenv19.png')} />
 
 一定要选中Android 6.0 Google APIs
 
-
-![选中Android 6.0 Google APIs][20]
+<img alt="选中Android 6.0 Google APIs" src={useBaseUrl('/images/rn/rnenv20.png')} />
 
 理想状态下, 先打开模拟器,然后直接运行react-native run-android就可以了
 
-![正常运行][21]
-
+<img alt="正常运行" src={useBaseUrl('/images/rn/rnenv21.png')} />
 
 ## 环境搭建过程问题
 
@@ -179,35 +190,32 @@ http://www.androiddevtools.cn/
 下面的都是五花八门的错误,可以不看
 :::
 
-
-
-
 ### gradle版本错误
 
 如果错误如图
 
-![gradle版本错误][22]
+<img alt="gradle版本错误" src={useBaseUrl('/images/rn/rnenv22.png')} />
 
 需要更改把1.3.1改成1.2.3，重新运行`react-native run-android`
 
-![gradle版本修复][23]
+<img alt="gradle版本修复" src={useBaseUrl('/images/rn/rnenv23.png')} />
 
 ###  build.gradle错误
 
 如果错误如图
 
-![build.gradle错误][24]
+<img alt="build.gradle错误" src={useBaseUrl('/images/rn/rnenv24.png')} />
 
 修复方式是，打开AS的sdk目录，查看是否有对应匹配的sdk版本。
 
-![匹配的sdk版本][25]
+<img alt="匹配的sdk版本" src={useBaseUrl('/images/rn/rnenv25.png')} />
 
 我们看到我们只有24.0.3 和25.0.2这两个版本的sdk
 
 找到React Native下的app修改他的build.gradle文件:
 
-![修改RN的sdk版本][26]
-![修改RN的sdk版本][27]
+<img alt="修改RN的sdk版本" src={useBaseUrl('/images/rn/rnenv26.png')} />
+<img alt="修改RN的sdk版本" src={useBaseUrl('/images/rn/rnenv27.png')} />
 
 改成sdk build-tools下面有的版本，此处我们改成24.0.3
 
@@ -216,42 +224,3 @@ http://www.androiddevtools.cn/
 找不到gradle或者因为网络的问题无法下载,那么直接手动下载这个文件
 
 https://services.gradle.org/distributions/gradle-2.14.1-all.zip
-
-
-
-  [1]: /images/rn/rnenv01.png
-  [2]: /images/rn/rnenv02.png
-  [3]: /images/rn/rnenv03.png
-  [4]: /images/rn/rnenv04.png
-  [5]: /images/rn/rnenv05.png
-  [6]: /images/rn/rnenv06.png  
-  [7]: /images/rn/rnenv07.png
-  [8]: /images/rn/rnenv08.png  
-  [9]: /images/rn/rnenv09.png
-  [10]: /images/rn/rnenv10.png
-  [11]: /images/rn/rnenv11.png
-  [12]: /images/rn/rnenv12.png
-  [13]: /images/rn/rnenv13.png
-  [14]: /images/rn/rnenv14.png
-  [15]: /images/rn/rnenv15.png
-  [16]: /images/rn/rnenv16.png
-  [17]: /images/rn/rnenv17.png
-  [18]: /images/rn/rnenv18.png
-  [19]: /images/rn/rnenv19.png
-  [20]: /images/rn/rnenv20.png
-  [21]: /images/rn/rnenv21.png
-  [22]: /images/rn/rnenv22.png
-  [23]: /images/rn/rnenv23.png
-  [24]: /images/rn/rnenv24.png
-  [25]: /images/rn/rnenv25.png
-  [26]: /images/rn/rnenv26.png
-  [27]: /images/rn/rnenv27.png
-  
-  
-  
-  
-  
-  
-  
-  
-  
