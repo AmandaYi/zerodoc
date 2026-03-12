@@ -37,6 +37,7 @@ const sidebarsConfig = {
 				'flutter/flutterlayout',
 				'flutter/flutterscroll',
 				'flutter/flutterrouter',
+				'flutter/flutteroptimize',
 				'flutter/dartbase',
 			],
 		},
