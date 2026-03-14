@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roguelike简易模型</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "微软雅黑"; }
+        body { background: #1a1a2e; color: #fff; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        #gameContainer { width: 1000px; background: #0f0f1f; border: 3px solid #444; border-radius: 8px; padding: 20px; }
+        
+        /* 顶部时间槽区域 */
+        .top-time-area { margin-bottom: 20px; }
+        .time-slot-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; color: #ffd700; }
+        .time-slot-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .time-slot-box { width: 300px; height: 80px; border: 2px solid #666; border-radius: 4px; background: #2d2d44; position: relative; padding: 5px; }
+        .time-progress { height: 30px; background: linear-gradient(90deg, #4CAF50, #8BC34A); position: absolute; bottom: 10px; left: 5px; right: 5px; border-radius: 3px; transition: width 0.05s linear; }
+        .enemy1-time-progress { background: linear-gradient(90deg, #f44336, #ff9800); }
+        .enemy2-time-progress { background: linear-gradient(90deg, #9c27b0, #e91e63); }
+        .time-text { position: absolute; top: 5px; left: 10px; font-size: 14px; }
+        .enemy-skill-icon { position: absolute; top: 5px; right: 10px; font-size: 18px; font-weight: bold; color: #ffd700; }
+        .time-num { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 14px; font-weight: bold; color: #fff; }
+        
+        /* 角色区域 */
+        .character-area { display: flex; justify-content: space-around; margin-bottom: 20px; }
+        .char-box { display: flex; flex-direction: column; align-items: center; }
+        .char-body { width: 80px; height: 80px; border: 3px solid #666; border-radius: 8px; background: #3949AB; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+        .enemy1-char { background: #E53935; }
+        .enemy2-char { background: #9c27b0; }
+        .char-hp { width: 120px; height: 20px; border: 2px solid #666; border-radius: 10px; background: #1a1a2e; overflow: hidden; margin-bottom: 5px; }
+        .hp-bar { height: 100%; background: #4CAF50; transition: width 0.2s linear; }
+        .enemy1-hp-bar { background: #f44336; }
+        .enemy2-hp-bar { background: #9c27b0; }
+        .char-info { font-size: 14px; text-align: center; }
+        
+        /* 资源槽（灵力+丹药+宝物） */
+        .resource-area { display: flex; justify-content: space-between; margin-bottom: 15px; padding: 10px; background: #2d2d44; border-radius: 6px; }
+        .mana-slot { width: 200px; }
+        .mana-bar { width: 100%; height: 20px; border: 2px solid #666; border-radius: 10px; background: #1a1a2e; overflow: hidden; margin-top: 5px; }
+        .mana-fill { height: 100%; background: linear-gradient(90deg, #2196F3, #00BCD4); transition: width 0.2s linear; }
+        .pill-slot, .treasure-slot { width: 200px; text-align: center; }
+        .pill-btn { padding: 5px 10px; margin-top: 5px; background: #FF9800; border: none; border-radius: 4px; color: #fff; cursor: pointer; }
+        .treasure-list { margin-top: 5px; font-size: 12px; color: #ccc; }
+        
+        /* 副技能（神通）区域 */
+        .sub-skill-area { margin-bottom: 15px; padding: 10px; background: #2d2d44; border-radius: 6px; }
+        .sub-skill-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; color: #ffd700; }
+        .sub-skill-list { display: flex; gap: 10px; justify-content: center; }
+        .sub-skill-block { width: 100px; height: 80px; border: 2px solid #2196F3; border-radius: 6px; background: #1a1a2e; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        .sub-skill-block.disabled { opacity: 0.5; cursor: not-allowed; border-color: #666; }
+        .sub-skill-name { font-size: 14px; margin-bottom: 5px; }
+        .sub-skill-cost { font-size: 12px; color: #ccc; }
+        .sub-skill-cd { font-size: 10px; color: #f44336; }
+        
+        /* 技能槽区域（本命功法） */
+        .main-skill-area { margin-bottom: 20px; }
+        .main-skill-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; color: #ffd700; text-align: center; }
+        .skill-slot { display: flex; gap: 8px; padding: 10px; background: #1a1a2e; border: 2px solid #666; border-radius: 4px; flex-wrap: wrap; justify-content: center; }
+        .skill-block { width: 80px; height: 100px; border: 3px solid #ffd700; border-radius: 6px; background: linear-gradient(180deg, #2d2d44, #1a1a2e); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+        .skill-block:hover { transform: scale(1.05); border-color: #fff; }
+        .skill-icon { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+        .skill-desc { font-size: 12px; color: #ccc; text-align: center; }
+        
+        /* 按钮和日志 */
+        .btn-panel { display: flex; gap: 10px; margin-bottom: 10px; justify-content: center; }
+        button { padding: 10px 20px; border: none; border-radius: 6px; background: #2196F3; color: #fff; cursor: pointer; font-size: 16px; }
+        button:disabled { background: #666; cursor: not-allowed; }
+        .log-panel { width: 100%; height: 120px; border: 2px solid #666; border-radius: 4px; padding: 10px; overflow-y: auto; background: #0f0f1f; font-size: 14px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <!-- 顶部时间槽（炼气槽） -->
+        <div class="top-time-area">
+            <div class="time-slot-title">时间槽（炼气槽）</div>
+            <div class="time-slot-row">
+                <div class="time-slot-box">
+                    <div class="time-text">主角</div>
+                    <div id="playerTimeProgress" class="time-progress" style="width: 0%;"></div>
+                    <div class="time-num"><span id="playerTimeVal">0</span>/100</div>
+                </div>
+                <div class="time-slot-box">
+                    <div class="time-text">魔王1时间槽</div>
+                    <div class="enemy-skill-icon">手里剑⚔️x1</div>
+                    <div id="enemy1TimeProgress" class="time-progress enemy1-time-progress" style="width: 0%;"></div>
+                    <div class="time-num"><span id="enemy1TimeVal">0</span>/100</div>
+                </div>
+                <div class="time-slot-box">
+                    <div class="time-text">魔王2时间槽</div>
+                    <div class="enemy-skill-icon">手里剑x1</div>
+                    <div id="enemy2TimeProgress" class="time-progress enemy2-time-progress" style="width: 0%;"></div>
+                    <div class="time-num"><span id="enemy2TimeVal">0</span>/100</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 角色区域 -->
+        <div class="character-area">
+            <div class="char-box">
+                <div class="char-body">主角</div>
+                <div class="char-hp">
+                    <div id="playerHpBar" class="hp-bar" style="width: 100%;"></div>
+                </div>
+                <div class="char-info">
+                    血量: <span id="playerHp">100</span>/100
+                </div>
+            </div>
+            <div class="char-box">
+                <div class="char-body enemy1-char">魔王1</div>
+                <div class="char-hp">
+                    <div id="enemy1HpBar" class="hp-bar enemy1-hp-bar" style="width: 100%;"></div>
+                </div>
+                <div class="char-info">
+                    血量: <span id="enemy1Hp">150</span>/150
+                </div>
+            </div>
+            <div class="char-box">
+                <div class="char-body enemy2-char">魔王2</div>
+                <div class="char-hp">
+                    <div id="enemy2HpBar" class="hp-bar enemy2-hp-bar" style="width: 100%;"></div>
+                </div>
+                <div class="char-info">
+                    血量: <span id="enemy2Hp">200</span>/200
+                </div>
+            </div>
+        </div>
+
+        <!-- 资源区域（灵力+丹药+宝物） -->
+        <div class="resource-area">
+            <div class="mana-slot">
+                <div>灵力槽（魔法）:</div>
+                <div class="mana-bar">
+                    <div id="manaFill" class="mana-fill" style="width: 0%;"></div>
+                </div>
+                <div style="text-align: center; font-size: 12px; margin-top: 3px;"><span id="manaVal">0</span>/100</div>
+            </div>
+            <div class="pill-slot">
+                <div>丹药（回血20）:</div>
+                <button id="pillBtn" class="pill-btn" disabled>使用丹药 (x<span id="pillCount">50</span>)</button>
+            </div>
+            <div class="treasure-slot">
+                <div>宝物栏（被动）:</div>
+                <div class="treasure-list">
+                    1. 护心镜（减伤10%）<br>
+                    2. 聚气丹（灵力+5/秒）
+                </div>
+            </div>
+        </div>
+
+        <!-- 副技能（神通法宝） -->
+        <div class="sub-skill-area">
+            <div class="sub-skill-title">神通法宝（副技能）</div>
+            <div class="sub-skill-list">
+                <div id="subSkill1" class="sub-skill-block disabled" onclick="useSubSkill(1)">
+                    <div class="sub-skill-name">雷法</div>
+                    <div class="sub-skill-cost">消耗: 50灵力</div>
+                    <div id="subSkill1Cd" class="sub-skill-cd">CD: 10s</div>
+                </div>
+                <div id="subSkill2" class="sub-skill-block disabled" onclick="useSubSkill(2)">
+                    <div class="sub-skill-name">护盾</div>
+                    <div class="sub-skill-cost">消耗: 30灵力</div>
+                    <div id="subSkill2Cd" class="sub-skill-cd">CD: 8s</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主技能槽（本命功法） -->
+        <div class="main-skill-area">
+            <div class="main-skill-title">本命功法（主技能槽）- 相同技能最多3个 | 点击技能块攻击敌人</div>
+            <div id="skillSlot" class="skill-slot"></div>
+        </div>
+
+        <!-- 按钮区域 -->
+        <div class="btn-panel">
+            <button id="startBtn">开始战斗</button>
+            <button id="pauseBtn" disabled>暂停战斗</button>
+        </div>
+
+        <!-- 战斗日志 -->
+        <div class="log-panel" id="battleLog"></div>
+    </div>
+
+    <script>
+        // 核心配置
+        const CONFIG = {
+            timeSlotMax: 100, // 时间槽最大值
+            playerTimeSpeed: 0.8, // 主角时间槽增速
+            enemy1TimeSpeed: 0.7, // 敌人1时间槽增速
+            enemy2TimeSpeed: 0.65, // 敌人2时间槽增速（稍慢）
+            // 主技能配置（本命功法）
+            mainSkills: [
+                { type: '金刚掌', desc: '2攻2甲', color: '#FFD700', maxCount: 3 },
+                { type: '崩山肘', desc: '5攻', color: '#E53935', maxCount: 3 },
+                { type: '旋风腿', desc: '3攻1甲', color: '#4CAF50', maxCount: 3 },
+                { type: '铁头功', desc: '1攻3甲', color: '#2196F3', maxCount: 3 }
+            ],
+            maxSkillBlocks: 12, // 技能槽最大容量（爽快爆发）
+            attackValues: { 1: 10, 2: 25, 3: 50 }, // 1/2/3消伤害
+            // 敌人配置
+            enemies: [
+                { id: 1, hp: 150, attack: 12, timeSpeed: 0.7, skillName: '斩击', skillIcon: '斩⚔️' },
+                { id: 2, hp: 200, attack: 15, timeSpeed: 0.65, skillName: '砸击', skillIcon: '砸🪨' }
+            ],
+            // 资源配置
+            manaMax: 100, // 灵力上限
+            manaGainPerAttack: 5, // 每次攻击获得灵力
+            manaGainPerSec: 0.5, // 每秒自然恢复灵力（宝物加成+0.5 → 总计1）
+            pillCount: 50, // 初始丹药数量
+            pillHeal: 20, // 丹药回血值
+            // 副技能配置
+            subSkills: [
+                { id: 1, name: '雷法', cost: 50, cd: 10, damage: 80, currentCd: 10 },
+                { id: 2, name: '护盾', cost: 30, cd: 8, shield: 20, currentCd: 8 }
+            ],
+            // 被动宝物效果
+            damageReduction: 0.1, // 护心镜减伤10%
+            manaBonus: 0.5 // 聚气丹灵力加成
+        };
+
+        // 游戏状态
+        let gameState = {
+            isFighting: false,
+            isPaused: false,
+            // 角色状态
+            playerHp: 100,
+            playerMana: 0,
+            pillCount: CONFIG.pillCount,
+            // 敌人状态
+            enemies: [
+                { id: 1, hp: CONFIG.enemies[0].hp, time: 0, isAlive: true },
+                { id: 2, hp: CONFIG.enemies[1].hp, time: 0, isAlive: true }
+            ],
+            // 技能状态
+            skillBlocks: [],
+            // 副技能CD
+            subSkillsCd: [
+                { id: 1, currentCd: CONFIG.subSkills[0].cd, isReady: false },
+                { id: 2, currentCd: CONFIG.subSkills[1].cd, isReady: false }
+            ],
+            log: []
+        };
+
+        // DOM元素
+        const el = {
+            // 时间槽
+            playerTimeProgress: document.getElementById('playerTimeProgress'),
+            playerTimeVal: document.getElementById('playerTimeVal'),
+            enemy1TimeProgress: document.getElementById('enemy1TimeProgress'),
+            enemy1TimeVal: document.getElementById('enemy1TimeVal'),
+            enemy2TimeProgress: document.getElementById('enemy2TimeProgress'),
+            enemy2TimeVal: document.getElementById('enemy2TimeVal'),
+            // 血条
+            playerHpBar: document.getElementById('playerHpBar'),
+            playerHp: document.getElementById('playerHp'),
+            enemy1HpBar: document.getElementById('enemy1HpBar'),
+            enemy1Hp: document.getElementById('enemy1Hp'),
+            enemy2HpBar: document.getElementById('enemy2HpBar'),
+            enemy2Hp: document.getElementById('enemy2Hp'),
+            // 资源
+            manaFill: document.getElementById('manaFill'),
+            manaVal: document.getElementById('manaVal'),
+            pillBtn: document.getElementById('pillBtn'),
+            pillCount: document.getElementById('pillCount'),
+            // 副技能
+            subSkill1: document.getElementById('subSkill1'),
+            subSkill1Cd: document.getElementById('subSkill1Cd'),
+            subSkill2: document.getElementById('subSkill2'),
+            subSkill2Cd: document.getElementById('subSkill2Cd'),
+            // 技能槽
+            skillSlot: document.getElementById('skillSlot'),
+            // 按钮
+            startBtn: document.getElementById('startBtn'),
+            pauseBtn: document.getElementById('pauseBtn'),
+            // 日志
+            battleLog: document.getElementById('battleLog')
+        };
+
+        // 工具函数：添加战斗日志
+        function addLog(text) {
+            gameState.log.unshift(`[${new Date().toLocaleTimeString().slice(3)}] ${text}`);
+            gameState.log = gameState.log.slice(0, 12); // 保留最新12条
+            el.battleLog.innerHTML = gameState.log.join('<br>');
+        }
+
+        // 检查技能块数量上限（相同技能最多3个）
+        function checkSkillCountLimit(skillType) {
+            const count = gameState.skillBlocks.filter(skill => skill.type === skillType).length;
+            const skillConfig = CONFIG.mainSkills.find(s => s.type === skillType);
+            return count < skillConfig.maxCount;
+        }
+
+        // 生成随机技能块（本命功法）
+        function generateSkillBlock() {
+            // 技能槽满则不生成
+            if (gameState.skillBlocks.length >= CONFIG.maxSkillBlocks) {
+                addLog('⚠️ 技能槽已满，无法生成新技能块！');
+                return;
+            }
+            // 随机选技能，且检查相同技能数量上限
+            let randomSkill;
+            let tries = 0;
+            do {
+                randomSkill = CONFIG.mainSkills[Math.floor(Math.random() * CONFIG.mainSkills.length)];
+                tries++;
+            } while (!checkSkillCountLimit(randomSkill.type) && tries < 10);
+            
+            // 10次都没找到可生成的技能（所有技能都到3个）
+            if (tries >= 10) {
+                addLog('⚠️ 所有技能块已达上限（3个），无法生成新技能！');
+                return;
+            }
+
+            gameState.skillBlocks.push({
+                id: Date.now() + Math.random(),
+                type: randomSkill.type,
+                desc: randomSkill.desc,
+                color: randomSkill.color
+            });
+            renderSkillBlocks();
+            addLog(`✨ 生成技能块：【${randomSkill.type}】(${randomSkill.desc})`);
+        }
+
+        // 渲染技能块
+        function renderSkillBlocks() {
+            el.skillSlot.innerHTML = '';
+            gameState.skillBlocks.forEach((skill, index) => {
+                const block = document.createElement('div');
+                block.className = `skill-block`;
+                block.dataset.index = index;
+                block.dataset.type = skill.type;
+                
+                block.innerHTML = `
+                    <div class="skill-icon" style="color: ${skill.color};">${skill.type.slice(0, 2)}</div>
+                    <div class="skill-desc">${skill.desc}</div>
+                `;
+                
+                block.addEventListener('click', () => handleSkillBlockClick(index));
+                el.skillSlot.appendChild(block);
+            });
+        }
+
+        // 处理技能块点击（仅攻击，无防御）
+        function handleSkillBlockClick(clickIndex) {
+            if (!gameState.isFighting || gameState.isPaused) return;
+            
+            const clickSkill = gameState.skillBlocks[clickIndex];
+            let sameBlocks = [clickIndex];
+            
+            // 找相邻相同技能块
+            for (let i = clickIndex - 1; i >= 0; i--) {
+                if (gameState.skillBlocks[i].type === clickSkill.type) {
+                    sameBlocks.unshift(i);
+                } else {
+                    break;
+                }
+            }
+            for (let i = clickIndex + 1; i < gameState.skillBlocks.length; i++) {
+                if (gameState.skillBlocks[i].type === clickSkill.type) {
+                    sameBlocks.push(i);
+                } else {
+                    break;
+                }
+            }
+
+            const combo = Math.min(sameBlocks.length, 3); // 最高3级
+
+            // 攻击阶段（选择存活的敌人攻击）
+            const targetEnemy = gameState.enemies.find(e => e.isAlive) || gameState.enemies[0];
+            const damage = CONFIG.attackValues[combo];
+            targetEnemy.hp = Math.max(0, targetEnemy.hp - damage);
+            
+            // 更新敌人UI
+            if (targetEnemy.id === 1) {
+                el.enemy1Hp.textContent = targetEnemy.hp;
+                el.enemy1HpBar.style.width = `${(targetEnemy.hp / CONFIG.enemies[0].hp) * 100}%`;
+            } else {
+                el.enemy2Hp.textContent = targetEnemy.hp;
+                el.enemy2HpBar.style.width = `${(targetEnemy.hp / CONFIG.enemies[1].hp) * 100}%`;
+            }
+            
+            // 更新灵力（攻击获得）
+            gameState.playerMana = Math.min(CONFIG.manaMax, gameState.playerMana + CONFIG.manaGainPerAttack);
+            updateManaUI();
+            
+            // 移除技能块 + 回块（2消以上回1个）
+            const removeCount = sameBlocks.length;
+            sameBlocks.sort((a, b) => b - a).forEach(idx => gameState.skillBlocks.splice(idx, 1));
+            if (removeCount >= 2) {
+                setTimeout(() => {
+                    generateSkillBlock();
+                    addLog(`🔄 多消回块！额外生成1个技能块`);
+                }, 300);
+            }
+            
+            renderSkillBlocks();
+            
+            addLog(`⚔️ ${combo}级攻击【${clickSkill.type}】！对${targetEnemy.id === 1 ? '敌人1' : '敌人2'}造成伤害：${damage}`);
+            
+            // 检查敌人是否死亡
+            if (targetEnemy.hp <= 0) {
+                targetEnemy.isAlive = false;
+                addLog(`💀 ${targetEnemy.id === 1 ? '敌人1' : '敌人2'}已被击败！`);
+            }
+            
+            // 检查战斗结束
+            checkBattleEnd();
+        }
+
+        // 敌人纯自动攻击（无任何玩家交互，直接扣血）
+        function enemyAutoAttack(enemyId) {
+            if (!gameState.isFighting || gameState.isPaused) return;
+            
+            const enemy = CONFIG.enemies.find(e => e.id === enemyId);
+            const enemyState = gameState.enemies.find(e => e.id === enemyId);
+            
+            // 敌人已死亡则跳过
+            if (!enemyState.isAlive) {
+                enemyState.time = 0;
+                updateTimeSlotUI();
+                return;
+            }
+            
+            // 计算最终伤害（含被动减伤）
+            const finalDamage = Math.floor(enemy.attack * (1 - CONFIG.damageReduction));
+            gameState.playerHp = Math.max(0, gameState.playerHp - finalDamage);
+            
+            // 更新玩家UI
+            el.playerHp.textContent = gameState.playerHp;
+            el.playerHpBar.style.width = `${(gameState.playerHp / 100) * 100}%`;
+            
+            addLog(`💥 ${enemyId === 1 ? '敌人1' : '敌人2'}发动${enemy.skillName}！你受到${finalDamage}点伤害（原${enemy.attack}，护心镜减伤10%）`);
+            
+            // 重置敌人时间槽
+            enemyState.time = 0;
+            updateTimeSlotUI();
+            
+            // 检查战斗结束
+            checkBattleEnd();
+        }
+
+        // 更新灵力UI
+        function updateManaUI() {
+            const manaPercent = (gameState.playerMana / CONFIG.manaMax) * 100;
+            el.manaFill.style.width = `${manaPercent}%`;
+            el.manaVal.textContent = Math.floor(gameState.playerMana);
+            
+            // 更新副技能可用状态
+            updateSubSkillsState();
+        }
+
+        // 更新副技能状态（CD/可用）
+        function updateSubSkillsState() {
+            CONFIG.subSkills.forEach((skill, idx) => {
+                const state = gameState.subSkillsCd[idx];
+                state.isReady = state.currentCd <= 0 && gameState.playerMana >= skill.cost;
+                
+                const elSkill = document.getElementById(`subSkill${skill.id}`);
+                const elCd = document.getElementById(`subSkill${skill.id}Cd`);
+                
+                if (state.isReady) {
+                    elSkill.classList.remove('disabled');
+                    elCd.textContent = '就绪';
+                    elCd.style.color = '#4CAF50';
+                } else {
+                    elSkill.classList.add('disabled');
+                    elCd.textContent = `CD: ${Math.ceil(state.currentCd)}s`;
+                    elCd.style.color = '#f44336';
+                }
+            });
+            
+            // 更新丹药按钮状态
+            el.pillBtn.disabled = gameState.pillCount <= 0 || !gameState.isFighting || gameState.isPaused;
+            el.pillCount.textContent = gameState.pillCount;
+        }
+
+        // 使用副技能
+        function useSubSkill(skillId) {
+            if (!gameState.isFighting || gameState.isPaused) return;
+            
+            const skill = CONFIG.subSkills.find(s => s.id === skillId);
+            const state = gameState.subSkillsCd.find(s => s.id === skillId);
+            
+            if (!state.isReady) {
+                addLog(`❌ 【${skill.name}】未就绪（灵力不足/CD中）！`);
+                return;
+            }
+            
+            // 消耗灵力
+            gameState.playerMana -= skill.cost;
+            updateManaUI();
+            
+            // 触发技能效果
+            if (skillId === 1) {
+                // 雷法：对所有存活敌人造成伤害
+                let damageLog = '';
+                gameState.enemies.forEach(enemy => {
+                    if (enemy.isAlive) {
+                        enemy.hp = Math.max(0, enemy.hp - skill.damage);
+                        if (enemy.id === 1) {
+                            el.enemy1Hp.textContent = enemy.hp;
+                            el.enemy1HpBar.style.width = `${(enemy.hp / CONFIG.enemies[0].hp) * 100}%`;
+                        } else {
+                            el.enemy2Hp.textContent = enemy.hp;
+                            el.enemy2HpBar.style.width = `${(enemy.hp / CONFIG.enemies[1].hp) * 100}%`;
+                        }
+                        damageLog += `对${enemy.id === 1 ? '敌人1' : '敌人2'}造成${skill.damage}点伤害，`;
+                        if (enemy.hp <= 0) {
+                            enemy.isAlive = false;
+                            damageLog += `${enemy.id === 1 ? '敌人1' : '敌人2'}已被击败！`;
+                        }
+                    }
+                });
+                addLog(`⚡ 使用神通【${skill.name}】！${damageLog}`);
+            } else if (skillId === 2) {
+                // 护盾：临时减伤，后续敌人攻击额外减20点伤害
+                addLog(`🛡️ 使用神通【${skill.name}】！获得护盾，下次受到的伤害减少20点！`);
+                const originalReduction = CONFIG.damageReduction;
+                CONFIG.damageReduction += 0.2; // 临时增加减伤
+                // 护盾仅生效一次攻击
+                const shieldInterval = setInterval(() => {
+                    if (gameState.playerHp < 100 || !gameState.isFighting) {
+                        CONFIG.damageReduction = originalReduction;
+                        addLog(`⚠️ 护盾效果消失！`);
+                        clearInterval(shieldInterval);
+                    }
+                }, 500);
+            }
+            
+            // 重置CD
+            state.currentCd = skill.cd;
+            updateSubSkillsState();
+            
+            // 检查战斗结束
+            checkBattleEnd();
+        }
+
+        // 使用丹药
+        el.pillBtn.addEventListener('click', () => {
+            if (gameState.pillCount <= 0 || !gameState.isFighting || gameState.isPaused) return;
+            
+            gameState.playerHp = Math.min(100, gameState.playerHp + CONFIG.pillHeal);
+            gameState.pillCount--;
+            
+            el.playerHp.textContent = gameState.playerHp;
+            el.playerHpBar.style.width = `${(gameState.playerHp / 100) * 100}%`;
+            el.pillCount.textContent = gameState.pillCount;
+            
+            addLog(`🍶 使用丹药！回血${CONFIG.pillHeal}点，剩余丹药${gameState.pillCount}个`);
+            
+            // 更新丹药按钮状态
+            updateSubSkillsState();
+        });
+
+        // 更新时间槽UI
+        function updateTimeSlotUI() {
+            // 主角时间槽
+            const playerPercent = (gameState.playerTime || 0) / CONFIG.timeSlotMax * 100;
+            el.playerTimeProgress.style.width = `${playerPercent}%`;
+            el.playerTimeVal.textContent = Math.floor(gameState.playerTime || 0);
+            
+            // 敌人1时间槽
+            const enemy1Percent = gameState.enemies[0].time / CONFIG.timeSlotMax * 100;
+            el.enemy1TimeProgress.style.width = `${enemy1Percent}%`;
+            el.enemy1TimeVal.textContent = Math.floor(gameState.enemies[0].time);
+            
+            // 敌人2时间槽
+            const enemy2Percent = gameState.enemies[1].time / CONFIG.timeSlotMax * 100;
+            el.enemy2TimeProgress.style.width = `${enemy2Percent}%`;
+            el.enemy2TimeVal.textContent = Math.floor(gameState.enemies[1].time);
+        }
+
+        // 检查战斗结束
+        function checkBattleEnd() {
+            // 玩家死亡
+            if (gameState.playerHp <= 0) {
+                gameState.isFighting = false;
+                el.startBtn.disabled = false;
+                el.pauseBtn.disabled = true;
+                addLog('❌ 战斗失败！主角血量为0');
+                alert('战斗失败！');
+                return;
+            }
+            
+            // 所有敌人死亡
+            const allEnemiesDead = gameState.enemies.every(e => !e.isAlive);
+            if (allEnemiesDead) {
+                gameState.isFighting = false;
+                el.startBtn.disabled = false;
+                el.pauseBtn.disabled = true;
+                addLog('✅ 战斗胜利！所有敌人已被击败');
+                alert('战斗胜利！');
+                return;
+            }
+        }
+
+        // 游戏主循环
+        let gameLoopInterval;
+        function gameLoop() {
+            if (!gameState.isFighting || gameState.isPaused) return;
+            
+            // 主角时间槽
+            gameState.playerTime = (gameState.playerTime || 0) + CONFIG.playerTimeSpeed;
+            if (gameState.playerTime >= CONFIG.timeSlotMax) {
+                gameState.playerTime = 0;
+                generateSkillBlock();
+            }
+
+            // 敌人1时间槽
+            if (gameState.enemies[0].isAlive) {
+                gameState.enemies[0].time += CONFIG.enemy1TimeSpeed;
+                if (gameState.enemies[0].time >= CONFIG.timeSlotMax) {
+                    enemyAutoAttack(1); // 纯自动攻击，无交互
+                }
+            }
+            
+            // 敌人2时间槽
+            if (gameState.enemies[1].isAlive) {
+                gameState.enemies[1].time += CONFIG.enemy2TimeSpeed;
+                if (gameState.enemies[1].time >= CONFIG.timeSlotMax) {
+                    enemyAutoAttack(2); // 纯自动攻击，无交互
+                }
+            }
+
+            // 更新时间槽UI
+            updateTimeSlotUI();
+            
+            // 自然恢复灵力（含宝物加成）
+            gameState.playerMana = Math.min(CONFIG.manaMax, gameState.playerMana + CONFIG.manaGainPerSec + CONFIG.manaBonus);
+            updateManaUI();
+            
+            // 副技能CD倒计时
+            gameState.subSkillsCd.forEach((state, idx) => {
+                if (state.currentCd > 0) {
+                    state.currentCd -= 0.1; // 每帧减0.1秒（约10帧=1秒）
+                }
+            });
+            updateSubSkillsState();
+        }
+
+        // 重置游戏
+        function resetGame() {
+            clearInterval(gameLoopInterval);
+            
+            gameState = {
+                isFighting: false,
+                isPaused: false,
+                playerHp: 100,
+                playerMana: 0,
+                pillCount: CONFIG.pillCount,
+                enemies: [
+                    { id: 1, hp: CONFIG.enemies[0].hp, time: 0, isAlive: true },
+                    { id: 2, hp: CONFIG.enemies[1].hp, time: 0, isAlive: true }
+                ],
+                skillBlocks: [],
+                subSkillsCd: [
+                    { id: 1, currentCd: CONFIG.subSkills[0].cd, isReady: false },
+                    { id: 2, currentCd: CONFIG.subSkills[1].cd, isReady: false }
+                ],
+                log: []
+            };
+            
+            // 重置UI
+            el.playerHp.textContent = 100;
+            el.playerHpBar.style.width = '100%';
+            el.enemy1Hp.textContent = CONFIG.enemies[0].hp;
+            el.enemy1HpBar.style.width = '100%';
+            el.enemy2Hp.textContent = CONFIG.enemies[1].hp;
+            el.enemy2HpBar.style.width = '100%';
+            updateManaUI();
+            updateTimeSlotUI();
+            renderSkillBlocks();
+            el.battleLog.innerHTML = '';
+            
+            addLog('🎮 游戏已重置，准备开始战斗');
+        }
+
+        // 开始战斗
+        el.startBtn.addEventListener('click', () => {
+            resetGame();
+            gameState.isFighting = true;
+            el.startBtn.disabled = true;
+            el.pauseBtn.disabled = false;
+            el.pillBtn.disabled = false;
+            
+            addLog('🚀 战斗开始！炼气槽开始运转，生成技能块！');
+            
+            // 启动主循环（60帧/秒）
+            gameLoopInterval = setInterval(gameLoop, 16.67);
+        });
+
+        // 暂停/继续战斗
+        el.pauseBtn.addEventListener('click', () => {
+            gameState.isPaused = !gameState.isPaused;
+            el.pauseBtn.textContent = gameState.isPaused ? '继续战斗' : '暂停战斗';
+            addLog(gameState.isPaused ? '⏸️ 战斗暂停' : '▶️ 战斗继续');
+        });
+
+        // 初始化
+        addLog('📌 游戏加载完成，点击「开始战斗」体验完整战斗系统');
+        renderSkillBlocks();
+        updateManaUI();
+        updateSubSkillsState();
+    </script>
+</body>
+</html>
